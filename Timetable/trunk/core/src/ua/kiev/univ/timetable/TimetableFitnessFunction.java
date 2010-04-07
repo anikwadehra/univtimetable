@@ -1,9 +1,7 @@
 package ua.kiev.univ.timetable;
 
-import java.lang.Math;
+import org.jgap.*;
 
-import org.jgap.FitnessFunction;
-import org.jgap.IChromosome;
 
 public class TimetableFitnessFunction extends FitnessFunction {
     private static final int GROUP = 0;
@@ -18,6 +16,7 @@ public class TimetableFitnessFunction extends FitnessFunction {
     protected double evaluate(IChromosome a_subject) {
         fitness = 0;
 
+    // Extract supergenes from chromosome
     GroupClassTimeSupergene[] s = new GroupClassTimeSupergene[Start.CHROMOSOME_SIZE];
     for (int i = 0; i < Start.CHROMOSOME_SIZE; i++) {
         s[i] = (GroupClassTimeSupergene)a_subject.getGene(i);
@@ -41,7 +40,13 @@ public class TimetableFitnessFunction extends FitnessFunction {
                      && s[i].geneAt(TIME).equals(s[j].geneAt(TIME) )
             ) {return 0;
                 }
+    //-----------Avoid that a group has one class more than once    
+            else if( i!=j && s[i].geneAt(GROUP).equals(s[j].geneAt(GROUP))
+                          && s[i].geneAt(CLASS).equals(s[j].geneAt(CLASS)) )
+            {return 0;}
         }
+
+                
     }
     
     

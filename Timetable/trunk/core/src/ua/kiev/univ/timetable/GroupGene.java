@@ -10,7 +10,7 @@ import java.util.StringTokenizer;
 public class GroupGene extends IntegerGene implements Gene, Serializable {
     private static final String TOKEN_SEPARATOR = ":";
     //private Integer m_groupId;
-    private int max_idGroup  = 2;
+    private int max_idGroup  = 3;
     private int max_groupSize = 30;
     private Integer idGroup;
     private Integer groupSize;
