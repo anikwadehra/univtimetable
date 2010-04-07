@@ -21,10 +21,10 @@ public class Start {
     protected static final int GROUP = 0;
     protected static final int CLASS = 1;
     protected static final int TIME  = 2;
-    private static final int MAX_EVOLUTIONS = 100;
+    private static final int MAX_EVOLUTIONS = 1000;
     private static final String fileName = "E:\\population.xml";
     private static final int POPULATION_SIZE = 10;
-    private static final double THRESHOLD = 1;
+    private static final double THRESHOLD = 20;
     protected static final int CHROMOSOME_SIZE = 4;
 
 
@@ -90,8 +90,9 @@ public class Start {
 
         System.out.println("------------evolution-----------------------------");
         // Begin evolution
+        int percent_evolution = MAX_EVOLUTIONS / 100;
         for (int i = 0; i < MAX_EVOLUTIONS; i++) {
-            //if (i % 500 == 0)
+            if( i % percent_evolution == 0 ) System.out.println(i/percent_evolution+"% done");
             System.out.println("generation#: "+i+" population size:"+
                                (Integer)population.getPopulation().size());
             if (population.getFittestChromosome().getFitnessValue() >=
