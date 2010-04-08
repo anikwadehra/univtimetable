@@ -25,7 +25,7 @@ public class Start {
     private static final String fileName = "D:\\population.xml";
     private static final int POPULATION_SIZE = 100;
     private static final double THRESHOLD = 1;
-    protected static final int CHROMOSOME_SIZE = 8;
+    protected  static final int CHROMOSOME_SIZE = 4;
 
 
     public static void main(String[] args) throws InvalidConfigurationException {
@@ -36,7 +36,6 @@ public class Start {
             new TimetableFitnessFunction();
         InitialConstraintChecker timetableConstraintChecker =
             new InitialConstraintChecker();
-
 
         //Creating genes
         Gene[] testGenes = new Gene[CHROMOSOME_SIZE];
@@ -115,7 +114,7 @@ public class Start {
                                (Integer)s.geneAt(2).getAllele());
         }
         //Display the best solution
-        //DisplayChromosome(fittestChromosome);
+        Start.displayChromosome(fittestChromosome);
 
         //Write population to the disk
         try {
@@ -146,39 +145,57 @@ public class Start {
         documentWriter.close();
     }
 
-    private static void DisplayChromosome(Chromosome a_bestChromosome) {
+    private static void displayChromosome(Chromosome a_bestChromosome) {
         GroupClassTimeSupergene[] s =
             new GroupClassTimeSupergene[CHROMOSOME_SIZE];
-        String[][][] str = new String[CHROMOSOME_SIZE][2][2]; // second - Time, third - Group
+      // first - Group, second - Time
+        String[][] str = new String[2][2];
         for (int i = 0; i < CHROMOSOME_SIZE; i++) {
-            s[i] = (GroupClassTimeSupergene)a_bestChromosome.getGene(i);
-            
-            if ( (Integer)s[i].geneAt(TIME).getAllele() == 0 ){
-                
-                           
-                if ( (Integer)s[i].geneAt(GROUP).getAllele() == 0 ) {
-                    System.out.println("00"+(Integer)s[i].geneAt(CLASS).getAllele());
-                    //str[i][0][0] = (String)s[i].geneAt(CLASS).getAllele();
-                }
-                else if( (Integer)s[i].geneAt(CLASS).getAllele()!= null ){
-                    System.out.println("01"+(Integer)s[i].geneAt(CLASS).getAllele());
-                    //str[i][0][1] = (String)s[i].geneAt(CLASS).getAllele();
-                }
-            }
-            else if( (Integer)s[i].geneAt(TIME).getAllele() != null ){
-                
-                if ( (Integer)s[i].geneAt(GROUP).getAllele() == 0 ) {
-                    System.out.println("10"+(Integer)s[i].geneAt(CLASS).getAllele());
-                    //str[i][1][0] = (String)s[i].geneAt(CLASS).getAllele();
-                }
-                else{
-                    System.out.println("11"+(Integer)s[i].geneAt(CLASS).getAllele());
-                }
-                
-            }
-        }
-
+          s[i] = (GroupClassTimeSupergene)a_bestChromosome.getGene(i);
+          // fill square 00
+          if( (Integer)s[i].geneAt(GROUP).getAllele() == 0 &&
+              (Integer)s[i].geneAt(TIME).getAllele() == 0
+          ){
+            if( (Integer)s[i].geneAt(CLASS).getAllele() == 0 ) 
+              str[0][0] = "a";
+            else
+              str[0][0] = "b";
+           }
+         // fill square 01
+         if( (Integer)s[i].geneAt(GROUP).getAllele() == 0 &&
+             (Integer)s[i].geneAt(TIME).getAllele() == 1
+         ){
+           if( (Integer)s[i].geneAt(CLASS).getAllele() == 0 ) 
+             str[0][1] = "a";
+           else
+             str[0][1] = "b";
+          }
+      // fill square 10
+      if( (Integer)s[i].geneAt(GROUP).getAllele() == 1 &&
+          (Integer)s[i].geneAt(TIME).getAllele() == 0
+      ){
+        if( (Integer)s[i].geneAt(CLASS).getAllele() == 0 ) 
+          str[1][0] = "a";
+        else
+          str[1][0] = "b";
+       }
+          
+      // fill square 11
+      if( (Integer)s[i].geneAt(GROUP).getAllele() == 1 &&
+          (Integer)s[i].geneAt(TIME).getAllele() == 1
+      ){
+        if( (Integer)s[i].geneAt(CLASS).getAllele() == 0 ) 
+          str[1][1] = "a";
+        else
+          str[1][1] = "b";
+       } 
     }
+    // print str[][]
+        System.out.println("------------------------------");
+        System.out.println("     I    II");
+        System.out.println("1    "+str[0][0]+"    "+str[1][0]);
+        System.out.println("2    "+str[0][1]+"    "+str[1][1]);
+  }
 
 }
 

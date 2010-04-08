@@ -14,7 +14,7 @@ import org.jgap.impl.IntegerGene;
 public class TimeGene extends IntegerGene implements Gene, Serializable{
     private static final String TOKEN_SEPARATOR = ":";
     //private Integer m_groupId;
-    private int max_idTimeSlot = 3;
+    private int max_idTimeSlot = 2;
     private Integer idTimeSlot;
 
     public TimeGene(Configuration a_conf,
