@@ -53,13 +53,13 @@ class OutputData {
     for (int i = 0; i < chromosomeSize; i++) {
       s[i] = (GroupClassTimeSupergene)a_bestChromosome.getGene(i);
 
-      // Here we are going through all id_groups and id_times
-      // and filling str[][]
+      // Here we are going through all of the id_groups and the id_times
+      // and filling str[][] array
       for (int j = 0; j < a_max_idGroup; j++) {
         for (int k = 0; k < a_max_idTime; k++) {
           if ((Integer)s[i].geneAt(Start.GROUP).getAllele() == j &&
               (Integer)s[i].geneAt(Start.TIME).getAllele() == k)
-            
+            str[j][k] = (Integer)s[i].geneAt(Start.CLASS). .toString();
         }
       }
 
