@@ -25,7 +25,7 @@ public class Start {
     private static final String fileName = "D:\\population.xml";
     private static final int POPULATION_SIZE = 100;
     private static final double THRESHOLD = 1;
-    protected  static final int CHROMOSOME_SIZE = 4;
+    protected  static final int CHROMOSOME_SIZE = 5;
 
 
     public static void main(String[] args) throws InvalidConfigurationException {
