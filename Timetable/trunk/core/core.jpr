@@ -84,7 +84,15 @@
       <hash n="javaContentSet">
          <list n="constituent-sets">
             <hash>
-               <url n="content-folder-url" path="src/ua/kiev/univ/timeteble/"/>
+               <list n="pattern-filters">
+                  <string v="-ua/kiev/univ/timeteble/GroupClassSupergene.java"/>
+                  <string v="+**"/>
+               </list>
+               <list n="url-path">
+                  <url path="src/"/>
+               </list>
+            </hash>
+            <hash>
                <list n="pattern-filters">
                   <string v="+**"/>
                </list>
@@ -93,13 +101,7 @@
                </list>
             </hash>
          </list>
-         <list n="pattern-filters">
-            <string v="-ua/kiev/univ/timeteble/GroupClassSupergene.java"/>
-            <string v="+**"/>
-         </list>
-         <list n="url-path">
-            <url path="src/"/>
-         </list>
+         <list n="url-path"/>
       </hash>
    </hash>
    <hash n="oracle.jdeveloper.runner.RunConfigurations">
@@ -120,11 +122,11 @@
    <hash n="oracle.jdevimpl.config.JProjectLibraries">
       <list n="exportedReferences">
          <hash>
-            <value n="id" v="Jgap.jar"/>
+            <value n="id" v="Log4j.jar1"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="Log4j.jar"/>
+            <value n="id" v="Jgap.jar1"/>
             <value n="isJDK" v="false"/>
          </hash>
       </list>
@@ -148,6 +150,24 @@
                <value n="id" v="Log4j.jar"/>
                <value n="locked" v="true"/>
             </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../../../../Mydoc/Timetable/jgap_3.4.4_full/lib/log4j.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Log4j.jar1"/>
+               <value n="id" v="Log4j.jar1"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../../../../Mydoc/Timetable/jgap_3.4.4_full/jgap.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Jgap.jar1"/>
+               <value n="id" v="Jgap.jar1"/>
+               <value n="locked" v="true"/>
+            </hash>
          </list>
       </hash>
       <list n="libraryReferences">
@@ -157,6 +177,14 @@
          </hash>
          <hash>
             <value n="id" v="Log4j.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Log4j.jar1"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Jgap.jar1"/>
             <value n="isJDK" v="false"/>
          </hash>
       </list>
