@@ -22,7 +22,7 @@ public class Start {
     protected static final int CLASS = 1;
     protected static final int TIME  = 2;
     private static final int MAX_EVOLUTIONS = 10000;
-    private static final String fileName = "E:\\population.xml";
+    private static final String fileName = "D:\\population.xml";
     private static final int POPULATION_SIZE = 100;
     private static final double THRESHOLD = 1;
     protected static final int CHROMOSOME_SIZE = 8;
