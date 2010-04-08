@@ -46,7 +46,6 @@ public class Start {
                                                                    new TimeGene(conf,1) });
         }
 
-
         //Creating chromosome
         Chromosome testChromosome;
         testChromosome = new Chromosome(conf, testGenes);
@@ -74,13 +73,6 @@ public class Start {
         
         conf.setKeepPopulationSizeConstant(false);
         
-        //for (int i = 0; i < 3; i++) {
-        //System.out.println("testSuperGenes[" + i + "].getAllele(): " +
-        //                 testSuperGenes[i].getAllele());
-        //System.out.println("testClassGenes[" + i + "].getAllele(): " +
-        //                   testClassGenes[i].getAllele());
-        //}
-
         //Creating genotype
         Genotype population = Genotype.randomInitialGenotype(conf);
 
@@ -98,7 +90,6 @@ public class Start {
             population.evolve();
         }
 
-
         System.out.println("--------------end of evolution--------------------");
         Chromosome fittestChromosome =
             (Chromosome)population.getFittestChromosome();
@@ -114,11 +105,14 @@ public class Start {
                                (Integer)s.geneAt(2).getAllele());
         }
         //Display the best solution
-        Start.displayChromosome(fittestChromosome);
-
+        //Start.displayChromosome(fittestChromosome);
+        OutputData od = new OutputData();
+        od.printToConsole(fittestChromosome, CHROMOSOME_SIZE);
+        
         //Write population to the disk
         try {
-            savePopulation(population, fileName);
+            //savePopulation(population, fileName);
+          od.printToFile(population, fileName);
         } catch (IOException e) {
             System.out.println("IOException raised! " + e.getMessage());
         }
