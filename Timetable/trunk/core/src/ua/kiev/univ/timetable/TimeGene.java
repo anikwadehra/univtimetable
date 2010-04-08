@@ -14,7 +14,7 @@ import org.jgap.impl.IntegerGene;
 public class TimeGene extends IntegerGene implements Gene, Serializable{
     private static final String TOKEN_SEPARATOR = ":";
     //private Integer m_groupId;
-    private int max_idTimeSlot = 2;
+    private int max_idTimeSlot = 3;
     private Integer idTimeSlot;
 
     public TimeGene(Configuration a_conf,
@@ -113,4 +113,12 @@ public class TimeGene extends IntegerGene implements Gene, Serializable{
     public void applyMutation(int index, double a_percentage) {
         setAllele(getConfiguration().getRandomGenerator().nextInt(max_idTimeSlot));
     }
+
+  public void setMax_idTimeSlot(int max_idTimeSlot) {
+    this.max_idTimeSlot = max_idTimeSlot;
+  }
+
+  public int getMax_idTimeSlot() {
+    return max_idTimeSlot;
+  }
 }

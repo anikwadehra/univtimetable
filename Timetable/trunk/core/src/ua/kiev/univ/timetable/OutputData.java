@@ -17,7 +17,8 @@ import org.w3c.dom.*;
 
 class OutputData {
 
-  private int chromosomeSize;
+  private Integer max_idGroup;
+  private Integer max_idTime;
 
   OutputData() {
 
@@ -43,41 +44,54 @@ class OutputData {
     documentWriter.close();
   }
 
-  void printToConsole(Chromosome a_bestChromosome, int a_max_idGroup,
-                      int a_max_idTime) {
-    chromosomeSize = a_max_idGroup * a_max_idTime;
+  void printToConsole(Chromosome a_bestChromosome) {
 
-    GroupClassTimeSupergene[] s = new GroupClassTimeSupergene[chromosomeSize];
+    // Extracting GroupClassTimeSupergene from a_bestChromosome
+    GroupClassTimeSupergene[] s =
+      new GroupClassTimeSupergene[Start.CHROMOSOME_SIZE];
+    s[0] = (GroupClassTimeSupergene)a_bestChromosome.getGene(0);
+
+    // Extracting max_idGroup from GroupGene
+    GroupGene gg = (GroupGene)s[0].geneAt(Start.GROUP);
+    max_idGroup = gg.getMax_idGroup();
+
+    // Extracting max_idTime from TimeGene
+    TimeGene tg = (TimeGene)s[0].geneAt(Start.TIME);
+    max_idTime = tg.getMax_idTimeSlot();
+
+
     // first - Group, second - Time
-    String[][] str = new String[Start.GROUP][Start.TIME];
-    for (int i = 0; i < chromosomeSize; i++) {
+    String[][] str = new String[max_idGroup][max_idTime];
+    for (int i = 0; i < Start.CHROMOSOME_SIZE; i++) {
       s[i] = (GroupClassTimeSupergene)a_bestChromosome.getGene(i);
 
       // Here we are going through all of the id_groups and the id_times
       // and filling str[][] array
-      for (int j = 0; j < a_max_idGroup; j++) {
-        for (int k = 0; k < a_max_idTime; k++) {
+      for (int j = 0; j < max_idGroup; j++) {
+        for (int k = 0; k < max_idTime; k++) {
           if ((Integer)s[i].geneAt(Start.GROUP).getAllele() == j &&
               (Integer)s[i].geneAt(Start.TIME).getAllele() == k)
-            str[j][k] = (Integer)s[i].geneAt(Start.CLASS). .toString();
+            str[j][k] = s[i].geneAt(Start.CLASS).getAllele().toString();
         }
       }
-
-
-      // fill square 11
-      if ((Integer)s[i].geneAt(Start.GROUP).getAllele() == 1 &&
-          (Integer)s[i].geneAt(Start.TIME).getAllele() == 1) {
-        if ((Integer)s[i].geneAt(Start.CLASS).getAllele() == 0)
-          str[1][1] = "a";
-        else
-          str[1][1] = "b";
-      }
     }
-    // print str[][]
+
+    // Printing str[][] array
     System.out.println("------------------------------");
-    System.out.println("     I    II");
-    System.out.println("1    " + str[0][0] + "    " + str[1][0]);
-    System.out.println("2    " + str[0][1] + "    " + str[1][1]);
+    System.out.print("   ");
+    for (int i = 0; i < max_idGroup; i++) {
+      System.out.print(i + " ");
+    }
+
+    System.out.println("");
+
+    for (int i = 0; i < max_idTime; i++) {
+      System.out.print(i + "  ");
+      for (int j = 0; j < max_idGroup; j++) {
+        System.out.print( str[j][i]  + " ");
+      }
+      System.out.println("");
+    }
   }
 
 }

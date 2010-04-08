@@ -107,7 +107,7 @@ public class Start {
         //Display the best solution
         //Start.displayChromosome(fittestChromosome);
         OutputData od = new OutputData();
-        od.printToConsole(fittestChromosome, CHROMOSOME_SIZE);
+        od.printToConsole(fittestChromosome);
         
         //Write population to the disk
         try {

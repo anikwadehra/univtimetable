@@ -10,7 +10,7 @@ import org.jgap.impl.IntegerGene;
 public class ClassGene extends IntegerGene implements Gene, Serializable {
     private static final String TOKEN_SEPARATOR = ":";
     //private Integer m_groupId;
-    private int max_idClass = 2;
+    private int max_idClass = 3;
     private int max_classSize = 30;
     private Integer idClass;
     private Integer classSize;
@@ -126,4 +126,12 @@ public class ClassGene extends IntegerGene implements Gene, Serializable {
     public Integer getClassSize() {
         return classSize;
     }
+
+  public void setMax_idClass(int max_idClass) {
+    this.max_idClass = max_idClass;
+  }
+
+  public int getMax_idClass() {
+    return max_idClass;
+  }
 }
