@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<timetable chromosome_size="4" population_size="20" max_evolution="1000" threshold="6">
+  <genes>
+    <classGenes>
+      <classGene idClass="0" classSize="30"/>
+      <classGene idClass="1" classSize="30"/>
+    </classGenes>
+    <groupGenes>
+      <groupGene idGroup="0" groupSize="20"/>
+      <groupGene idGroup="1" groupSize="20"/>
+    </groupGenes>
+    <timeGenes>
+      <timeGene idTimeSlot="0"/>
+      <timeGene idTimeSlot="1"/>
+    </timeGenes>
+  </genes>
+</timetable>

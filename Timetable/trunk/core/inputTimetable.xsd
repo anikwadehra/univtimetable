@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://www.example.org"
+            targetNamespace="http://www.example.org"
+            elementFormDefault="qualified">
+  <xsd:element name="timetable">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="genes">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="classGenes">
+                <xsd:complexType>
+                  <xsd:sequence>
+                    <xsd:element name="classGene" maxOccurs="unbounded">
+                      <xsd:complexType>
+                        <xsd:attribute name="idClass">
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:integer">
+                              <xsd:minExclusive value="0"/>
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:attribute>
+                        <xsd:attribute name="classSize">
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:integer">
+                              <xsd:minExclusive value="0"/>
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:attribute>
+                      </xsd:complexType>
+                    </xsd:element>
+                  </xsd:sequence>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element name="groupGenes">
+                <xsd:complexType>
+                  <xsd:sequence>
+                    <xsd:element name="groupGene" maxOccurs="unbounded">
+                      <xsd:complexType>
+                        <xsd:attribute name="idGroup">
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:integer">
+                              <xsd:minExclusive value="0"/>
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:attribute>
+                        <xsd:attribute name="groupSize">
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:integer">
+                              <xsd:minExclusive value="0"/>
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:attribute>
+                      </xsd:complexType>
+                    </xsd:element>
+                  </xsd:sequence>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element name="timeGenes">
+                <xsd:complexType>
+                  <xsd:sequence>
+                    <xsd:element name="timeGene" maxOccurs="unbounded">
+                      <xsd:complexType>
+                        <xsd:attribute name="idTimeSlot">
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:integer">
+                              <xsd:minExclusive value="0"/>
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:attribute>
+                      </xsd:complexType>
+                    </xsd:element>
+                  </xsd:sequence>
+                </xsd:complexType>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+      </xsd:sequence>
+      <xsd:attribute name="chromosome_size">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:integer">
+            <xsd:minExclusive value="0"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:attribute>
+      <xsd:attribute name="population_size">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:integer">
+            <xsd:minExclusive value="0"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:attribute>
+      <xsd:attribute name="max_evolution">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:integer">
+            <xsd:minExclusive value="0"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:attribute>
+      <xsd:attribute name="threshold">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:integer">
+            <xsd:minExclusive value="0"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:attribute>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>

@@ -62,6 +62,12 @@ class OutputData {
 
     // first - Group, second - Time
     String[][] str = new String[max_idGroup][max_idTime];
+    for (int i = 0; i < max_idGroup; i++) {
+      for (int j = 0; j < max_idTime; j++) {
+        str[i][j] = "-";
+      }
+    }
+
     for (int i = 0; i < Start.CHROMOSOME_SIZE; i++) {
       s[i] = (GroupClassTimeSupergene)a_bestChromosome.getGene(i);
 
@@ -71,7 +77,7 @@ class OutputData {
         for (int k = 0; k < max_idTime; k++) {
           if ((Integer)s[i].geneAt(Start.GROUP).getAllele() == j &&
               (Integer)s[i].geneAt(Start.TIME).getAllele() == k)
-            str[j][k] = s[i].geneAt(Start.CLASS).getAllele().toString();
+                str[j][k] = s[i].geneAt(Start.CLASS).getAllele().toString();
         }
       }
     }

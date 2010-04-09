@@ -22,10 +22,10 @@ public class Start {
     protected static final int CLASS = 1;
     protected static final int TIME  = 2;
     private static final int MAX_EVOLUTIONS = 10000;
-    private static final String fileName = "D:\\population.xml";
+    private static final String FILENAME = "D:\\population.xml";
     private static final int POPULATION_SIZE = 100;
     private static final double THRESHOLD = 1;
-    protected  static final int CHROMOSOME_SIZE = 5;
+    protected  static final int CHROMOSOME_SIZE = 8;
 
 
     public static void main(String[] args) throws InvalidConfigurationException {
@@ -105,14 +105,13 @@ public class Start {
                                (Integer)s.geneAt(2).getAllele());
         }
         //Display the best solution
-        //Start.displayChromosome(fittestChromosome);
+
         OutputData od = new OutputData();
         od.printToConsole(fittestChromosome);
         
         //Write population to the disk
         try {
-            //savePopulation(population, fileName);
-          od.printToFile(population, fileName);
+          od.printToFile(population, FILENAME);
         } catch (IOException e) {
             System.out.println("IOException raised! " + e.getMessage());
         }
