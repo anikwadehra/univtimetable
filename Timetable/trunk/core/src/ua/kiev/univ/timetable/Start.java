@@ -9,6 +9,8 @@ import com.sun.org.apache.xml.internal.serializer.Method;
 
 import java.io.*;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.jgap.*;
 import org.jgap.event.*;
 import org.jgap.impl.*;
@@ -16,16 +18,19 @@ import org.jgap.xml.*;
 
 import org.w3c.dom.*;
 
+import org.xml.sax.SAXException;
+
 
 public class Start {
     protected static final int GROUP = 0;
     protected static final int CLASS = 1;
     protected static final int TIME  = 2;
-    private static final int MAX_EVOLUTIONS = 10000;
-    private static final String FILENAME = "D:\\population.xml";
-    private static final int POPULATION_SIZE = 100;
+    private static final int MAX_EVOLUTIONS = 1;
+    private static final String FILENAME = "E:\\population.xml";
+    private static final String XML_TEST_FILENAME = "E:\\inputTimetable.xml";
+    private static final int POPULATION_SIZE = 10;
     private static final double THRESHOLD = 1;
-    protected  static final int CHROMOSOME_SIZE = 8;
+    protected  static final int CHROMOSOME_SIZE = 5;
 
 
     public static void main(String[] args) throws InvalidConfigurationException {
@@ -36,8 +41,21 @@ public class Start {
             new TimetableFitnessFunction();
         InitialConstraintChecker timetableConstraintChecker =
             new InitialConstraintChecker();
+        
+        // Reading data from xml
+        try {
+            new InputData().readFromFile(XML_TEST_FILENAME);
+        } catch (SAXException e) {
+            System.out.println(e.getMessage());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        } catch (ParserConfigurationException e) {
+            System.out.println(e.getMessage());
+        }
 
         //Creating genes
+
+        
         Gene[] testGenes = new Gene[CHROMOSOME_SIZE];
         for (int i = 0; i < CHROMOSOME_SIZE; i++) {
             testGenes[i] =
@@ -78,7 +96,7 @@ public class Start {
 
         System.out.println("Our Chromosome: \n " +
                            testChromosome.getConfiguration().toString());
-
+        
         System.out.println("------------evolution-----------------------------");
         // Begin evolution
         for (int i = 0; i < MAX_EVOLUTIONS; i++) {
