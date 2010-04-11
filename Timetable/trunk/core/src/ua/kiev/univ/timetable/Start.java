@@ -25,22 +25,15 @@ public class Start {
     protected static final int GROUP = 0;
     protected static final int CLASS = 1;
     protected static final int TIME  = 2;
-    private static final int MAX_EVOLUTIONS = 1;
+    protected static int MAX_EVOLUTIONS;
     private static final String FILENAME = "E:\\population.xml";
     private static final String XML_TEST_FILENAME = "E:\\inputTimetable.xml";
-    private static final int POPULATION_SIZE = 10;
-    private static final double THRESHOLD = 1;
-    protected  static final int CHROMOSOME_SIZE = 5;
+    protected static int POPULATION_SIZE;
+    protected static double THRESHOLD;
+    protected  static Integer CHROMOSOME_SIZE;
 
 
     public static void main(String[] args) throws InvalidConfigurationException {
-
-        //Configuration conf = new DefaultConfiguration();
-        Configuration conf = new Configuration("myconf");
-        TimetableFitnessFunction fitnessFunction =
-            new TimetableFitnessFunction();
-        InitialConstraintChecker timetableConstraintChecker =
-            new InitialConstraintChecker();
         
         // Reading data from xml
         try {
@@ -52,21 +45,26 @@ public class Start {
         } catch (ParserConfigurationException e) {
             System.out.println(e.getMessage());
         }
-
-        //Creating genes
-
         
+        //Configuration conf = new DefaultConfiguration();
+        Configuration conf = new Configuration("myconf");
+        TimetableFitnessFunction fitnessFunction =
+            new TimetableFitnessFunction();
+        InitialConstraintChecker timetableConstraintChecker =
+            new InitialConstraintChecker();
+        
+        //Creating genes
         Gene[] testGenes = new Gene[CHROMOSOME_SIZE];
         for (int i = 0; i < CHROMOSOME_SIZE; i++) {
             testGenes[i] =
-                    new GroupClassTimeSupergene(conf, new Gene[] { new GroupGene(conf,1,30),
+                    new GroupClassTimeSupergene(conf, new Gene[] { new GroupGene(conf,1),
                                                                    new ClassGene(conf,1,15),
                                                                    new TimeGene(conf,1) });
         }
-
+        System.out.println("==================================");
         //Creating chromosome
         Chromosome testChromosome;
-        testChromosome = new Chromosome(conf, testGenes);
+        testChromosome = new Chromosome(conf, testGenes );
         testChromosome.setConstraintChecker(timetableConstraintChecker);
         //Setup configuration
         conf.setSampleChromosome(testChromosome);
@@ -92,22 +90,28 @@ public class Start {
         conf.setKeepPopulationSizeConstant(false);
         
         //Creating genotype
+//        Population pop = new Population(conf, testChromosome);
+//        Genotype population = new Genotype(conf, pop);
         Genotype population = Genotype.randomInitialGenotype(conf);
 
         System.out.println("Our Chromosome: \n " +
                            testChromosome.getConfiguration().toString());
         
         System.out.println("------------evolution-----------------------------");
+       
+       
         // Begin evolution
-        for (int i = 0; i < MAX_EVOLUTIONS; i++) {
-            System.out.println("generation#: "+i+" population size:"+
-                               (Integer)population.getPopulation().size());
-            if (population.getFittestChromosome().getFitnessValue() >=
-                THRESHOLD)
-                break;
-            population.evolve();
-        }
+//        for (int i = 0; i < MAX_EVOLUTIONS; i++) {
+//            System.out.println("generation#: "+i+" population size:"+
+//                               (Integer)population.getPopulation().size());
+//            if (population.getFittestChromosome().getFitnessValue() >=
+//                THRESHOLD)
+//                break;
+//            population.evolve();
+//        }
 
+        
+        
         System.out.println("--------------end of evolution--------------------");
         Chromosome fittestChromosome =
             (Chromosome)population.getFittestChromosome();
@@ -121,7 +125,11 @@ public class Start {
                                (Integer)s.geneAt(0).getAllele() + " " +
                                (Integer)s.geneAt(1).getAllele() + " " +
                                (Integer)s.geneAt(2).getAllele());
+        //GroupGene gg = (GroupGene)s.geneAt(GROUP);
+        //System.out.println("gg's idGroup"+gg.getAllele()+" gg.getGroupSize()"+ gg.getGroupSize() );
         }
+        
+        
         //Display the best solution
 
         OutputData od = new OutputData();
@@ -135,78 +143,6 @@ public class Start {
         }
 
     }
-
-    private static void savePopulation(Genotype a_currentPopulation,
-                                       String a_saveToFilename) throws IOException {
-        //Convert Genotype to a DOM object
-        Document xmlRepresentation =
-            XMLManager.representGenotypeAsDocument(a_currentPopulation);
-
-        Writer documentWriter = new FileWriter(a_saveToFilename);
-
-        OutputFormat formatting =
-            new OutputFormat(xmlRepresentation, "UTF-8", true);
-        SerializerFactory factory =
-            SerializerFactory.getSerializerFactory(Method.XML);
-        Serializer genericSerializer =
-            factory.makeSerializer(documentWriter, formatting);
-        DOMSerializer documentSerializer = genericSerializer.asDOMSerializer();
-
-        documentSerializer.serialize(xmlRepresentation);
-        documentWriter.close();
-    }
-
-    private static void displayChromosome(Chromosome a_bestChromosome) {
-        GroupClassTimeSupergene[] s =
-            new GroupClassTimeSupergene[CHROMOSOME_SIZE];
-      // first - Group, second - Time
-        String[][] str = new String[2][2];
-        for (int i = 0; i < CHROMOSOME_SIZE; i++) {
-          s[i] = (GroupClassTimeSupergene)a_bestChromosome.getGene(i);
-          // fill square 00
-          if( (Integer)s[i].geneAt(GROUP).getAllele() == 0 &&
-              (Integer)s[i].geneAt(TIME).getAllele() == 0
-          ){
-            if( (Integer)s[i].geneAt(CLASS).getAllele() == 0 ) 
-              str[0][0] = "a";
-            else
-              str[0][0] = "b";
-           }
-         // fill square 01
-         if( (Integer)s[i].geneAt(GROUP).getAllele() == 0 &&
-             (Integer)s[i].geneAt(TIME).getAllele() == 1
-         ){
-           if( (Integer)s[i].geneAt(CLASS).getAllele() == 0 ) 
-             str[0][1] = "a";
-           else
-             str[0][1] = "b";
-          }
-      // fill square 10
-      if( (Integer)s[i].geneAt(GROUP).getAllele() == 1 &&
-          (Integer)s[i].geneAt(TIME).getAllele() == 0
-      ){
-        if( (Integer)s[i].geneAt(CLASS).getAllele() == 0 ) 
-          str[1][0] = "a";
-        else
-          str[1][0] = "b";
-       }
-          
-      // fill square 11
-      if( (Integer)s[i].geneAt(GROUP).getAllele() == 1 &&
-          (Integer)s[i].geneAt(TIME).getAllele() == 1
-      ){
-        if( (Integer)s[i].geneAt(CLASS).getAllele() == 0 ) 
-          str[1][1] = "a";
-        else
-          str[1][1] = "b";
-       } 
-    }
-    // print str[][]
-        System.out.println("------------------------------");
-        System.out.println("     I    II");
-        System.out.println("1    "+str[0][0]+"    "+str[1][0]);
-        System.out.println("2    "+str[0][1]+"    "+str[1][1]);
-  }
 
 }
 

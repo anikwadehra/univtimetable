@@ -31,6 +31,11 @@ public class InputData {
         // Get chromosome_size population_size max_evolution threshold
         NodeList firstElements = document.getElementsByTagName("timetable");
         Element firstElement = (Element)firstElements.item(0);
+
+        Start.CHROMOSOME_SIZE = Integer.parseInt( firstElement.getAttribute("chromosome_size") );
+        Start.POPULATION_SIZE = Integer.parseInt( firstElement.getAttribute("population_size") );
+        Start.MAX_EVOLUTIONS = Integer.parseInt( firstElement.getAttribute("max_evolution") );
+        Start.THRESHOLD = Integer.parseInt( firstElement.getAttribute("threshold") );
         System.out.println("chromosome_size:" +
                            firstElement.getAttribute("chromosome_size") +
                            " population_size:" +
@@ -39,7 +44,7 @@ public class InputData {
                            firstElement.getAttribute("max_evolution") +
                            " threshold:" +
                            firstElement.getAttribute("threshold"));
-
+        //---------------------------------------------------------------------
         // Get classGenes data
         NodeList classGenes = document.getElementsByTagName("classGene");
         for (int i = 0; i < classGenes.getLength(); i++) {
@@ -49,17 +54,23 @@ public class InputData {
                                " classSize=" +
                                classGene.getAttribute("classSize"));
         }
-
+        //---------------------------------------------------------------------
         // Get groupGenes data
         NodeList groupGenes = document.getElementsByTagName("groupGene");
+        //Set maxIdGroup
+        GroupGene.setMax_idGroup( (Integer)groupGenes.getLength() );
+        
         for (int i = 0; i < groupGenes.getLength(); i++) {
             Element groupGene = (Element)groupGenes.item(i);
+            //Set field groupSize in i-th GroupGene
+            GroupGene.setInputGroupSize(Integer.parseInt(groupGene.getAttribute("groupSize")), i);
+            
             System.out.println(groupGene.getTagName() + ": idGroup=" +
                                groupGene.getAttribute("idGroup") +
                                " groupSize=" +
                                groupGene.getAttribute("groupSize"));
         }
-
+        //----------------------------------------------------------------------
         // Get timeGenes data
         NodeList timeGenes = document.getElementsByTagName("timeGene");
         for (int i = 0; i < timeGenes.getLength(); i++) {
@@ -68,18 +79,6 @@ public class InputData {
                                timeGene.getAttribute("idTimeSlot"));
 
         }
-
-
-        //         Element piece = (Element) classGene.getParentNode();
-        //         Element pieces = (Element) piece.getParentNode();
-        //         System.out.println(
-        //           (pieces.getTagName().equals("WHITEPIECES")
-        //            ? "White " : "Black ")
-        //           + piece.getTagName().toLowerCase() + ": "
-        //           + classGene.getAttribute("COLUMN")
-        //           + classGene.getAttribute("ROW"));
-
-
     }
 
 }
