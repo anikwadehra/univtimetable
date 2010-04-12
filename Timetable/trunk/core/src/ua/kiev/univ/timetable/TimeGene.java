@@ -13,8 +13,7 @@ import org.jgap.impl.IntegerGene;
 
 public class TimeGene extends IntegerGene implements Gene, Serializable{
     private static final String TOKEN_SEPARATOR = ":";
-    //private Integer m_groupId;
-    private int max_idTimeSlot = 3;
+    private static Integer max_idTimeSlot;
     private Integer idTimeSlot;
 
     public TimeGene(Configuration a_conf,
@@ -114,11 +113,11 @@ public class TimeGene extends IntegerGene implements Gene, Serializable{
         setAllele(getConfiguration().getRandomGenerator().nextInt(max_idTimeSlot));
     }
 
-  public void setMax_idTimeSlot(int max_idTimeSlot) {
-    this.max_idTimeSlot = max_idTimeSlot;
+  public static void setMax_idTimeSlot(Integer a_max_idTimeSlot) {
+    max_idTimeSlot = a_max_idTimeSlot;
   }
 
-  public int getMax_idTimeSlot() {
+  public static Integer getMax_idTimeSlot() {
     return max_idTimeSlot;
   }
 }

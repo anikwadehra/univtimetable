@@ -9,9 +9,6 @@ import org.jgap.impl.IntegerGene;
 
 public class ClassGene extends IntegerGene implements Gene, Serializable {
     private static final String TOKEN_SEPARATOR = ":";
-    //private Integer m_groupId;
-    //private int max_idClass = 3;
-    private int max_classSize = 30;
     private static Integer max_idClass; // Setup in InputData.readFromFile
     private Integer idClass;
     private Integer classSize;
@@ -56,8 +53,7 @@ public class ClassGene extends IntegerGene implements Gene, Serializable {
     public String getPersistentRepresentation()
         /* throws UnsupportedRepresentationException */ {
         return new Integer(max_idClass).toString() + TOKEN_SEPARATOR +
-            idClass.toString() + "//" + classSize.toString();
-        //TODO: undo to Integer(max_idClass).toString() + TOKEN_SEPARATOR + idClass.toString()
+            idClass.toString();
     }
 
 

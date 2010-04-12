@@ -25,25 +25,35 @@ class OutputData {
     }
 
     void printToFile(Genotype a_currentPopulation,
-                     String a_savePopulationToFilename, String ) throws IOException {
+                     String a_savePopulationToFilename, 
+                     String a_saveBestChromosomeToFilename ) throws IOException {
         //Convert Genotype to a DOM object
         Document xmlRepresentation =
             XMLManager.representGenotypeAsDocument(a_currentPopulation);
-        Document bestChromosomeXMLRepresentation =
-            XMLManager.representChromosomeAsDocument(a_currentPopulation.getFittestChromosome());
 
-        Writer documentWriter = new FileWriter(a_saveToFilename);
+        Writer genotypetWriter = new FileWriter(a_savePopulationToFilename);
 
         OutputFormat formatting =
             new OutputFormat(xmlRepresentation, "UTF-8", true);
         SerializerFactory factory =
             SerializerFactory.getSerializerFactory(Method.XML);
-        Serializer genericSerializer =
-            factory.makeSerializer(documentWriter, formatting);
-        DOMSerializer documentSerializer = genericSerializer.asDOMSerializer();
+        Serializer genotypeGenericSerializer =
+            factory.makeSerializer(genotypetWriter, formatting);
+        DOMSerializer genotypeDocumentSerializer = genotypeGenericSerializer.asDOMSerializer();
 
-        documentSerializer.serialize(xmlRepresentation);
-        documentWriter.close();
+        genotypeDocumentSerializer.serialize(xmlRepresentation);
+        genotypetWriter.close();
+        
+        //Convert bestChromosome to a DOM object
+        Document bestChromosomeXMLRepresentation =
+            XMLManager.representChromosomeAsDocument(a_currentPopulation.getFittestChromosome());
+        Writer chromosomeWriter = new FileWriter( a_saveBestChromosomeToFilename );
+        
+        Serializer chromosomeGenericSerializer = 
+          factory.makeSerializer(chromosomeWriter, formatting);
+        DOMSerializer chromosomeDocumentSerializer = chromosomeGenericSerializer.asDOMSerializer();
+        chromosomeDocumentSerializer.serialize(bestChromosomeXMLRepresentation);
+        chromosomeWriter.close();        
     }
 
     void printToConsole(Chromosome a_bestChromosome) {
@@ -58,8 +68,8 @@ class OutputData {
         max_idGroup = gg.getMax_idGroup();
 
         // Extracting max_idTime from TimeGene
-        TimeGene tg = (TimeGene)s[0].geneAt(Start.TIME);
-        max_idTime = tg.getMax_idTimeSlot();
+        //TimeGene tg = (TimeGene)s[0].geneAt(Start.TIME);
+        max_idTime = TimeGene.getMax_idTimeSlot();
 
 
         // first - Group, second - Time

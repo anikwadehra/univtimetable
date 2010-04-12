@@ -77,6 +77,9 @@ public class InputData {
         //----------------------------------------------------------------------
         // Get timeGenes data
         NodeList timeGenes = document.getElementsByTagName("timeGene");
+        //Set max_idTimeSlot
+        TimeGene.setMax_idTimeSlot( (Integer)timeGenes.getLength() );
+        
         for (int i = 0; i < timeGenes.getLength(); i++) {
             Element timeGene = (Element)timeGenes.item(i);
             System.out.println(timeGene.getTagName() + ": idTimeSlot=" +
