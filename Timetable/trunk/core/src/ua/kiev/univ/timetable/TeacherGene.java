@@ -78,10 +78,10 @@ public class TeacherGene extends IntegerGene implements Gene, Serializable {
 
 
   @Override
-  public void applyMutation(int i, double d) {
+  public void applyMutation(int a_index, double a_percentage) {
     setAllele(getConfiguration().getRandomGenerator().nextInt(max_idTeacher));
   }
-  
+
   @Override
   public int compareTo(Object a_otherTeacherGene) {
     if (a_otherTeacherGene == null)
@@ -94,9 +94,9 @@ public class TeacherGene extends IntegerGene implements Gene, Serializable {
       else
         return -1;
     }
-  return idTeacher.compareTo(((TeacherGene)a_otherTeacherGene).idTeacher);
+    return idTeacher.compareTo(((TeacherGene)a_otherTeacherGene).idTeacher);
   }
- 
+
   @Override
   public boolean equals(Object a_otherTeacherGene) {
     return a_otherTeacherGene instanceof TeacherGene &&
@@ -113,6 +113,23 @@ public class TeacherGene extends IntegerGene implements Gene, Serializable {
   public Object getInternalValue() {
     return idTeacher;
   }
- 
-  
+
+
+  public static void setMax_idTeacher(Integer a_max_idTeacher) {
+    TeacherGene.max_idTeacher = a_max_idTeacher;
+  }
+
+  public Integer[] getAvaliableLessons() {
+    return avaliableLessons;
+  }
+
+  public static void setAll_avaliableLessons(Integer[] a_avaliableLessons,
+                                             Integer a_index) {
+    TeacherGene.all_avaliableLessons[a_index] = a_avaliableLessons;
+  }
+
+  public static void setAll_avaliableTimeSlots(Integer[] a_avaliableTimeSlots,
+                                               Integer a_index) {
+    TeacherGene.all_avaliableTimeSlots[a_index] = a_avaliableTimeSlots;
+  }
 }

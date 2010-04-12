@@ -117,7 +117,7 @@ public class GroupGene extends IntegerGene implements Gene, Serializable {
   }
 
   @Override
-  public void applyMutation(int index, double a_percentage) {
+  public void applyMutation(int a_index, double a_percentage) {
     //        System.out.println("GroupGene applyMutation invoked");
     setAllele(getConfiguration().getRandomGenerator().nextInt(max_idGroup));
   }
