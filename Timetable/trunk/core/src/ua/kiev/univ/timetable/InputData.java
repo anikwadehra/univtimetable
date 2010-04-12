@@ -47,8 +47,12 @@ public class InputData {
         //---------------------------------------------------------------------
         // Get classGenes data
         NodeList classGenes = document.getElementsByTagName("classGene");
+        //Set maxIdClass
+        ClassGene.setMax_idClass( (Integer)classGenes.getLength() );
+        
         for (int i = 0; i < classGenes.getLength(); i++) {
             Element classGene = (Element)classGenes.item(i);
+            ClassGene.setInputClassSize( Integer.parseInt( classGene.getAttribute("classSize")), i ) ;
             System.out.println(classGene.getTagName() + ": idClass=" +
                                classGene.getAttribute("idClass") +
                                " classSize=" +

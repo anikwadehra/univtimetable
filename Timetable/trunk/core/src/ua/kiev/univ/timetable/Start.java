@@ -58,7 +58,7 @@ public class Start {
         for (int i = 0; i < CHROMOSOME_SIZE; i++) {
             testGenes[i] =
                     new GroupClassTimeSupergene(conf, new Gene[] { new GroupGene(conf,1),
-                                                                   new ClassGene(conf,1,15),
+                                                                   new ClassGene(conf,1),
                                                                    new TimeGene(conf,1) });
         }
         System.out.println("==================================");
@@ -101,14 +101,14 @@ public class Start {
        
        
         // Begin evolution
-//        for (int i = 0; i < MAX_EVOLUTIONS; i++) {
-//            System.out.println("generation#: "+i+" population size:"+
-//                               (Integer)population.getPopulation().size());
-//            if (population.getFittestChromosome().getFitnessValue() >=
-//                THRESHOLD)
-//                break;
-//            population.evolve();
-//        }
+        for (int i = 0; i < MAX_EVOLUTIONS; i++) {
+            System.out.println("generation#: "+i+" population size:"+
+                               (Integer)population.getPopulation().size());
+            if (population.getFittestChromosome().getFitnessValue() >=
+                THRESHOLD)
+                break;
+            population.evolve();
+        }
 
         
         

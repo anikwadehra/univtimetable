@@ -9,9 +9,7 @@ import java.util.StringTokenizer;
 
 public class GroupGene extends IntegerGene implements Gene, Serializable {
     private static final String TOKEN_SEPARATOR = ":";
-    //private Integer m_groupId;
-    private static Integer max_idGroup;
-    private Integer max_groupSize = 30;
+    private static Integer max_idGroup; // Setup in InputData.readFromFile
     private Integer idGroup;
     private Integer groupSize;
 
@@ -31,7 +29,6 @@ public class GroupGene extends IntegerGene implements Gene, Serializable {
            throw new InvalidConfigurationException(e.getMessage());
         }
 
-        System.out.println("New gene created! Happy birthday GroupGene!:)");
     }
 
 
@@ -58,7 +55,6 @@ public class GroupGene extends IntegerGene implements Gene, Serializable {
     public void setToRandomValue(RandomGenerator a_randomGenerator) {
         idGroup = new Integer(a_randomGenerator.nextInt(max_idGroup));
         groupSize = inputGroupSize[idGroup];
-        System.out.println("GroupGene has been modified");
     }
 
 
@@ -66,7 +62,8 @@ public class GroupGene extends IntegerGene implements Gene, Serializable {
     public String getPersistentRepresentation()
         /* throws UnsupportedRepresentationException */ {
         return new Integer(max_idGroup).toString() + TOKEN_SEPARATOR +
-            idGroup.toString();
+            idGroup.toString()+"//"+groupSize.toString();
+        //TODO: undo to Integer(max_idGroup).toString() + TOKEN_SEPARATOR + idGroup.toString()
     }
 
 
