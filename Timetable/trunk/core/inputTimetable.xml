@@ -9,9 +9,20 @@
       <groupGene idGroup="0" groupSize="20"/>
       <groupGene idGroup="1" groupSize="20"/>
     </groupGenes>
+    <teacherGenes>
+      <teacherGene idTeacher="0" avaliableLessons="1,2,3,4" avaliableTimeSlots="1,2,3,4"/>
+      <teacherGene idTeacher="1" avaliableLessons="1,2,3" avaliableTimeSlots="1,2,3,4"/>
+    </teacherGenes>
+    <lessonGenes>
+      <lessonGene idLesson="0"/>
+      <lessonGene idLesson="1"/>
+      <lessonGene idLesson="2"/>
+      <lessonGene idLesson="3"/>
+    </lessonGenes>
     <timeGenes>
       <timeGene idTimeSlot="0"/>
       <timeGene idTimeSlot="1"/>
+      <timeGene idTimeSlot="2"/>
     </timeGenes>
   </genes>
 </timetable>

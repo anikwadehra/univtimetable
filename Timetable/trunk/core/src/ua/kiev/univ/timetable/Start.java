@@ -22,13 +22,15 @@ import org.xml.sax.SAXException;
 
 
 public class Start {
-    protected static final int GROUP = 0;
-    protected static final int CLASS = 1;
-    protected static final int TIME  = 2;
+    protected static final int GROUP   = 0;
+    protected static final int CLASS   = 1;
+    protected static final int TEACHER = 2;
+    protected static final int LESSON  = 3;
+    protected static final int TIME    = 4;
     protected static int MAX_EVOLUTIONS;
-    private static final String GENOTYPE_FILENAME = "E:\\population.xml";
-    private static final String BEST_CHROMOSOME_FILENAME = "E:\\best_chromosome.xml";
-    private static final String XML_TEST_FILENAME = "E:\\inputTimetable.xml";
+    private static final String GENOTYPE_FILENAME = "D:\\population.xml";
+    private static final String BEST_CHROMOSOME_FILENAME = "D:\\best_chromosome.xml";
+    private static final String XML_TEST_FILENAME = "D:\\inputTimetable.xml";
     protected static int POPULATION_SIZE;
     protected static double THRESHOLD;
     protected  static Integer CHROMOSOME_SIZE;
@@ -60,7 +62,10 @@ public class Start {
             testGenes[i] =
                     new GroupClassTeacherLessonTimeSG(conf, new Gene[] { new GroupGene(conf,1),
                                                                    new ClassGene(conf,1),
-                                                                   new TimeGene(conf,1) });
+                                                                   new TeacherGene(conf,1),
+                                                                   new LessonGene(conf,1),
+                                                                   new TimeGene(conf,1) 
+                                                                         });
         }
         System.out.println("==================================");
         //Creating chromosome
