@@ -7,19 +7,19 @@ import org.jgap.impl.IntegerGene;
 import org.jgap.supergenes.AbstractSupergene;
 import org.jgap.supergenes.Supergene;
 
-public class GroupClassTimeSupergene extends AbstractSupergene {
+public class GroupClassTeacherLessonTimeSG extends AbstractSupergene {
     private static final String TOKEN_SEPARATOR = ":";
     private static final String GENE_DELIMITER = "+";
 
-    public GroupClassTimeSupergene() throws InvalidConfigurationException {
+    public GroupClassTeacherLessonTimeSG() throws InvalidConfigurationException {
         super();
     }
 
-    public GroupClassTimeSupergene(final Configuration a_conf) throws InvalidConfigurationException {
+    public GroupClassTeacherLessonTimeSG(final Configuration a_conf) throws InvalidConfigurationException {
         super(a_conf);
     }
 
-    public GroupClassTimeSupergene(final Configuration a_conf,
+    public GroupClassTeacherLessonTimeSG(final Configuration a_conf,
                                Gene[] a_genes) throws InvalidConfigurationException {
         super(a_conf, a_genes);
     }

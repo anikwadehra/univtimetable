@@ -58,7 +58,7 @@ public class Start {
         Gene[] testGenes = new Gene[CHROMOSOME_SIZE];
         for (int i = 0; i < CHROMOSOME_SIZE; i++) {
             testGenes[i] =
-                    new GroupClassTimeSupergene(conf, new Gene[] { new GroupGene(conf,1),
+                    new GroupClassTeacherLessonTimeSG(conf, new Gene[] { new GroupGene(conf,1),
                                                                    new ClassGene(conf,1),
                                                                    new TimeGene(conf,1) });
         }
@@ -120,8 +120,8 @@ public class Start {
                            fittestChromosome.getFitnessValue() + "---");
         System.out.println("                Group Class Time");
         for (int i = 0; i < CHROMOSOME_SIZE; i++) {
-            GroupClassTimeSupergene s =
-                (GroupClassTimeSupergene)fittestChromosome.getGene(i);
+            GroupClassTeacherLessonTimeSG s =
+                (GroupClassTeacherLessonTimeSG)fittestChromosome.getGene(i);
             System.out.println("Gene " + i + " contains: " +
                                (Integer)s.geneAt(0).getAllele() + " " +
                                (Integer)s.geneAt(1).getAllele() + " " +

@@ -59,9 +59,9 @@ class OutputData {
     void printToConsole(Chromosome a_bestChromosome) {
 
         // Extracting GroupClassTimeSupergene from a_bestChromosome
-        GroupClassTimeSupergene[] s =
-            new GroupClassTimeSupergene[Start.CHROMOSOME_SIZE];
-        s[0] = (GroupClassTimeSupergene)a_bestChromosome.getGene(0);
+        GroupClassTeacherLessonTimeSG[] s =
+            new GroupClassTeacherLessonTimeSG[Start.CHROMOSOME_SIZE];
+        s[0] = (GroupClassTeacherLessonTimeSG)a_bestChromosome.getGene(0);
 
         // Extracting max_idGroup from GroupGene
         GroupGene gg = (GroupGene)s[0].geneAt(Start.GROUP);
@@ -81,7 +81,7 @@ class OutputData {
         }
 
         for (int i = 0; i < Start.CHROMOSOME_SIZE; i++) {
-            s[i] = (GroupClassTimeSupergene)a_bestChromosome.getGene(i);
+            s[i] = (GroupClassTeacherLessonTimeSG)a_bestChromosome.getGene(i);
 
             // Here we are going through all of the id_groups and the id_times
             // and filling str[][] array

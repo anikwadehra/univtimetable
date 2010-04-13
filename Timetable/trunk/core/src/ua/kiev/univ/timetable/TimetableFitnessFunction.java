@@ -17,9 +17,9 @@ public class TimetableFitnessFunction extends FitnessFunction {
         fitness = 0;
 
     // Extract supergenes from chromosome
-    GroupClassTimeSupergene[] s = new GroupClassTimeSupergene[Start.CHROMOSOME_SIZE];
+    GroupClassTeacherLessonTimeSG[] s = new GroupClassTeacherLessonTimeSG[Start.CHROMOSOME_SIZE];
     for (int i = 0; i < Start.CHROMOSOME_SIZE; i++) {
-        s[i] = (GroupClassTimeSupergene)a_subject.getGene(i);
+        s[i] = (GroupClassTeacherLessonTimeSG)a_subject.getGene(i);
     }        
 
     //------------Checking hard constraints---------------------------- 
@@ -56,7 +56,7 @@ public class TimetableFitnessFunction extends FitnessFunction {
         
         for (int i = 0; i < Start.CHROMOSOME_SIZE; i++) {
             s[i] =
-                (GroupClassTimeSupergene)a_subject.getGene(i);
+                (GroupClassTeacherLessonTimeSG)a_subject.getGene(i);
             estimate[i]  = (Integer)s[i].geneAt(GROUP).getAllele();
             estimate[i] += (Integer)s[i].geneAt(CLASS).getAllele();
             estimate[i] += (Integer)s[i].geneAt(TIME).getAllele();
