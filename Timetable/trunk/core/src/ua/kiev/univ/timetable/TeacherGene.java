@@ -100,7 +100,7 @@ public class TeacherGene extends IntegerGene implements Gene, Serializable {
   @Override
   public boolean equals(Object a_otherTeacherGene) {
     return a_otherTeacherGene instanceof TeacherGene &&
-      compareTo(a_otherTeacherGene) == 0;
+      compareTo(a_otherTeacherGene) == 0; 
   }
 
   @Override
