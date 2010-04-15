@@ -1,6 +1,5 @@
 package ua.kiev.univ.timetable;
 
-
 import com.sun.org.apache.xml.internal.serialize.*;
 import com.sun.org.apache.xml.internal.serialize.DOMSerializer;
 import com.sun.org.apache.xml.internal.serialize.Serializer;
@@ -19,7 +18,6 @@ import org.jgap.xml.*;
 import org.w3c.dom.*;
 
 import org.xml.sax.SAXException;
-
 
 public class Start {
     protected static final int GROUP   = 0;
@@ -128,9 +126,11 @@ public class Start {
             GroupClassTeacherLessonTimeSG s =
                 (GroupClassTeacherLessonTimeSG)fittestChromosome.getGene(i);
             System.out.println("Gene " + i + " contains: " +
-                               (Integer)s.geneAt(0).getAllele() + " " +
-                               (Integer)s.geneAt(1).getAllele() + " " +
-                               (Integer)s.geneAt(2).getAllele());
+                               (Integer)s.geneAt(GROUP).getAllele() + " " +
+                               (Integer)s.geneAt(CLASS).getAllele() + " " +
+                               (Integer)s.geneAt(TEACHER).getAllele() + " " +
+                               (Integer)s.geneAt(LESSON).getAllele() + " " +
+                               (Integer)s.geneAt(TIME).getAllele());
         //GroupGene gg = (GroupGene)s.geneAt(GROUP);
         //System.out.println("gg's idGroup"+gg.getAllele()+" gg.getGroupSize()"+ gg.getGroupSize() );
         }
@@ -139,7 +139,7 @@ public class Start {
         //Display the best solution
 
         OutputData od = new OutputData();
-        od.printToConsole(fittestChromosome);
+        //od.printToConsole(fittestChromosome);
         
         //Write population to the disk
         try {

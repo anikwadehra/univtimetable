@@ -21,7 +21,7 @@ public class LessonGene extends IntegerGene implements Gene, Serializable {
 
 
   @Override
-  public Gene newGene() {
+  public Gene newGeneInternal() {
     try {
       return new LessonGene(getConfiguration(), max_idLesson);
     } catch (InvalidConfigurationException e) {
@@ -84,7 +84,7 @@ public class LessonGene extends IntegerGene implements Gene, Serializable {
 
   @Override
   public boolean equals(Object a_otherLessonGene) {
-    return a_otherLessonGene instanceof TeacherGene &&
+    return a_otherLessonGene instanceof LessonGene &&
       compareTo(a_otherLessonGene) == 0;
   }
   

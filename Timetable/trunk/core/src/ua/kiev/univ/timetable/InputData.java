@@ -49,7 +49,7 @@ public class InputData {
     // Get classGenes data
     NodeList classGenes = document.getElementsByTagName("classGene");
     //Set maxIdClass
-    ClassGene.setMax_idClass( classGenes.getLength());
+    ClassGene.setMax_idClass(classGenes.getLength());
 
     for (int i = 0; i < classGenes.getLength(); i++) {
       Element classGene = (Element)classGenes.item(i);
@@ -87,15 +87,80 @@ public class InputData {
                          timeGene.getAttribute("idTimeSlot"));
 
     }
+    //---------------------------------------------------------------------
     // Get teacherGenes data
     NodeList teacherGenes = document.getElementsByTagName("teacherGene");
     //Set max_idTeacher
-    TeacherGene.setMax_idTeacher( teacherGenes.getLength() );
+    TeacherGene.setMax_idTeacher(teacherGenes.getLength());
     for (int i = 0; i < teacherGenes.getLength(); i++) {
       Element teacherGene = (Element)teacherGenes.item(i);
-      TeacherGene.setAll_avaliableLessons(  , i);
+      
+      TeacherGene.setAll_avaliableLessons(
+                    parseLine(teacherGene.getAttribute("avaliableLessons")), i);
+      TeacherGene.setAll_avaliableTimeSlots(
+                  parseLine(teacherGene.getAttribute("avaliableTimeSlots")), i);
+      String buffer1 = "";
+      String buffer2 = "";
+      
+      for (Integer s : parseLine(teacherGene.getAttribute("avaliableLessons"))) {
+        if( s != null ) buffer1 += s.toString();
+      }
+      
+      for (Integer s : parseLine(teacherGene.getAttribute("avaliableTimeSlots"))) {
+        if( s != null )buffer2 += s.toString();
+      }
+      
+      System.out.println(teacherGene.getTagName() + ": idTeacherGene "+
+                         teacherGene.getAttribute("idTeacher") + 
+                         " avaliableLessons=" + buffer1+
+                         " avaliableTimeSlots=" + buffer2
+                         );
+    }
+    
+    //---------------------------------------------------------------------
+    // Get lessonGene data
+    NodeList lessonGenes = document.getElementsByTagName("lessonGene");
+    //Set max_idLesson
+    LessonGene.setMax_idLesson(lessonGenes.getLength());
+    for (int i = 0; i < lessonGenes.getLength(); i++) {
+      Element lessonGene = (Element)lessonGenes.item(i);
+      System.out.println(lessonGene.getTagName()+ ": idLessonGene=" + 
+                         lessonGene.getAttribute("idLesson"));
     }
 
+  }
+
+  private Integer[] parseLine(String a_line) {
+    Integer[] i = new Integer[a_line.length()];
+    int i_index = 0;
+    String buffer = "";
+    Character ch;
+
+    for (int j = 0; j < a_line.length(); j++) {
+
+      buffer = "";
+      if (a_line.charAt(j) != ',' && a_line.charAt(j) != ' ') {
+        while (a_line.charAt(j) != ',' && a_line.charAt(j) != ' ' &&
+               j < a_line.length()) {
+          ch = a_line.charAt(j);
+          // If input character isn't digit, than go out --->
+          if (!ch.isDigit(ch)) {
+            System.out.println("Only digits allowed in the inputTimetable.xml ");
+            return null;
+          }
+
+          // If input character is digit, than store it
+          buffer += a_line.charAt(j);
+          j++;
+          if (j >= a_line.length())
+            break;
+        }
+        i[i_index] = Integer.parseInt(buffer);
+        i_index++;
+      }
+
+    }
+    return i;
   }
 
 }

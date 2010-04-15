@@ -28,7 +28,7 @@ public class GroupClassTeacherLessonTimeSG extends AbstractSupergene {
     return true;
   }
 
-  // Order: GroupGene, ClassGene, TimeGene
+  // Order: GroupGene, ClassGene, TeacherGene, LessonGene, TimeGene, 
 
   @Override
   public String getPersistentRepresentation() throws UnsupportedOperationException {
