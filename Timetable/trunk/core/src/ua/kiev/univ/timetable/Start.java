@@ -8,6 +8,8 @@ import com.sun.org.apache.xml.internal.serializer.Method;
 
 import java.io.*;
 
+import java.util.Calendar;
+
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.jgap.*;
@@ -32,6 +34,8 @@ public class Start {
     protected static int POPULATION_SIZE;
     protected static double THRESHOLD;
     protected  static Integer CHROMOSOME_SIZE;
+    private static long start_t = 0;
+    private static long finish_t = 0;
 
 
     public static void main(String[] args) throws InvalidConfigurationException {
@@ -105,6 +109,8 @@ public class Start {
        
        
         // Begin evolution
+        Calendar cal = Calendar.getInstance();
+        start_t = cal.getTimeInMillis();
         for (int i = 0; i < MAX_EVOLUTIONS; i++) {
             System.out.println("generation#: "+i+" population size:"+
                                (Integer)population.getPopulation().size());
@@ -113,9 +119,9 @@ public class Start {
                 break;
             population.evolve();
         }
-
-        
-        
+        cal = Calendar.getInstance();
+        finish_t = cal.getTimeInMillis();
+                
         System.out.println("--------------end of evolution--------------------");
         Chromosome fittestChromosome =
             (Chromosome)population.getFittestChromosome();
@@ -135,11 +141,13 @@ public class Start {
         //System.out.println("gg's idGroup"+gg.getAllele()+" gg.getGroupSize()"+ gg.getGroupSize() );
         }
         
+        System.out.println( "Elapsed time:"+ 
+                          (double)(finish_t - start_t)/1000 +"s");        
         
         //Display the best solution
 
         OutputData od = new OutputData();
-        //od.printToConsole(fittestChromosome);
+        od.printToConsole(fittestChromosome);
         
         //Write population to the disk
         try {

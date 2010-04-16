@@ -76,7 +76,7 @@ class OutputData {
         String[][] str = new String[max_idGroup][max_idTime];
         for (int i = 0; i < max_idGroup; i++) {
             for (int j = 0; j < max_idTime; j++) {
-                str[i][j] = "-";
+                str[i][j] = "-/-/-";
             }
         }
 
@@ -90,6 +90,8 @@ class OutputData {
                     if ((Integer)s[i].geneAt(Start.GROUP).getAllele() == j &&
                         (Integer)s[i].geneAt(Start.TIME).getAllele() == k)
                         str[j][k] =
+                                s[i].geneAt(Start.LESSON).getAllele().toString() +"/"+
+                                s[i].geneAt(Start.TEACHER).getAllele().toString()+"/"+
                                 s[i].geneAt(Start.CLASS).getAllele().toString();
                 }
             }
@@ -97,9 +99,10 @@ class OutputData {
 
         // Printing str[][] array
         System.out.println("------------------------------");
+        System.out.println("-----Lesson/Teacher/Class-----");
         System.out.print("   ");
         for (int i = 0; i < max_idGroup; i++) {
-            System.out.print(i + " ");
+            System.out.print(i + "        ");
         }
 
         System.out.println("");
@@ -107,7 +110,7 @@ class OutputData {
         for (int i = 0; i < max_idTime; i++) {
             System.out.print(i + "  ");
             for (int j = 0; j < max_idGroup; j++) {
-                System.out.print(str[j][i] + " ");
+                System.out.print(str[j][i] + "    ");
             }
             System.out.println("");
         }
