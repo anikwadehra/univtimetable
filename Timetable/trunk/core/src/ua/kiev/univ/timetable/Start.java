@@ -28,9 +28,9 @@ public class Start {
     protected static final int LESSON  = 3;
     protected static final int TIME    = 4;
     protected static int MAX_EVOLUTIONS;
-    private static final String GENOTYPE_FILENAME = "D:\\population.xml";
-    private static final String BEST_CHROMOSOME_FILENAME = "D:\\best_chromosome.xml";
-    private static final String XML_TEST_FILENAME = "D:\\inputTimetable.xml";
+    private static final String GENOTYPE_FILENAME = "E:\\population.xml";
+    private static final String BEST_CHROMOSOME_FILENAME = "E:\\best_chromosome.xml";
+    private static final String XML_TEST_FILENAME = "E:\\inputTimetable.xml";
     protected static int POPULATION_SIZE;
     protected static double THRESHOLD;
     protected  static Integer CHROMOSOME_SIZE;
@@ -79,8 +79,8 @@ public class Start {
         conf.setPopulationSize(POPULATION_SIZE);
         conf.setFitnessFunction(fitnessFunction); // add fitness function
 
-        BestChromosomesSelector myBestChromosomesSelector =
-            new BestChromosomesSelector(conf);
+        ThresholdSelector myBestChromosomesSelector =
+            new ThresholdSelector(conf,0.3);
         conf.addNaturalSelector(myBestChromosomesSelector, false);
 
         conf.setRandomGenerator(new StockRandomGenerator());
@@ -101,7 +101,6 @@ public class Start {
 //        Population pop = new Population(conf, testChromosome);
 //        Genotype population = new Genotype(conf, pop);
         Genotype population = Genotype.randomInitialGenotype(conf);
-
         System.out.println("Our Chromosome: \n " +
                            testChromosome.getConfiguration().toString());
         
@@ -113,7 +112,8 @@ public class Start {
         start_t = cal.getTimeInMillis();
         for (int i = 0; i < MAX_EVOLUTIONS; i++) {
             System.out.println("generation#: "+i+" population size:"+
-                               (Integer)population.getPopulation().size());
+                               (Integer)population.getPopulation().size()+
+                               " fitness:" + population.getFittestChromosome().getFitnessValue() );
             if (population.getFittestChromosome().getFitnessValue() >=
                 THRESHOLD)
                 break;
@@ -127,7 +127,7 @@ public class Start {
             (Chromosome)population.getFittestChromosome();
         System.out.println("-------------The best chromosome---fitness=" +
                            fittestChromosome.getFitnessValue() + "---");
-        System.out.println("                Group Class Time");
+        System.out.println("                Group Class Teacher Lesson Time");
         for (int i = 0; i < CHROMOSOME_SIZE; i++) {
             GroupClassTeacherLessonTimeSG s =
                 (GroupClassTeacherLessonTimeSG)fittestChromosome.getGene(i);
