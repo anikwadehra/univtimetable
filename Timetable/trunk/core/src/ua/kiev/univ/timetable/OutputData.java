@@ -83,6 +83,9 @@ class OutputData {
         for (int i = 0; i < Start.CHROMOSOME_SIZE; i++) {
             s[i] = (GroupClassTeacherLessonTimeSG)a_bestChromosome.getGene(i);
 
+            LessonGene lg = (LessonGene)s[i].geneAt(Start.LESSON);
+            TeacherGene tg = (TeacherGene)s[i].geneAt(Start.TEACHER);
+            ClassGene cg = (ClassGene)s[i].geneAt(Start.CLASS);
             // Here we are going through all of the id_groups and the id_times
             // and filling str[][] array
             for (int j = 0; j < max_idGroup; j++) {
@@ -90,9 +93,12 @@ class OutputData {
                     if ((Integer)s[i].geneAt(Start.GROUP).getAllele() == j &&
                         (Integer)s[i].geneAt(Start.TIME).getAllele() == k)
                         str[j][k] =
-                                s[i].geneAt(Start.LESSON).getAllele().toString() +"/"+
-                                s[i].geneAt(Start.TEACHER).getAllele().toString()+"/"+
-                                s[i].geneAt(Start.CLASS).getAllele().toString();
+                                lg.getName() + "/" +
+                                //s[i].geneAt(Start.LESSON).getAllele().toString() +"/"+
+                                tg.getName() + "/" +
+                                //s[i].geneAt(Start.TEACHER).getAllele().toString()+"/"+
+                                cg.getIdClass();
+                                //s[i].geneAt(Start.CLASS).getAllele().toString();
                 }
             }
         }
@@ -101,9 +107,13 @@ class OutputData {
         System.out.println("------------------------------");
         System.out.println("-----Lesson/Teacher/Class-----");
         System.out.print("   ");
-        for (int i = 0; i < max_idGroup; i++) {
-            System.out.print(i + "        ");
+        
+        for (String groupName : GroupGene.getAllNames()) {
+            System.out.print( groupName + "             ");
         }
+//        for (int i = 0; i < max_idGroup; i++) {
+//            System.out.print(i + "        ");
+//        }
 
         System.out.println("");
 

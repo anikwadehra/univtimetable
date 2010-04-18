@@ -33,14 +33,18 @@ public class Start {
     private static final String XML_TEST_FILENAME = "E:\\inputTimetable.xml";
     protected static int POPULATION_SIZE;
     protected static double THRESHOLD;
-    protected  static Integer CHROMOSOME_SIZE;
+    protected static Integer CHROMOSOME_SIZE;
+    protected static Integer MAX_NUMBER_OF_LESSONS;
+    protected static Integer MAX_NUMBER_OF_TEACHERS;
+    protected static Integer MAX_NUMBER_OF_CLASSES;
+    protected static Integer MAX_NUMBER_OF_GROUPS;
     private static long start_t = 0;
     private static long finish_t = 0;
 
 
     public static void main(String[] args) throws InvalidConfigurationException {
         
-        // Reading data from xml
+        // Reading data from xml    
         try {
             new InputData().readFromFile(XML_TEST_FILENAME);
         } catch (SAXException e) {
@@ -70,6 +74,7 @@ public class Start {
                                                                          });
         }
         System.out.println("==================================");
+        
         //Creating chromosome
         Chromosome testChromosome;
         testChromosome = new Chromosome(conf, testGenes );
@@ -131,11 +136,19 @@ public class Start {
         for (int i = 0; i < CHROMOSOME_SIZE; i++) {
             GroupClassTeacherLessonTimeSG s =
                 (GroupClassTeacherLessonTimeSG)fittestChromosome.getGene(i);
+            LessonGene lg = (LessonGene)s.geneAt(LESSON);
+            TeacherGene tg = (TeacherGene)s.geneAt(TEACHER);
+            ClassGene cg = (ClassGene)s.geneAt(CLASS);
+            GroupGene gg = (GroupGene)s.geneAt(GROUP);
+            
             System.out.println("Gene " + i + " contains: " +
-                               (Integer)s.geneAt(GROUP).getAllele() + " " +
-                               (Integer)s.geneAt(CLASS).getAllele() + " " +
-                               (Integer)s.geneAt(TEACHER).getAllele() + " " +
-                               (Integer)s.geneAt(LESSON).getAllele() + " " +
+                               gg.getIdGroup() + " " +
+                               //(Integer)s.geneAt(GROUP).getAllele() + " " +
+                               cg.getIdClass() + " " +
+                               //(Integer)s.geneAt(CLASS).getAllele() + " " +
+                               tg.getIdTeacher() + " " +
+                               //(Integer)s.geneAt(TEACHER).getAllele() + " " +
+                               lg.getIdLesson()+ " " +
                                (Integer)s.geneAt(TIME).getAllele());
         //GroupGene gg = (GroupGene)s.geneAt(GROUP);
         //System.out.println("gg's idGroup"+gg.getAllele()+" gg.getGroupSize()"+ gg.getGroupSize() );

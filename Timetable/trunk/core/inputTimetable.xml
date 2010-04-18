@@ -1,28 +1,32 @@
 <?xml version="1.0" encoding="windows-1251" ?>
-<timetable chromosome_size="4" population_size="20" max_evolution="1000" threshold="6">
+<timetable chromosome_size="8" population_size="500" max_evolution="1000" threshold="1">
   <genes>
     <classGenes>
       <classGene idClass="0" classSize="30"/>
-      <classGene idClass="1" classSize="30"/>
+      <classGene idClass="101" classSize="30"/>
+	  <classGene idClass="202" classSize="10"/>
+	  <classGene idClass="303" classSize="30"/>
     </classGenes>
     <groupGenes>
-      <groupGene idGroup="0" groupSize="20"/>
-      <groupGene idGroup="1" groupSize="20"/>
+      <groupGene idGroup="10" name="1.1" groupSize="25" lessons="1,2,3" times="5,5,7"/>
+      <groupGene idGroup="15" name="1.2" groupSize="20" lessons="1,2,3" times="5,5,7"/>
     </groupGenes>
     <teacherGenes>
-      <teacherGene idTeacher="0" avaliableLessons="1,2,3,4" avaliableTimeSlots="1,2,3,4"/>
-      <teacherGene idTeacher="1" avaliableLessons="1,2,3" avaliableTimeSlots="1,2,3,4"/>
+      <teacherGene idTeacher="15" name="John"  avaliableLessons="0,11,21" avaliableTimeSlots="0,1,2,3,4,5,6,7"/>
+      <teacherGene idTeacher="25" name="Mikle" avaliableLessons="31,51" avaliableTimeSlots="0,1,2,3,4"/>
     </teacherGenes>
     <lessonGenes>
-      <lessonGene idLesson="0"/>
-      <lessonGene idLesson="1"/>
-      <lessonGene idLesson="2"/>
-      <lessonGene idLesson="3"/>
-    </lessonGenes>
+      <lessonGene idLesson="0"  name="math"/>
+      <lessonGene idLesson="11" name="prog"/>
+	  <lessonGene idLesson="21" name="physics"/>
+	  <lessonGene idLesson="31" name="history"/>
+	  <lessonGene idLesson="51" name="labs"/>
+    </lessonGenes>	
     <timeGenes>
       <timeGene idTimeSlot="0"/>
       <timeGene idTimeSlot="1"/>
-      <timeGene idTimeSlot="2"/>
+	  <timeGene idTimeSlot="2"/>
+	  <timeGene idTimeSlot="3"/>
     </timeGenes>
   </genes>
 </timetable>

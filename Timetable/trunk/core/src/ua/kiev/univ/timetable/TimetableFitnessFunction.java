@@ -39,8 +39,9 @@ public class TimetableFitnessFunction extends FitnessFunction {
             
             //-----Teacher can teach only avaliable lessons
             tg = (TeacherGene)s[i].geneAt(Start.TEACHER);
+            lg = (LessonGene)s[i].geneAt(Start.LESSON);
             Integer[] avaliableLessons = tg.getAvaliableLessons();
-            Integer idCurrentLesson = (Integer)s[i].geneAt(Start.LESSON).getAllele();
+            Integer idCurrentLesson = lg.getIdLesson();
             boolean flag = false;  // If flag = false, than teacher can't teach current lesson; if true - he can do it.
             for (Integer lesson : avaliableLessons) {
                 if( lesson != null && lesson == idCurrentLesson ) flag = true;

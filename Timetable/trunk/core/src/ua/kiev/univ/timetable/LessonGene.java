@@ -10,36 +10,47 @@ import java.util.StringTokenizer;
 public class LessonGene extends IntegerGene implements Gene, Serializable {
 
   private static final String TOKEN_SEPARATOR = ":";
-  private Integer idLesson;
-  private static Integer max_idLesson;
+  
+  private Integer idLesson; // id of one particular LesonGene
+  private static Integer[] idLessons = new Integer[Start.MAX_NUMBER_OF_LESSONS]; // array of lessons id, setup from the inputTimetable.xml
+  
+  private Integer lessonNumber;
+  private static Integer max_numberOfLessons = Start.MAX_NUMBER_OF_LESSONS; // max number of lessons
 
+  private String name; // Name of a lesson
+  private static String[] all_names = new String[Start.MAX_NUMBER_OF_LESSONS]; //Store all names of lessons
+  
   public LessonGene(Configuration a_conf,
-                    Integer a_idLesson) throws InvalidConfigurationException {
+                    Integer a_LessonNumber) throws InvalidConfigurationException {
     super(a_conf);
-    idLesson = a_idLesson;
+    lessonNumber = a_LessonNumber;
+    idLesson = idLessons[lessonNumber];
+    name = all_names[a_LessonNumber];
   }
 
 
   @Override
   public Gene newGeneInternal() {
     try {
-      return new LessonGene(getConfiguration(), max_idLesson);
+      return new LessonGene(getConfiguration(), max_numberOfLessons-1);
     } catch (InvalidConfigurationException e) {
       throw new IllegalStateException(e.getMessage());
     }
   }
 
-  public void setAllele(Object a_idLesson) {
-    idLesson = (Integer)a_idLesson;
+  public void setAllele(Object a_LessonNumber) {
+    lessonNumber = (Integer)a_LessonNumber;
+    idLesson = idLessons[lessonNumber];
+    name = all_names[ (Integer)a_LessonNumber ];
   }
 
   public Object getAllele() {
-    return idLesson;
+    return lessonNumber;
   }
 
   @Override
   public String getPersistentRepresentation() throws UnsupportedOperationException {
-    return max_idLesson.toString() + TOKEN_SEPARATOR + idLesson.toString();
+    return max_numberOfLessons.toString() + TOKEN_SEPARATOR + idLesson.toString();
   }
 
   @Override
@@ -51,7 +62,7 @@ public class LessonGene extends IntegerGene implements Gene, Serializable {
     if (tokenizer.countTokens() != 2)
       throw new UnsupportedRepresentationException("Unknown representation format: Two tokens expected!");
     try {
-      max_idLesson = Integer.parseInt(tokenizer.nextToken());
+      max_numberOfLessons = Integer.parseInt(tokenizer.nextToken());
       idLesson = new Integer(tokenizer.nextToken());
     } catch (NumberFormatException ex) {
       throw new UnsupportedRepresentationException("Unknown representation format: Expecting integer values!");
@@ -60,26 +71,28 @@ public class LessonGene extends IntegerGene implements Gene, Serializable {
 
   @Override
   public void setToRandomValue(RandomGenerator a_randomGenerator) {
-    idLesson = new Integer(a_randomGenerator.nextInt(max_idLesson));
+    lessonNumber = new Integer(a_randomGenerator.nextInt(max_numberOfLessons));
+    idLesson = idLessons[ lessonNumber ];
+    name = all_names[lessonNumber];
   }
 
   @Override
   public void applyMutation(int a_index, double a_percentage) {
-    setAllele( getConfiguration().getRandomGenerator().nextInt(max_idLesson) );
+    setAllele( getConfiguration().getRandomGenerator().nextInt(max_numberOfLessons) );
   }
   
   public int compareTo(Object a_otherLessonGene) {
     if (a_otherLessonGene == null)
       return 1;
 
-    if (idLesson == null) {
+    if (lessonNumber == null) {
 
-      if (((LessonGene)a_otherLessonGene).idLesson == null)
+      if (((LessonGene)a_otherLessonGene).lessonNumber == null)
         return 0;
       else
         return -1;
     }
-    return idLesson.compareTo(((LessonGene)a_otherLessonGene).idLesson);
+    return lessonNumber.compareTo(((LessonGene)a_otherLessonGene).lessonNumber);
   }
 
   @Override
@@ -90,23 +103,39 @@ public class LessonGene extends IntegerGene implements Gene, Serializable {
   
   @Override
   public int hashCode() {
-      return idLesson;
+      return lessonNumber;
   }
 
 
   @Override
   public Object getInternalValue() {
-      return idLesson;
+      return lessonNumber;
   }
 
 
-  public static void setMax_idLesson(Integer a_max_idLesson) {
-    LessonGene.max_idLesson = a_max_idLesson;
-  }
+//  public static void setMax_numberOfLessons(Integer a_maxLesson) {
+//    LessonGene.max_numberOfLessons = a_maxLesson;
+//  }
 
-  public static Integer getMax_idLesson() {
-    return max_idLesson;
-  }
+//  public static Integer getMax_numberOfLessons() {
+//    return max_numberOfLessons;
+//  }
+
+    public static void setIdLessons(Integer a_idLessons, int a_index) {
+        LessonGene.idLessons[a_index] = a_idLessons;
+    }
+
+    public Integer getIdLesson() {
+        return idLesson;
+    }
+
+    public static void setAll_names(String a_all_names, int a_index) {
+        LessonGene.all_names[a_index] = a_all_names;
+    }
+
+    public String getName() {
+        return name;
+    }
 }
 
 

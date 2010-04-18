@@ -48,12 +48,14 @@ public class InputData {
     //---------------------------------------------------------------------
     // Get classGenes data
     NodeList classGenes = document.getElementsByTagName("classGene");
-    //Set maxIdClass
-    ClassGene.setMax_idClass(classGenes.getLength());
+    //Set MAX_NUMBER_OF_CLASSES
+    Start.MAX_NUMBER_OF_CLASSES = classGenes.getLength();
 
     for (int i = 0; i < classGenes.getLength(); i++) {
       Element classGene = (Element)classGenes.item(i);
-      ClassGene.setInputClassSize(Integer.parseInt(classGene.getAttribute("classSize")),
+      ClassGene.setAllClassSize(Integer.parseInt(classGene.getAttribute("classSize")),
+                                  i);
+      ClassGene.setIdClasses(Integer.parseInt(classGene.getAttribute("idClass")),
                                   i);
       System.out.println(classGene.getTagName() + ": idClass=" +
                          classGene.getAttribute("idClass") + " classSize=" +
@@ -62,14 +64,19 @@ public class InputData {
     //---------------------------------------------------------------------
     // Get groupGenes data
     NodeList groupGenes = document.getElementsByTagName("groupGene");
-    //Set maxIdGroup
-    GroupGene.setMax_idGroup(groupGenes.getLength());
+    //Set MAX_NUMBER_OF_GROUPS
+    Start.MAX_NUMBER_OF_GROUPS = groupGenes.getLength();
 
     for (int i = 0; i < groupGenes.getLength(); i++) {
       Element groupGene = (Element)groupGenes.item(i);
       //Set field groupSize in i-th GroupGene
-      GroupGene.setInputGroupSize(Integer.parseInt(groupGene.getAttribute("groupSize")),
+      GroupGene.setAllGroupSize(Integer.parseInt(groupGene.getAttribute("groupSize")),
                                   i);
+      GroupGene.setAllIdGroup(Integer.parseInt(groupGene.getAttribute("idGroup")),
+                                  i);
+      GroupGene.setAllNames(groupGene.getAttribute("name"), i);
+//      GroupGene.setStudy_plan( parseLine(groupGene.getAttribute("lessons")), 
+//                               parseLine(groupGene.getAttribute("times")), i );
 
       System.out.println(groupGene.getTagName() + ": idGroup=" +
                          groupGene.getAttribute("idGroup") + " groupSize=" +
@@ -87,14 +94,35 @@ public class InputData {
                          timeGene.getAttribute("idTimeSlot"));
 
     }
+     //---------------------------------------------------------------------
+     // Get lessonGene data
+     NodeList lessonGenes = document.getElementsByTagName("lessonGene");
+     //Set max_numberOfLessons
+     Start.MAX_NUMBER_OF_LESSONS = lessonGenes.getLength();
+     //LessonGene.setMax_numberOfLessons(lessonGenes.getLength());
+     for (int i = 0; i < lessonGenes.getLength(); i++) {
+       Element lessonGene = (Element)lessonGenes.item(i);
+       //Set idLesons 
+       LessonGene.setIdLessons( Integer.parseInt(lessonGene.getAttribute("idLesson")), i);
+       //Set all_names of the names
+       LessonGene.setAll_names( lessonGene.getAttribute("name"), i);
+       
+       System.out.println(lessonGene.getTagName()+ ": idLessonGene=" + 
+                          lessonGene.getAttribute("idLesson") +
+                          lessonGene.getAttribute("name"));
+     }
+
     //---------------------------------------------------------------------
     // Get teacherGenes data
     NodeList teacherGenes = document.getElementsByTagName("teacherGene");
-    //Set max_idTeacher
-    TeacherGene.setMax_idTeacher(teacherGenes.getLength());
+    //Set MAX_NUMBER_OF_TEACHERS
+    Start.MAX_NUMBER_OF_TEACHERS = teacherGenes.getLength();
+
     for (int i = 0; i < teacherGenes.getLength(); i++) {
       Element teacherGene = (Element)teacherGenes.item(i);
       
+      TeacherGene.setIdTeachers( Integer.parseInt(teacherGene.getAttribute("idTeacher")), i);
+      TeacherGene.setAll_names( teacherGene.getAttribute("name"), i);
       TeacherGene.setAll_avaliableLessons(
                     parseLine(teacherGene.getAttribute("avaliableLessons")), i);
       TeacherGene.setAll_avaliableTimeSlots(
@@ -102,6 +130,7 @@ public class InputData {
       String buffer1 = "";
       String buffer2 = "";
       
+      //System.out.println("avaliableLessons:"+parseLine(teacherGene.getAttribute("avaliableLessons")).length );
       for (Integer s : parseLine(teacherGene.getAttribute("avaliableLessons"))) {
         if( s != null ) buffer1 += s.toString();
       }
@@ -109,25 +138,14 @@ public class InputData {
       for (Integer s : parseLine(teacherGene.getAttribute("avaliableTimeSlots"))) {
         if( s != null )buffer2 += s.toString();
       }
-      
       System.out.println(teacherGene.getTagName() + ": idTeacherGene "+
-                         teacherGene.getAttribute("idTeacher") + 
+                         teacherGene.getAttribute("idTeacher") +
+                         teacherGene.getAttribute("name") +
                          " avaliableLessons=" + buffer1+
                          " avaliableTimeSlots=" + buffer2
                          );
     }
     
-    //---------------------------------------------------------------------
-    // Get lessonGene data
-    NodeList lessonGenes = document.getElementsByTagName("lessonGene");
-    //Set max_idLesson
-    LessonGene.setMax_idLesson(lessonGenes.getLength());
-    for (int i = 0; i < lessonGenes.getLength(); i++) {
-      Element lessonGene = (Element)lessonGenes.item(i);
-      System.out.println(lessonGene.getTagName()+ ": idLessonGene=" + 
-                         lessonGene.getAttribute("idLesson"));
-    }
-
   }
 
   private Integer[] parseLine(String a_line) {

@@ -9,23 +9,34 @@ import java.util.StringTokenizer;
 
 public class GroupGene extends IntegerGene implements Gene, Serializable {
   private static final String TOKEN_SEPARATOR = ":";
-  private static Integer max_idGroup; // Setup in InputData.readFromFile
-  private Integer idGroup;
+  
+  private Integer groupNumber;
   private Integer groupSize;
+  private Integer idGroup;
+  private String name;
+  
+  private static Integer[] allGroupSize = new Integer[Start.MAX_NUMBER_OF_GROUPS];
+  private static Integer[] allIdGroup = new Integer[Start.MAX_NUMBER_OF_GROUPS];
+  private static String[] allNames = new String[Start.MAX_NUMBER_OF_GROUPS];
+  private static Integer max_idGroup = Start.MAX_NUMBER_OF_GROUPS;
+ 
+  // study_plan[idGroup][idLesson] = how many times this lesson should take place
+  private static Integer[][] study_plan = new Integer[20][20];
+  //TODO: remove this magic numbers into constants
 
   //In the inputGroupSize we store the reference data about groupSize in the
   // GroupGene with particular idGroup
-  private static Integer[] inputGroupSize =
-    new Integer[100]; // Here 100 is maximum possible idGroup
-  //TODO: replace this magic number
+
 
   public GroupGene(Configuration a_conf,
-                   Integer a_idGroup) throws InvalidConfigurationException {
+                   Integer a_GroupNumber) throws InvalidConfigurationException {
     super(a_conf);
     //TODO: implement XML validation
     try {
-      idGroup = a_idGroup;
-      groupSize = inputGroupSize[a_idGroup];
+      groupNumber = a_GroupNumber;
+      idGroup = allIdGroup[groupNumber];
+      name = allNames[groupNumber];
+      groupSize = allGroupSize[groupNumber];
     } catch (Exception e) {
       throw new InvalidConfigurationException(e.getMessage());
     }
@@ -36,33 +47,37 @@ public class GroupGene extends IntegerGene implements Gene, Serializable {
   @Override
   public Gene newGeneInternal() {
     try {
-      return new GroupGene(getConfiguration(), max_idGroup);
+      return new GroupGene(getConfiguration(), max_idGroup-1);
     } catch (InvalidConfigurationException ex) {
       throw new IllegalStateException(ex.getMessage());
     }
   }
 
   public void setAllele(Object a_idGroup) {
-    idGroup = (Integer)a_idGroup;
-    groupSize = inputGroupSize[(Integer)a_idGroup];
+    groupNumber = (Integer)a_idGroup;
+    idGroup = allIdGroup[groupNumber];
+    name = allNames[groupNumber];
+    groupSize = allGroupSize[groupNumber];
   }
 
 
   public Object getAllele() {
-    return idGroup;
+    return groupNumber;
   }
 
   @Override
   public void setToRandomValue(RandomGenerator a_randomGenerator) {
-    idGroup = new Integer(a_randomGenerator.nextInt(max_idGroup));
-    groupSize = inputGroupSize[idGroup];
+    groupNumber = new Integer(a_randomGenerator.nextInt(max_idGroup));
+    idGroup = allIdGroup[groupNumber];
+    name = allNames[groupNumber];
+    groupSize = allGroupSize[groupNumber];
   }
 
 
   @Override
   public String getPersistentRepresentation()
     /* throws UnsupportedRepresentationException */ {
-    return max_idGroup.toString() + TOKEN_SEPARATOR + idGroup.toString();
+    return max_idGroup.toString() + TOKEN_SEPARATOR + groupNumber.toString();
   }
 
 
@@ -76,7 +91,7 @@ public class GroupGene extends IntegerGene implements Gene, Serializable {
       throw new UnsupportedRepresentationException("Unknown representation format: Two tokens expected!");
     try {
       max_idGroup = Integer.parseInt(tokenizer.nextToken());
-      idGroup = new Integer(tokenizer.nextToken());
+      groupNumber = new Integer(tokenizer.nextToken());
     } catch (NumberFormatException ex) {
       throw new UnsupportedRepresentationException("Unknown representation format: Expecting integer values!");
     }
@@ -88,15 +103,15 @@ public class GroupGene extends IntegerGene implements Gene, Serializable {
     if (a_otherGroupGene == null)
       return 1;
 
-    if (idGroup == null) {
+    if (groupNumber == null) {
 
-      if (((GroupGene)a_otherGroupGene).idGroup == null)
+      if (((GroupGene)a_otherGroupGene).groupNumber == null)
         return 0;
       else
         return -1;
     }
 
-    return idGroup.compareTo(((GroupGene)a_otherGroupGene).idGroup);
+    return groupNumber.compareTo(((GroupGene)a_otherGroupGene).groupNumber);
   }
 
   @Override
@@ -107,13 +122,13 @@ public class GroupGene extends IntegerGene implements Gene, Serializable {
 
   @Override
   public int hashCode() {
-    return idGroup;
+    return groupNumber;
   }
 
 
   @Override
   public Object getInternalValue() {
-    return idGroup;
+    return groupNumber;
   }
 
   @Override
@@ -130,12 +145,41 @@ public class GroupGene extends IntegerGene implements Gene, Serializable {
     return max_idGroup;
   }
 
-  public static void setMax_idGroup(Integer a_max_idGroup) {
-    max_idGroup = a_max_idGroup;
+  public static void setAllGroupSize(Integer a_inputGroupSize, int a_index) {
+    GroupGene.allGroupSize[a_index] = a_inputGroupSize;
   }
 
+    public static void setStudy_plan(Integer[] a_lessons, Integer[] a_times, int a_index) {
+        int lesson_index = 0;
+        int times_index = 0;
+        
+        for (int i = 0; i < a_lessons.length; i++) {
+            if( a_lessons[i] != null ){
+                lesson_index++;
+                for (int j = 0; j < a_times.length; j++) {
+                    if( a_lessons[i] != null) i++;               
+                }                
+            }
+        }
+    }
 
-  public static void setInputGroupSize(Integer a_inputGroupSize, int a_index) {
-    GroupGene.inputGroupSize[a_index] = a_inputGroupSize;
-  }
+    public static void setAllIdGroup(Integer a_allIdGroup, int a_index) {
+        allIdGroup[a_index] = a_allIdGroup;
+    }
+
+    public static void setAllNames(String a_allNames, int a_index) {
+        allNames[a_index] = a_allNames;
+    }
+
+    public Integer getIdGroup() {
+        return idGroup;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public static String[] getAllNames() {
+        return allNames;
+    }
 }
