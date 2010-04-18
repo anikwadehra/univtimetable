@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<timetable chromosome_size="4" population_size="20" max_evolution="1000" threshold="6">
+  <genes>
+    <classGenes>
+      <classGene idClass="0" classSize="30"/>
+      <classGene idClass="1" classSize="30"/>
+    </classGenes>
+    <groupGenes>
+      <groupGene idGroup="0" groupSize="20"/>
+      <groupGene idGroup="1" groupSize="20"/>
+    </groupGenes>
+    <teacherGenes>
+      <teacherGene idTeacher="0" avaliableLessons="1,2,3,4" avaliableTimeSlots="1,2,3,4"/>
+      <teacherGene idTeacher="1" avaliableLessons="1,2,3" avaliableTimeSlots="1,2,3,4"/>
+    </teacherGenes>
+    <lessonGenes>
+      <lessonGene idLesson="0"/>
+      <lessonGene idLesson="1"/>
+      <lessonGene idLesson="2"/>
+      <lessonGene idLesson="3"/>
+    </lessonGenes>
+    <timeGenes>
+      <timeGene idTimeSlot="0"/>
+      <timeGene idTimeSlot="1"/>
+      <timeGene idTimeSlot="2"/>
+    </timeGenes>
+  </genes>
+</timetable>
