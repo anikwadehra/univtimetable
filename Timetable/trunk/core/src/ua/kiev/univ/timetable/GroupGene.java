@@ -14,20 +14,25 @@ public class GroupGene extends IntegerGene implements Gene, Serializable {
   private Integer groupSize;
   private Integer idGroup;
   private String name;
+  // studyPlan[idLesson] = how many times this lesson should be teach
+  private Integer[] studyPlan = new Integer[Start.MAX_NUMBER_OF_LESSONS];
+  //Lessons that should be teach for group
+  private Integer[] idLessons = new Integer[Start.MAX_NUMBER_OF_LESSONS];
+  //how many times lessons that assign for a group should be teach
+  private Integer[] times = new Integer[Start.MAX_NUMBER_OF_LESSONS];
   
   private static Integer[] allGroupSize = new Integer[Start.MAX_NUMBER_OF_GROUPS];
   private static Integer[] allIdGroup = new Integer[Start.MAX_NUMBER_OF_GROUPS];
   private static String[] allNames = new String[Start.MAX_NUMBER_OF_GROUPS];
   private static Integer max_idGroup = Start.MAX_NUMBER_OF_GROUPS;
- 
-  // study_plan[idGroup][idLesson] = how many times this lesson should take place
-  private static Integer[][] study_plan = new Integer[20][20];
-  //TODO: remove this magic numbers into constants
+  // all_studyPlan[idGroup][idLesson] = times;   keep studyPlan for all groups
+  private static Integer[][] all_studyPlan = new Integer[Start.MAX_NUMBER_OF_GROUPS][Start.MAX_NUMBER_OF_LESSONS];
+  //Lessons that should be teach for all groups
+  private static Integer[][] all_idLessons = new Integer[Start.MAX_NUMBER_OF_GROUPS][Start.MAX_NUMBER_OF_LESSONS];
+  //how many times lessons that assign for all groups should be teach
+  private static Integer[][] all_times = new Integer[Start.MAX_NUMBER_OF_GROUPS][Start.MAX_NUMBER_OF_LESSONS];
 
-  //In the inputGroupSize we store the reference data about groupSize in the
-  // GroupGene with particular idGroup
-
-
+  //TODO: remove field studyPlan
   public GroupGene(Configuration a_conf,
                    Integer a_GroupNumber) throws InvalidConfigurationException {
     super(a_conf);
@@ -149,20 +154,6 @@ public class GroupGene extends IntegerGene implements Gene, Serializable {
     GroupGene.allGroupSize[a_index] = a_inputGroupSize;
   }
 
-    public static void setStudy_plan(Integer[] a_lessons, Integer[] a_times, int a_index) {
-        int lesson_index = 0;
-        int times_index = 0;
-        
-        for (int i = 0; i < a_lessons.length; i++) {
-            if( a_lessons[i] != null ){
-                lesson_index++;
-                for (int j = 0; j < a_times.length; j++) {
-                    if( a_lessons[i] != null) i++;               
-                }                
-            }
-        }
-    }
-
     public static void setAllIdGroup(Integer a_allIdGroup, int a_index) {
         allIdGroup[a_index] = a_allIdGroup;
     }
@@ -181,5 +172,30 @@ public class GroupGene extends IntegerGene implements Gene, Serializable {
 
     public static String[] getAllNames() {
         return allNames;
+    }
+
+    public static void setAll_studyPlan(Integer[] a_lessons, Integer[] a_times, int a_index) {
+        int counter = 0;
+        for (int i = 0; i < a_lessons.length; i++) {
+            if( a_lessons[i] != null ) {
+                all_idLessons[a_index][counter] = a_lessons[i];
+                counter++;
+            }
+        }
+        counter = 0;
+        for (int i = 0; i < a_times.length; i++) {
+            if( a_times[i] != null ) {
+                all_times[a_index][counter] = a_times[i];
+                counter++;
+            }        
+        }
+    }
+
+    public static Integer[][] getAll_idLessons() {
+        return all_idLessons;
+    }
+
+    public static Integer[][] getAll_times() {
+        return all_times;
     }
 }

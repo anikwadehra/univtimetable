@@ -61,6 +61,23 @@ public class InputData {
                          classGene.getAttribute("idClass") + " classSize=" +
                          classGene.getAttribute("classSize"));
     }
+      //---------------------------------------------------------------------
+      // Get lessonGene data
+      NodeList lessonGenes = document.getElementsByTagName("lessonGene");
+      //Set max_numberOfLessons
+      Start.MAX_NUMBER_OF_LESSONS = lessonGenes.getLength();
+      //LessonGene.setMax_numberOfLessons(lessonGenes.getLength());
+      for (int i = 0; i < lessonGenes.getLength(); i++) {
+        Element lessonGene = (Element)lessonGenes.item(i);
+        //Set idLesons 
+        LessonGene.setIdLessons( Integer.parseInt(lessonGene.getAttribute("idLesson")), i);
+        //Set all_names of the names
+        LessonGene.setAll_names( lessonGene.getAttribute("name"), i);
+        
+        System.out.println(lessonGene.getTagName()+ ": idLessonGene=" + 
+                           lessonGene.getAttribute("idLesson") +
+                           lessonGene.getAttribute("name"));
+      }
     //---------------------------------------------------------------------
     // Get groupGenes data
     NodeList groupGenes = document.getElementsByTagName("groupGene");
@@ -75,9 +92,9 @@ public class InputData {
       GroupGene.setAllIdGroup(Integer.parseInt(groupGene.getAttribute("idGroup")),
                                   i);
       GroupGene.setAllNames(groupGene.getAttribute("name"), i);
-//      GroupGene.setStudy_plan( parseLine(groupGene.getAttribute("lessons")), 
-//                               parseLine(groupGene.getAttribute("times")), i );
-
+      GroupGene.setAll_studyPlan( parseLine(groupGene.getAttribute("lessons")),
+                                  parseLine(groupGene.getAttribute("times")), i);
+      
       System.out.println(groupGene.getTagName() + ": idGroup=" +
                          groupGene.getAttribute("idGroup") + " groupSize=" +
                          groupGene.getAttribute("groupSize"));
@@ -94,23 +111,6 @@ public class InputData {
                          timeGene.getAttribute("idTimeSlot"));
 
     }
-     //---------------------------------------------------------------------
-     // Get lessonGene data
-     NodeList lessonGenes = document.getElementsByTagName("lessonGene");
-     //Set max_numberOfLessons
-     Start.MAX_NUMBER_OF_LESSONS = lessonGenes.getLength();
-     //LessonGene.setMax_numberOfLessons(lessonGenes.getLength());
-     for (int i = 0; i < lessonGenes.getLength(); i++) {
-       Element lessonGene = (Element)lessonGenes.item(i);
-       //Set idLesons 
-       LessonGene.setIdLessons( Integer.parseInt(lessonGene.getAttribute("idLesson")), i);
-       //Set all_names of the names
-       LessonGene.setAll_names( lessonGene.getAttribute("name"), i);
-       
-       System.out.println(lessonGene.getTagName()+ ": idLessonGene=" + 
-                          lessonGene.getAttribute("idLesson") +
-                          lessonGene.getAttribute("name"));
-     }
 
     //---------------------------------------------------------------------
     // Get teacherGenes data

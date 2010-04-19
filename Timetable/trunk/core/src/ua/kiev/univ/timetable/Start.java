@@ -73,6 +73,23 @@ public class Start {
                                                                    new TimeGene(conf,1) 
                                                                          });
         }
+        
+        Integer[][] all_idLessons = GroupGene.getAll_idLessons();
+        Integer[][] all_times = GroupGene.getAll_times();
+        for (int i = 0; i < MAX_NUMBER_OF_GROUPS; i++) {
+            System.out.println("group:"+i);
+            for (Integer j : all_idLessons[i]) {
+                System.out.print(" "+j);
+            }
+            System.out.println(" ");
+            for (Integer j : all_times[i]) {
+                System.out.print(" "+j);
+            }
+            System.out.println(" ");
+        }
+        
+
+
         System.out.println("==================================");
         
         //Creating chromosome
