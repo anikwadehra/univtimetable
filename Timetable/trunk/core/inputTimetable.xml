@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="windows-1251" ?>
-<timetable chromosome_size="8" population_size="500" max_evolution="1000" threshold="1">
+<timetable chromosome_size="8" population_size="50" max_evolution="1000" threshold="1">
   <genes>
     <classGenes>
       <classGene idClass="0" classSize="30"/>
@@ -8,12 +8,12 @@
 	  <classGene idClass="303" classSize="30"/>
     </classGenes>
     <groupGenes>
-      <groupGene idGroup="10" name="1.1" groupSize="25" lessons="1,2,3" times="5,5,7"/>
-      <groupGene idGroup="15" name="1.2" groupSize="20" lessons="1,2,3" times="5,5,7"/>
+      <groupGene idGroup="10" name="1.1" groupSize="25" lessons="111,     222,    333   , , , " times=", 1 2 ,3"/>
+      <groupGene idGroup="15" name="1.2" groupSize="20" lessons="3,4" times="30,40"/>
     </groupGenes>
     <teacherGenes>
-      <teacherGene idTeacher="15" name="John"  avaliableLessons="0,11,21" avaliableTimeSlots="0,1,2,3,4,5,6,7"/>
-      <teacherGene idTeacher="25" name="Mikle" avaliableLessons="31,51" avaliableTimeSlots="0,1,2,3,4"/>
+      <teacherGene idTeacher="15" name="John"  avaliableLessons="21" avaliableTimeSlots="0,1,2,3,4,5,6,7"/>
+      <teacherGene idTeacher="25" name="Mikle" avaliableLessons="11" avaliableTimeSlots="0,1,2,3,4"/>
     </teacherGenes>
     <lessonGenes>
       <lessonGene idLesson="0"  name="math"/>
