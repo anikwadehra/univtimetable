@@ -98,6 +98,14 @@ public class InputData {
       System.out.println(groupGene.getTagName() + ": idGroup=" +
                          groupGene.getAttribute("idGroup") + " groupSize=" +
                          groupGene.getAttribute("groupSize"));
+      Integer[] times = parseLine(groupGene.getAttribute("times"));
+      Integer[] lessons = parseLine(groupGene.getAttribute("lessons"));  
+      for (int k=0; k<lessons.length; k++ ) {
+                if( lessons[k] != null )
+                System.out.println("idGroup:" + groupGene.getAttribute("idGroup") + 
+                                   " should teach lesson:" + lessons[k] +
+                                   " "+ times[k] + " times");
+            }
     }
     //----------------------------------------------------------------------
     // Get timeGenes data

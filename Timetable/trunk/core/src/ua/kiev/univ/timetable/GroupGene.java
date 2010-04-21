@@ -20,11 +20,9 @@ public class GroupGene extends IntegerGene implements Gene, Serializable {
     //how many times lessons that assign for a group should be teach
     private Integer[] times = new Integer[Start.MAX_NUMBER_OF_LESSONS];
 
-    private static Integer[] allGroupSize =
-        new Integer[Start.MAX_NUMBER_OF_GROUPS];
-    private static Integer[] allIdGroup =
-        new Integer[Start.MAX_NUMBER_OF_GROUPS];
-    private static String[] allNames = new String[Start.MAX_NUMBER_OF_GROUPS];
+    private static Integer[] allGroupSize = new Integer[Start.MAX_NUMBER_OF_GROUPS];
+    private static Integer[] allIdGroup =   new Integer[Start.MAX_NUMBER_OF_GROUPS];
+    private static String[]  allNames = new String[Start.MAX_NUMBER_OF_GROUPS];
     private static Integer max_idGroup = Start.MAX_NUMBER_OF_GROUPS;
 
     //Lessons that should be teach for all groups

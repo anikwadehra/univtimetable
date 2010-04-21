@@ -24,11 +24,9 @@ public class TimetableFitnessFunction extends FitnessFunction {
 
         for (int i = 0; i < Start.MAX_NUMBER_OF_GROUPS; i++) {
             for (int j = 0; j < Start.MAX_NUMBER_OF_LESSONS; j++) {
-                actualTimes[i][j] = 0;
+                    actualTimes[i][j] = 0;
             }
-
         }
-
 
         // Extract supergenes from chromosome
         GroupClassTeacherLessonTimeSG[] s =
@@ -36,10 +34,8 @@ public class TimetableFitnessFunction extends FitnessFunction {
         for (int i = 0; i < Start.CHROMOSOME_SIZE; i++) {
             s[i] = (GroupClassTeacherLessonTimeSG)a_subject.getGene(i);
         }
-
         //------------Checking hard constraints----------------------------
-
-
+        
         for (int i = 0; i < Start.CHROMOSOME_SIZE; i++) {
 
             //------Class size must be greater or equal than group size
@@ -53,8 +49,7 @@ public class TimetableFitnessFunction extends FitnessFunction {
             lg = (LessonGene)s[i].geneAt(Start.LESSON);
             Integer[] avaliableLessons = tg.getAvaliableLessons();
             Integer idCurrentLesson = lg.getIdLesson();
-            boolean flag =
-                false; // If flag = false, than teacher can't teach current lesson; if true - he can do it.
+            boolean flag = false; // If flag = false, than teacher can't teach current lesson; if true - he can do it.
             for (Integer lesson : avaliableLessons) {
                 if (lesson != null && lesson == idCurrentLesson)
                     flag = true;
@@ -74,18 +69,19 @@ public class TimetableFitnessFunction extends FitnessFunction {
             }
             if (flag == false)
                 penalty += 10; //return 0;
-
-            //Checking study plan
-            actualTimes[(Integer)gg.getAllele()][(Integer)lg.getAllele()]++;
-            if( i == Start.CHROMOSOME_SIZE-1 ){
-                Integer[] times = gg.getTimes();
-                for (int j = 0; j < Start.MAX_NUMBER_OF_GROUPS; j++) {
-                    for (int k = 0; k < Start.MAX_NUMBER_OF_LESSONS; k++) {
-                        System.out.println(k+" "+actualTimes[j][k]+" "+times[k]);
-                    }
-                }
-
-            }
+            
+//            //Checking study plan
+//            actualTimes[(Integer)gg.getAllele()][(Integer)lg.getAllele()]++;
+//            if( i == Start.CHROMOSOME_SIZE-1 ){
+//                Integer[] times = gg.getTimes();
+//                for (int j = 0; j < Start.MAX_NUMBER_OF_GROUPS; j++) {
+//                    for (int k = 0; k < Start.MAX_NUMBER_OF_LESSONS; k++) {
+//                        //System.out.println("for group number:"+j+" lesson:"+k+" actual:"+actualTimes[j][k]+" should be:"+times[k]);
+//                        if( actualTimes[j][k] != times[k] ) penalty += 10;
+//                    }
+//                }
+//
+//            }
 
             for (int j = 0; j < Start.CHROMOSOME_SIZE; j++) {
 
