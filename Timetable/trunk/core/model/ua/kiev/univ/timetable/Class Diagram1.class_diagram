@@ -615,7 +615,7 @@
     </contained>
     <contained xmi:type='DI:GraphEdge' xmi:id='id0271b4be-75e1-4f3f-bd63-023245149c70' anchor='idbf962f05-0226-4701-9037-c66682836beb id0e18a4c4-b687-4cd9-ad01-5b3c8e86bb59'>
       <contained xmi:type='DI:GraphNode' xmi:id='id0eee00a1-336b-4529-afff-9a92d3f17a00'>
-        <position x='-55.5' y='-49.40234375'/>
+        <position x='-55.5' y='-72.103515625'/>
         <semanticModel xmi:type='DI:SimpleSemanticModelBridge' typeInfo='stereotype'/>
       </contained>
       <contained xmi:type='DI:GraphNode' xmi:id='id0d7823a8-77b1-46ce-8b4b-a0f6cd1c1f9a'>
@@ -647,7 +647,7 @@
     </contained>
     <contained xmi:type='DI:GraphEdge' xmi:id='ide03ac077-8dc5-43ce-8692-99b3e218d3da' anchor='idbf962f05-0226-4701-9037-c66682836beb ide2a37c23-7e45-43b3-8f31-a78b0bc007d6'>
       <contained xmi:type='DI:GraphNode' xmi:id='idf86963a6-4e29-4e03-a745-ebf061353c95'>
-        <position x='-55.5' y='49.40234375'/>
+        <position x='-55.5' y='72.103515625'/>
         <semanticModel xmi:type='DI:SimpleSemanticModelBridge' typeInfo='stereotype'/>
       </contained>
       <contained xmi:type='DI:GraphNode' xmi:id='id70e959d2-3efd-445a-b38e-dc7a003aad5f'>
@@ -752,7 +752,7 @@
     </contained>
     <contained xmi:type='DI:GraphEdge' xmi:id='idae478d9b-e5f0-4e99-8db4-0dbe86923639' anchor='idbf962f05-0226-4701-9037-c66682836beb id3c482770-cb8e-419c-8e6a-4052e99f463d'>
       <contained xmi:type='DI:GraphNode' xmi:id='idede2c2b4-c726-4265-8008-68f9d21cce29'>
-        <position x='-55.5' y='-49.40234375'/>
+        <position x='-55.5' y='-72.103515625'/>
         <semanticModel xmi:type='DI:SimpleSemanticModelBridge' typeInfo='stereotype'/>
       </contained>
       <contained xmi:type='DI:GraphNode' xmi:id='id121494aa-a799-4482-b9ae-48b87ee00d57'>
@@ -857,7 +857,7 @@
     </contained>
     <contained xmi:type='DI:GraphEdge' xmi:id='id5ef1d093-f125-4071-98bf-817ead828e95' anchor='idbf962f05-0226-4701-9037-c66682836beb iddc019f55-1c1a-4ad5-b370-693afd99f920'>
       <contained xmi:type='DI:GraphNode' xmi:id='id494c1b38-369e-4a7c-935c-1a44d7e78881'>
-        <position x='-55.5' y='-49.40234375'/>
+        <position x='-55.5' y='-72.103515625'/>
         <semanticModel xmi:type='DI:SimpleSemanticModelBridge' typeInfo='stereotype'/>
       </contained>
       <contained xmi:type='DI:GraphNode' xmi:id='id29736d4c-fd9a-4978-9919-3f86a572492d'>

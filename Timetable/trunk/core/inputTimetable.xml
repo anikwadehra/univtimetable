@@ -1,32 +1,27 @@
 <?xml version="1.0" encoding="windows-1251" ?>
-<timetable chromosome_size="8" population_size="50" max_evolution="1000" threshold="1">
+<timetable chromosome_size="4" population_size="50" max_evolution="1000" threshold="1">
   <genes>
     <classGenes>
-      <classGene idClass="0" classSize="30"/>
+      <classGene idClass="401" classSize="30"/>
       <classGene idClass="101" classSize="30"/>
-	  <classGene idClass="202" classSize="10"/>
+	  <classGene idClass="202" classSize="30"/>
 	  <classGene idClass="303" classSize="30"/>
-    </classGenes>
+	</classGenes>
     <groupGenes>
-      <groupGene idGroup="10" name="1.1" groupSize="25" lessons="111,     222,    333   , , , " times=", 1 2 ,3"/>
-      <groupGene idGroup="15" name="1.2" groupSize="20" lessons="3,4" times="30,40"/>
+      <groupGene idGroup="10" idSuperGroup ="1" name="1.1" groupSize="25" lessons="10,11" times="1,2"/>
+      <groupGene idGroup="15" name="1.2" groupSize="20" lessons="10,11" times="1,2"/>
     </groupGenes>
     <teacherGenes>
-      <teacherGene idTeacher="15" name="John"  avaliableLessons="21" avaliableTimeSlots="0,1,2,3,4,5,6,7"/>
-      <teacherGene idTeacher="25" name="Mikle" avaliableLessons="11" avaliableTimeSlots="0,1,2,3,4"/>
-    </teacherGenes>
+      <teacherGene idTeacher="15" name="John"  avaliableLessons="10,11" avaliableTimeSlots="0,1" avaliableGroups/>
+      <teacherGene idTeacher="25" name="Mikle" avaliableLessons="10,11" avaliableTimeSlots="0,1"/>
+	</teacherGenes>
     <lessonGenes>
-      <lessonGene idLesson="0"  name="math"/>
-      <lessonGene idLesson="11" name="prog"/>
-	  <lessonGene idLesson="21" name="physics"/>
-	  <lessonGene idLesson="31" name="history"/>
-	  <lessonGene idLesson="51" name="labs"/>
+      <lessonGene idLesson="10"  name="math" isForSuperGroup="0/1" isForSubGroup="0/1"/>
+      <lessonGene idLesson="11"  name="prog"/>
     </lessonGenes>	
     <timeGenes>
       <timeGene idTimeSlot="0"/>
       <timeGene idTimeSlot="1"/>
-	  <timeGene idTimeSlot="2"/>
-	  <timeGene idTimeSlot="3"/>
     </timeGenes>
   </genes>
 </timetable>
