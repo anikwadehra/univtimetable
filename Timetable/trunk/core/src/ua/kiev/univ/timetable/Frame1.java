@@ -114,6 +114,11 @@ public class Frame1 extends JFrame {
         jMenuItem1.setText("Открыть входные данные (XML)");
         jMenuItem2.setText("Открыть расписание (XML)");
         jMenuItem3.setText("О программе");
+        jMenuItem3.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    helpAbout_ActionPerformed(e);
+                }
+            });
         menuFile.add(jMenuItem1);
         menuFile.add(jMenuItem2);
         menuFile.addSeparator();
@@ -153,7 +158,7 @@ public class Frame1 extends JFrame {
 
     void helpAbout_ActionPerformed(ActionEvent e) {
         JOptionPane.showMessageDialog(this, new Frame1_AboutBoxPanel1(),
-                                      "About", JOptionPane.PLAIN_MESSAGE);
+                                      "О программе", JOptionPane.PLAIN_MESSAGE);
     }
     
     void fileRun_ActionPerformed(ActionEvent e){
