@@ -56,7 +56,7 @@ public class Start {
         }
         
         //Configuration conf = new DefaultConfiguration();
-        Configuration conf = new Configuration("myconf");
+        Configuration conf = new Configuration("1","myconf");
         TimetableFitnessFunction fitnessFunction =
             new TimetableFitnessFunction();
         InitialConstraintChecker timetableConstraintChecker =
@@ -185,6 +185,9 @@ public class Start {
         } catch (IOException e) {
             System.out.println("IOException raised! " + e.getMessage());
         }
+        
+        //reset configuration
+        conf.reset("1");
 
     }
 
