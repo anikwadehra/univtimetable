@@ -28,11 +28,12 @@ public class Frame1_AboutBoxPanel1 extends JPanel {
     private void jbInit() throws Exception {
         this.setLayout( layoutMain );
         this.setBorder( border );
-        labelTitle.setText( "Title" );
-        labelAuthor.setText( "Author" );
-        labelCopyright.setText( "Copyright" );
-        labelCompany.setText( "Company" );
-        this.add( labelTitle, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 15, 0, 15), 0, 0) );
+        labelTitle.setText( "Программа Timetable 0.5" );
+        labelAuthor.setText( "Автор: Парамуда Дмитрий" );
+        labelCopyright.setText( "КНУ им.Шевченка, РФФ" );
+        labelCompany.setText( "Киев, 2010г" );
+        this.add( labelTitle, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.WEST, GridBagConstraints.NONE,
+                    new Insets(5, 15, 0, 15), 0, 0));
         this.add( labelAuthor, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 15, 0, 15), 0, 0) );
         this.add( labelCopyright, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 15, 0, 15), 0, 0) );
         this.add( labelCompany, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 15, 5, 15), 0, 0) );
