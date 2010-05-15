@@ -30,7 +30,8 @@ public class Start {
     protected static int MAX_EVOLUTIONS;
     private static final String GENOTYPE_FILENAME = "E:\\population.xml";
     private static final String BEST_CHROMOSOME_FILENAME = "E:\\best_chromosome.xml";
-    private static final String XML_TEST_FILENAME = "E:\\inputTimetable.xml";
+    //private static final String XML_TEST_FILENAME = "E:\\inputTimetable.xml";
+    protected static     String XML_TEST_FILENAME;
     protected static int POPULATION_SIZE;
     protected static double THRESHOLD;
     protected static Integer CHROMOSOME_SIZE;
@@ -48,11 +49,14 @@ public class Start {
         try {
             new InputData().readFromFile(XML_TEST_FILENAME);
         } catch (SAXException e) {
-            System.out.println(e.getMessage());
+            System.out.println("SAXException"+e.getMessage());
+            System.exit(1);
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            System.out.println("IOException"+e.getMessage());
+            System.exit(1);
         } catch (ParserConfigurationException e) {
-            System.out.println(e.getMessage());
+            System.exit(1);
+            System.out.println("ParserConfigurationException"+e.getMessage());
         }
         
         //Configuration conf = new DefaultConfiguration();
@@ -191,5 +195,8 @@ public class Start {
 
     }
 
+    protected static void setXML_TEST_FILENAME(String XML_TEST_FILENAME) {
+        Start.XML_TEST_FILENAME = XML_TEST_FILENAME;
+    }
 }
 

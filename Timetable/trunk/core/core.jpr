@@ -57,12 +57,30 @@
    <value n="defaultPackage" v="core"/>
    <hash n="oracle.ide.model.ResourcePaths">
       <hash n="resourcesContentSet">
-         <list n="pattern-filters">
-            <string v="+*"/>
+         <list n="constituent-sets">
+            <hash>
+               <list n="pattern-filters"/>
+               <list n="url-path">
+                  <url protocol="file" path="/E:/Mydoc/Timetable/"/>
+               </list>
+            </hash>
+            <hash>
+               <list n="pattern-filters"/>
+               <list n="url-path">
+                  <url path="Icons/"/>
+               </list>
+            </hash>
+            <hash>
+               <list n="pattern-filters">
+                  <string v="-Icons/run-icon.png"/>
+                  <string v="+*"/>
+               </list>
+               <list n="url-path">
+                  <url path="."/>
+               </list>
+            </hash>
          </list>
-         <list n="url-path">
-            <url path="."/>
-         </list>
+         <list n="url-path"/>
       </hash>
    </hash>
    <hash n="oracle.ide.model.TechnologyScopeConfiguration">
@@ -110,6 +128,13 @@
                </list>
                <list n="url-path">
                   <url path="src/ua/kiev/univ/timeteble/"/>
+               </list>
+            </hash>
+            <hash>
+               <url n="content-folder-url" protocol="file" path="/E:/Mydoc/Timetable/"/>
+               <list n="pattern-filters"/>
+               <list n="url-path">
+                  <url protocol="file" path="/E:/Mydoc/Timetable/"/>
                </list>
             </hash>
          </list>

@@ -3,15 +3,15 @@ package ua.kiev.univ.timetable;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import java.io.File;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -20,11 +20,9 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.JTextField;
 import javax.swing.JToolBar;
 
-import oracle.jdeveloper.layout.XYConstraints;
-import oracle.jdeveloper.layout.XYLayout;
+import javax.swing.filechooser.FileFilter;
 
 import org.jgap.InvalidConfigurationException;
 
@@ -40,19 +38,22 @@ public class Frame1 extends JFrame {
     private JToolBar toolBar = new JToolBar();
     private JButton buttonOpen = new JButton();
     private JButton buttonClose = new JButton();
+    private JButton buttonRun = new JButton();
     private JButton buttonHelp = new JButton();
     private ImageIcon imageOpen =
         new ImageIcon(Frame1.class.getResource("openfile.gif"));
     private ImageIcon imageClose =
         new ImageIcon(Frame1.class.getResource("closefile.gif"));
+    private ImageIcon imageRun =
+        new ImageIcon(Frame1.class.getResource("run-icon.png"));
     private ImageIcon imageHelp =
         new ImageIcon(Frame1.class.getResource("help.gif"));
     private JMenuItem menuFileRun = new JMenuItem();
-    
-   //---------Tabs -----------------------
+
+    //---------Tabs -----------------------
     private JTabbedPane jTabbedPanelMain = new JTabbedPane();
     private GridLayout gridLayout1 = new GridLayout();
-    
+
     //------Panels---------------------------------
     //------------Lists----------------------------
     private JTabbedPane tpLists = new JTabbedPane();
@@ -68,9 +69,13 @@ public class Frame1 extends JFrame {
     //------------Timetable------------------------
     private JTabbedPane tbTimetable = new JTabbedPane();
     private JPanel panelTimetableOne = new JPanel();
-    private JMenuItem jMenuItem1 = new JMenuItem();
-    private JMenuItem jMenuItem2 = new JMenuItem();
-    private JMenuItem jMenuItem3 = new JMenuItem();
+    private JMenuItem menuFileOpenInputData = new JMenuItem();
+    private JMenuItem menuFileOpenTimetable = new JMenuItem();
+    private JMenuItem menuHelpAbout = new JMenuItem();
+    private JLabel labelFileName = new JLabel();
+    
+    //----------FileChooser----------------
+    JFileChooser fc = new JFileChooser("e:\\");
 
 
     public Frame1() {
@@ -98,44 +103,63 @@ public class Frame1 extends JFrame {
         statusBar.setText("");
         buttonOpen.setToolTipText("Open File");
         buttonOpen.setIcon(imageOpen);
+        buttonOpen.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    menuFileOpenInputData_actionPerformed(e);
+                }
+            });
         buttonClose.setToolTipText("Close File");
         buttonClose.setIcon(imageClose);
+        buttonRun.setToolTipText("Составить расписание");
+        buttonRun.setIcon(imageRun);
+        buttonRun.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    fileRun_ActionPerformed(e);
+                }
+            });
         buttonHelp.setToolTipText("About");
         buttonHelp.setIcon(imageHelp);
         menuFileRun.setText("Запуск");
         menuFileRun.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ae) {
-                fileRun_ActionPerformed(ae);
+                public void actionPerformed(ActionEvent ae) {
+                    fileRun_ActionPerformed(ae);
                 }
-        });
+            });
 
         jTabbedPanelMain.setMinimumSize(new Dimension(210, 188));
         jTabbedPanelMain.setSize(new Dimension(210, 288));
-        jMenuItem1.setText("Открыть входные данные (XML)");
-        jMenuItem2.setText("Открыть расписание (XML)");
-        jMenuItem3.setText("О программе");
-        jMenuItem3.addActionListener(new ActionListener() {
+        menuFileOpenInputData.setText("Открыть входные данные (XML)");
+        menuFileOpenInputData.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    menuFileOpenInputData_actionPerformed(e);
+                }
+            });
+        menuFileOpenTimetable.setText("Открыть расписание (XML)");
+        menuHelpAbout.setText("О программе");
+        menuHelpAbout.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     helpAbout_ActionPerformed(e);
                 }
             });
-        menuFile.add(jMenuItem1);
-        menuFile.add(jMenuItem2);
+        menuFile.add(menuFileOpenInputData);
+        menuFile.add(menuFileOpenTimetable);
         menuFile.addSeparator();
         menuFile.add(menuFileRun);
         menuFile.addSeparator();
         menuFile.add(menuFileExit);
         menuBar.add(menuFile);
-        menuHelp.add(jMenuItem3);
+        menuHelp.add(menuHelpAbout);
         menuBar.add(menuHelp);
         this.getContentPane().add(statusBar, BorderLayout.SOUTH);
         toolBar.add(buttonOpen);
         toolBar.add(buttonClose);
+        toolBar.add(buttonRun);
         toolBar.add(buttonHelp);
         this.getContentPane().add(toolBar, BorderLayout.NORTH);
         this.getContentPane().add(panelCenter, BorderLayout.CENTER);
         //----Init tabs
         jTabbedPanelMain.addTab("Списки", tpLists);
+        panelListsGroups.add(labelFileName, null);
         tpLists.addTab("Группы", panelListsGroups);
         tpLists.addTab("Предметы", panelListsLessons);
         tpLists.addTab("Аудитории", panelListsClasses);
@@ -158,15 +182,61 @@ public class Frame1 extends JFrame {
 
     void helpAbout_ActionPerformed(ActionEvent e) {
         JOptionPane.showMessageDialog(this, new Frame1_AboutBoxPanel1(),
-                                      "О программе", JOptionPane.PLAIN_MESSAGE);
+                                      "О программе",
+                                      JOptionPane.PLAIN_MESSAGE);
+    }
+
+    void fileRun_ActionPerformed(ActionEvent e) {
+        if (Start.XML_TEST_FILENAME != null) {
+            String[] startter = new String[5];
+            try {
+                Start.main(startter);
+            } catch (InvalidConfigurationException f) {
+                System.out.println(f.getMessage());
+            }
+        } else {
+            JOptionPane.showMessageDialog(this,
+                                          "Не выбран файл с входными данными",
+                                          "Ошибка",
+                                          JOptionPane.WARNING_MESSAGE, null);
+        }
+    }
+
+    private void menuFileOpenInputData_actionPerformed(ActionEvent e) {
+        //fc.showOpenDialog(this);
+        
+        fc.setFileFilter(new XMLFileFilter());
+        switch (fc.showOpenDialog(this)) {
+        case JFileChooser.APPROVE_OPTION:
+            System.out.println("APPROVE_OPTION");
+            File newFile = fc.getSelectedFile();
+            labelFileName.setText(newFile.getPath());
+            Start.setXML_TEST_FILENAME(newFile.getPath());
+            break;
+        case JFileChooser.CANCEL_OPTION:
+            System.out.println("CANCEL_OPTION");
+            break;
+        case JFileChooser.ERROR_OPTION:
+            System.out.println("ERROR_OPTION");
+        default:
+            System.out.println("n/a");
+        }
+
     }
     
-    void fileRun_ActionPerformed(ActionEvent e){
-        String[] startter = new String[5];
-        try {
-            Start.main(startter);
-        } catch (InvalidConfigurationException f) {
-            System.out.println(f.getMessage());
-        }
+}
+
+ class XMLFileFilter extends FileFilter{
+
+    public boolean accept(File f) {
+        if(f.getName().endsWith(".xml")) return true;
+        if(f.getName().endsWith(".XML")) return true;
+        if(f.isDirectory()) return true;
+        
+        return false;
+    }
+
+    public String getDescription() {
+        return "xml files";
     }
 }
