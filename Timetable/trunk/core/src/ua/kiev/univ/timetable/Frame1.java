@@ -21,7 +21,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
-
 import javax.swing.filechooser.FileFilter;
 
 import org.jgap.InvalidConfigurationException;
@@ -76,7 +75,7 @@ public class Frame1 extends JFrame {
     
     //----------FileChooser----------------
     JFileChooser fc = new JFileChooser("e:\\");
-
+    
 
     public Frame1() {
         try {
@@ -237,6 +236,6 @@ public class Frame1 extends JFrame {
     }
 
     public String getDescription() {
-        return "xml files";
+        return "XML files";
     }
 }
