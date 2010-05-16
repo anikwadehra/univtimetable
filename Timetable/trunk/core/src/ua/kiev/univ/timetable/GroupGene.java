@@ -176,7 +176,7 @@ public class GroupGene extends IntegerGene implements Gene, Serializable {
         return name;
     }
 
-    public static String[] getAllNames() {
+    protected static String[] getAllNames() {
         return allNames;
     }
 
@@ -212,5 +212,13 @@ public class GroupGene extends IntegerGene implements Gene, Serializable {
 
     public Integer[] getTimes() {
         return times;
+    }
+
+    protected static Integer[] getAllGroupSize() {
+        return allGroupSize;
+    }
+
+    protected static Integer[] getAllIdGroup() {
+        return allIdGroup;
     }
 }

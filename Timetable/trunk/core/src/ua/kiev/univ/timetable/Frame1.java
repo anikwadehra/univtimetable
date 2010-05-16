@@ -9,6 +9,8 @@ import java.awt.event.ActionListener;
 
 import java.io.File;
 
+import java.io.IOException;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -19,11 +21,21 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 import javax.swing.JToolBar;
+import javax.swing.ListSelectionModel;
 import javax.swing.filechooser.FileFilter;
 
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableModel;
+
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.jgap.InvalidConfigurationException;
+
+import org.xml.sax.SAXException;
 
 
 public class Frame1 extends JFrame {
@@ -75,7 +87,9 @@ public class Frame1 extends JFrame {
     
     //----------FileChooser----------------
     JFileChooser fc = new JFileChooser("e:\\");
+    //----------Tables----------------------
     
+
 
     public Frame1() {
         try {
@@ -89,7 +103,7 @@ public class Frame1 extends JFrame {
         this.setJMenuBar(menuBar);
         this.getContentPane().setLayout(layoutMain);
         panelCenter.setLayout(gridLayout1);
-        this.setSize(new Dimension(400, 300));
+        this.setSize(new Dimension(790, 503));
         this.setTitle("Timetable");
         menuFile.setText("Файл");
         menuFileExit.setText("Выход");
@@ -158,8 +172,11 @@ public class Frame1 extends JFrame {
         this.getContentPane().add(panelCenter, BorderLayout.CENTER);
         //----Init tabs
         jTabbedPanelMain.addTab("Списки", tpLists);
-        panelListsGroups.add(labelFileName, null);
+        
+        initPanelListsGroups();
         tpLists.addTab("Группы", panelListsGroups);
+
+        panelListsLessons.add(labelFileName, null);
         tpLists.addTab("Предметы", panelListsLessons);
         tpLists.addTab("Аудитории", panelListsClasses);
         tpLists.addTab("Преподаватели", panelListsTeachers);
@@ -174,7 +191,14 @@ public class Frame1 extends JFrame {
 
         panelCenter.add(jTabbedPanelMain);
     }
-
+    
+    //---Init all info-panels---------
+    private void initPanelListsGroups(){
+      panelListsGroups.setLayout(new GridLayout(2,1));
+      panelListsGroups.add(new JButton("OK"));
+      //panelListsGroups.add( new JToolBar());
+    }
+    
     void fileExit_ActionPerformed(ActionEvent e) {
         System.exit(0);
     }
@@ -186,6 +210,8 @@ public class Frame1 extends JFrame {
     }
 
     void fileRun_ActionPerformed(ActionEvent e) {
+//        panelListsGroups.removeAll();
+//        panelListsGroups.add( drawTable(data, headers) );
         if (Start.XML_TEST_FILENAME != null) {
             String[] startter = new String[5];
             try {
@@ -203,7 +229,6 @@ public class Frame1 extends JFrame {
 
     private void menuFileOpenInputData_actionPerformed(ActionEvent e) {
         //fc.showOpenDialog(this);
-        
         fc.setFileFilter(new XMLFileFilter());
         switch (fc.showOpenDialog(this)) {
         case JFileChooser.APPROVE_OPTION:
@@ -211,6 +236,8 @@ public class Frame1 extends JFrame {
             File newFile = fc.getSelectedFile();
             labelFileName.setText(newFile.getPath());
             Start.setXML_TEST_FILENAME(newFile.getPath());
+            panelListsGroups.removeAll();
+            showInputData();
             break;
         case JFileChooser.CANCEL_OPTION:
             System.out.println("CANCEL_OPTION");
@@ -222,7 +249,60 @@ public class Frame1 extends JFrame {
         }
 
     }
+
+    private void showInputData() {
+      // Reading data from xml    
+      try {
+          new InputData().readFromFile(Start.XML_TEST_FILENAME);
+      } catch (SAXException e) {
+          System.out.println("SAXException"+e.getMessage());
+          System.exit(1);
+      } catch (IOException e) {
+          System.out.println("IOException"+e.getMessage());
+          System.exit(1);
+      } catch (ParserConfigurationException e) {
+          System.exit(1);
+          System.out.println("ParserConfigurationException"+e.getMessage());
+      }
+      
+        Object[][] groupData = new Object[Start.MAX_NUMBER_OF_GROUPS][4];
+        Integer[] idGroup = GroupGene.getAllIdGroup();
+        String[] groupName = GroupGene.getAllNames();
+        Integer[] groupSize = GroupGene.getAllGroupSize();
+        for (int i = 0; i < Start.MAX_NUMBER_OF_GROUPS; i++) {
+            groupData[i][0] = i+1;
+            groupData[i][1] = idGroup[i];
+            groupData[i][2] = groupName[i];
+            groupData[i][3] = groupSize[i];
+        }
+        String[] groupHeaders = {"№","Id группы", "Название группы", "Размер группы"};
+        
+        
+
+        JTable table1 = new JTable(groupData, groupHeaders);
+        table1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        table1.setCellSelectionEnabled(true);
+        JScrollPane jsp = new JScrollPane(table1);
+        panelListsGroups.add(jsp);
+    }
     
+    
+  JScrollPane drawTable(String[][] data, String[] headers){
+    JTable table1 = new JTable(data, headers);
+    table1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    table1.setCellSelectionEnabled(true);
+    JScrollPane jsp = new JScrollPane(table1);
+    return jsp;
+  //         TableModel dataModel = new AbstractTableModel() {
+  //          public int getColumnCount() { return 4; }
+  //          public int getRowCount() { return 4;}
+  //          public Object getValueAt(int row, int col) { return new Integer(row*col); }
+  //      };
+  //      JTable table = new JTable(dataModel);
+  //      JScrollPane scrollpane = new JScrollPane(table);
+  //      return scrollpane;
+  }
+  
 }
 
  class XMLFileFilter extends FileFilter{

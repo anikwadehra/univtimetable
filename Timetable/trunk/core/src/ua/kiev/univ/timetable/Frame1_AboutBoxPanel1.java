@@ -28,7 +28,7 @@ public class Frame1_AboutBoxPanel1 extends JPanel {
     private void jbInit() throws Exception {
         this.setLayout( layoutMain );
         this.setBorder( border );
-        labelTitle.setText( "Timetable 1.33" );
+        labelTitle.setText( "Timetable 1.31" );
         labelAuthor.setText( "Автор: Парамуда Дмитрий" );
         labelCopyright.setText( "КНУ им.Шевченка, РФФ" );
         labelCompany.setText( "Киев, 2010г" );
