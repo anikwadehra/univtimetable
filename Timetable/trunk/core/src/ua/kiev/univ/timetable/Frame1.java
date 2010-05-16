@@ -2,7 +2,9 @@ package ua.kiev.univ.timetable;
 
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,6 +15,7 @@ import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -48,7 +51,7 @@ public class Frame1 extends JFrame {
     private JLabel statusBar = new JLabel();
     private JToolBar toolBar = new JToolBar();
     private JButton buttonOpen = new JButton();
-    private JButton buttonClose = new JButton();
+    private JButton buttonSave = new JButton();
     private JButton buttonRun = new JButton();
     private JButton buttonHelp = new JButton();
     private ImageIcon imageOpen =
@@ -87,8 +90,19 @@ public class Frame1 extends JFrame {
     
     //----------FileChooser----------------
     JFileChooser fc = new JFileChooser("e:\\");
+    private BorderLayout borderLayout1 = new BorderLayout();
+
     //----------Tables----------------------
+    private JScrollPane jScrollPaneListLessons = new JScrollPane();
     
+    private String[][] data = {{"a","b"},
+                               {"c","d"}
+                               };
+    private String[] header = {"A", "B"};
+    private JTable tableListLessons = new JTable(data, header);
+    private JButton buttonAddListLessons = new JButton("Add");
+    private JButton buttonDeleteListLessons = new JButton("Delete");
+    private JPanel panelListLessonsTop = new JPanel();
 
 
     public Frame1() {
@@ -118,11 +132,16 @@ public class Frame1 extends JFrame {
         buttonOpen.setIcon(imageOpen);
         buttonOpen.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    menuFileOpenInputData_actionPerformed(e);
+                    fileOpenInputData_actionPerformed(e);
                 }
             });
-        buttonClose.setToolTipText("Close File");
-        buttonClose.setIcon(imageClose);
+        buttonSave.setToolTipText("Close File");
+        buttonSave.setIcon(imageClose);
+        buttonSave.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    buttonSave_actionPerformed(e);
+                }
+            });
         buttonRun.setToolTipText("Составить расписание");
         buttonRun.setIcon(imageRun);
         buttonRun.addActionListener(new ActionListener() {
@@ -141,10 +160,11 @@ public class Frame1 extends JFrame {
 
         jTabbedPanelMain.setMinimumSize(new Dimension(210, 188));
         jTabbedPanelMain.setSize(new Dimension(210, 288));
+        panelListsLessons.setLayout(borderLayout1);
         menuFileOpenInputData.setText("Открыть входные данные (XML)");
         menuFileOpenInputData.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    menuFileOpenInputData_actionPerformed(e);
+                    fileOpenInputData_actionPerformed(e);
                 }
             });
         menuFileOpenTimetable.setText("Открыть расписание (XML)");
@@ -165,19 +185,37 @@ public class Frame1 extends JFrame {
         menuBar.add(menuHelp);
         this.getContentPane().add(statusBar, BorderLayout.SOUTH);
         toolBar.add(buttonOpen);
-        toolBar.add(buttonClose);
+        toolBar.add(buttonSave);
         toolBar.add(buttonRun);
         toolBar.add(buttonHelp);
         this.getContentPane().add(toolBar, BorderLayout.NORTH);
         this.getContentPane().add(panelCenter, BorderLayout.CENTER);
+        
+        buttonAddListLessons.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+              buttonsAdd_Delete_ListLessons_actionPerformed(e);
+            }
+        });
+      buttonDeleteListLessons.addActionListener(new ActionListener() {
+          public void actionPerformed(ActionEvent e){
+            buttonsAdd_Delete_ListLessons_actionPerformed(e);
+          }
+      });
         //----Init tabs
         jTabbedPanelMain.addTab("Списки", tpLists);
         
         initPanelListsGroups();
         tpLists.addTab("Группы", panelListsGroups);
 
-        panelListsLessons.add(labelFileName, null);
+        panelListsLessons.add(labelFileName, BorderLayout.SOUTH);
+        jScrollPaneListLessons.getViewport().add(tableListLessons, null);
+        panelListsLessons.add(jScrollPaneListLessons, BorderLayout.CENTER);
+        panelListLessonsTop.setLayout(new FlowLayout(FlowLayout.LEADING));
+        panelListLessonsTop.add(buttonAddListLessons);
+        panelListLessonsTop.add(buttonDeleteListLessons);
+        panelListsLessons.add(panelListLessonsTop,BorderLayout.NORTH);
         tpLists.addTab("Предметы", panelListsLessons);
+        
         tpLists.addTab("Аудитории", panelListsClasses);
         tpLists.addTab("Преподаватели", panelListsTeachers);
         tpLists.addTab("Время", panelListsTimes);
@@ -194,8 +232,8 @@ public class Frame1 extends JFrame {
     
     //---Init all info-panels---------
     private void initPanelListsGroups(){
-      panelListsGroups.setLayout(new GridLayout(2,1));
-      panelListsGroups.add(new JButton("OK"));
+      panelListsGroups.setLayout(new GridLayout(3,1));
+      //panelListsGroups.add(new JButton("OK"));
       //panelListsGroups.add( new JToolBar());
     }
     
@@ -227,7 +265,7 @@ public class Frame1 extends JFrame {
         }
     }
 
-    private void menuFileOpenInputData_actionPerformed(ActionEvent e) {
+    void fileOpenInputData_actionPerformed(ActionEvent e) {
         //fc.showOpenDialog(this);
         fc.setFileFilter(new XMLFileFilter());
         switch (fc.showOpenDialog(this)) {
@@ -236,7 +274,7 @@ public class Frame1 extends JFrame {
             File newFile = fc.getSelectedFile();
             labelFileName.setText(newFile.getPath());
             Start.setXML_TEST_FILENAME(newFile.getPath());
-            panelListsGroups.removeAll();
+            //panelListsGroups.getComponent(n)
             showInputData();
             break;
         case JFileChooser.CANCEL_OPTION:
@@ -276,13 +314,11 @@ public class Frame1 extends JFrame {
             groupData[i][3] = groupSize[i];
         }
         String[] groupHeaders = {"№","Id группы", "Название группы", "Размер группы"};
-        
-        
 
-        JTable table1 = new JTable(groupData, groupHeaders);
-        table1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        table1.setCellSelectionEnabled(true);
-        JScrollPane jsp = new JScrollPane(table1);
+        JTable groupTable = new JTable(groupData, groupHeaders);
+        groupTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        groupTable.setCellSelectionEnabled(true);
+        JScrollPane jsp = new JScrollPane(groupTable);
         panelListsGroups.add(jsp);
     }
     
@@ -302,7 +338,28 @@ public class Frame1 extends JFrame {
   //      JScrollPane scrollpane = new JScrollPane(table);
   //      return scrollpane;
   }
-  
+
+    private void buttonSave_actionPerformed(ActionEvent e) {
+      tableListLessons.setValueAt("first", 0, 0);
+    }
+    
+    private void buttonsAdd_Delete_ListLessons_actionPerformed(ActionEvent e) {
+        if(e.getSource() instanceof JButton){
+          JButton b = (JButton)e.getSource();
+          if(b.getText().equals("Add"))
+              addRowTableListLessons();
+          if(b.getText().equals("Delete"))
+              deleteRowTableListLessons();
+        }
+    }
+
+    private void addRowTableListLessons() {
+        System.out.println("Add");
+    }
+
+    private void deleteRowTableListLessons() {
+        System.out.println("Delete");
+    }
 }
 
  class XMLFileFilter extends FileFilter{
