@@ -30,6 +30,8 @@ import javax.swing.JTable;
 import javax.swing.JToolBar;
 import javax.swing.ListSelectionModel;
 import javax.swing.filechooser.FileFilter;
+import javax.swing.event.*;
+import javax.swing.table.*;
 
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
@@ -87,6 +89,7 @@ public class Frame1 extends JFrame {
     private JMenuItem menuFileOpenTimetable = new JMenuItem();
     private JMenuItem menuHelpAbout = new JMenuItem();
     private JLabel labelFileName = new JLabel();
+    private JLabel labelTableListLessons = new JLabel();
     
     //----------FileChooser----------------
     JFileChooser fc = new JFileChooser("e:\\");
@@ -207,13 +210,25 @@ public class Frame1 extends JFrame {
         initPanelListsGroups();
         tpLists.addTab("Группы", panelListsGroups);
 
-        panelListsLessons.add(labelFileName, BorderLayout.SOUTH);
+        //panelListsLessons.add(labelFileName, BorderLayout.SOUTH);
         jScrollPaneListLessons.getViewport().add(tableListLessons, null);
+        ListSelectionModel lsmTableListLessons = tableListLessons.getSelectionModel();
+        lsmTableListLessons.addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent lse){
+              String str = "Row ";
+              str += tableListLessons.getSelectedRow();
+              str +=" selected";
+              labelTableListLessons.setText(str);
+            }
+        });
+        
         panelListsLessons.add(jScrollPaneListLessons, BorderLayout.CENTER);
         panelListLessonsTop.setLayout(new FlowLayout(FlowLayout.LEADING));
         panelListLessonsTop.add(buttonAddListLessons);
         panelListLessonsTop.add(buttonDeleteListLessons);
         panelListsLessons.add(panelListLessonsTop,BorderLayout.NORTH);
+        labelTableListLessons.setText("testing");
+        panelListsLessons.add(labelTableListLessons, BorderLayout.SOUTH);
         tpLists.addTab("Предметы", panelListsLessons);
         
         tpLists.addTab("Аудитории", panelListsClasses);
