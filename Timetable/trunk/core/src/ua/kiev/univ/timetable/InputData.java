@@ -73,10 +73,23 @@ public class InputData {
         LessonGene.setIdLessons( Integer.parseInt(lessonGene.getAttribute("idLesson")), i);
         //Set all_names of the names
         LessonGene.setAll_names( lessonGene.getAttribute("name"), i);
+        //Set groupTypes
+
+        if( lessonGene.getAttribute("groupType").equals("SUBGROUP") )
+            LessonGene.setGroupTypes(Start.SUBGROUP, i);
+        else if(lessonGene.getAttribute("groupType").equals("GROUP"))
+            LessonGene.setGroupTypes(Start.GROUP, i);
+        else if(lessonGene.getAttribute("groupType").equals("SUPERGROUP"))
+            LessonGene.setGroupTypes(Start.SUPERGROUP, i);
+        else{
+            LessonGene.setGroupTypes(Start.GROUP, i); 
+             System.out.println("Warning: groupType for "+ i +" lesson isn't defined!");          
+        }
         
         System.out.println(lessonGene.getTagName()+ ": idLessonGene=" + 
                            lessonGene.getAttribute("idLesson") +
-                           lessonGene.getAttribute("name"));
+                           lessonGene.getAttribute("name") +
+                           lessonGene.getAttribute("groupType"));
       }
     //---------------------------------------------------------------------
     // Get groupGenes data

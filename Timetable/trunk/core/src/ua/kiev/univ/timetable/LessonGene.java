@@ -20,12 +20,16 @@ public class LessonGene extends IntegerGene implements Gene, Serializable {
   private String name; // Name of a lesson
   private static String[] all_names = new String[Start.MAX_NUMBER_OF_LESSONS]; //Store all names of lessons
   
+  private Integer groupType; //Is lesson for group, subgroup or supergroup
+  private static Integer[] groupTypes = new Integer[Start.MAX_NUMBER_OF_LESSONS];//Store groupType for all lessons
+  
   public LessonGene(Configuration a_conf,
                     Integer a_LessonNumber) throws InvalidConfigurationException {
     super(a_conf);
     lessonNumber = a_LessonNumber;
     idLesson = idLessons[lessonNumber];
     name = all_names[a_LessonNumber];
+    groupType = groupTypes[a_LessonNumber];
   }
 
 
@@ -42,6 +46,7 @@ public class LessonGene extends IntegerGene implements Gene, Serializable {
     lessonNumber = (Integer)a_LessonNumber;
     idLesson = idLessons[lessonNumber];
     name = all_names[ (Integer)a_LessonNumber ];
+    groupType = groupTypes[ (Integer)a_LessonNumber];
   }
 
   public Object getAllele() {
@@ -74,6 +79,7 @@ public class LessonGene extends IntegerGene implements Gene, Serializable {
     lessonNumber = new Integer(a_randomGenerator.nextInt(max_numberOfLessons));
     idLesson = idLessons[ lessonNumber ];
     name = all_names[lessonNumber];
+    groupType = groupTypes[lessonNumber];
   }
 
   @Override
@@ -132,10 +138,15 @@ public class LessonGene extends IntegerGene implements Gene, Serializable {
     public static void setAll_names(String a_all_names, int a_index) {
         LessonGene.all_names[a_index] = a_all_names;
     }
+    
+    protected static void setGroupTypes(Integer groupTypes, int a_index) {
+        LessonGene.groupTypes[a_index] = groupTypes;
+    }    
 
     public String getName() {
         return name;
     }
+
 }
 
 
