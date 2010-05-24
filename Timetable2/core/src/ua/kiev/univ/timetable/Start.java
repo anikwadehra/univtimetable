@@ -36,7 +36,7 @@ public class Start {
         "E:\\output.xml";
     private static Integer POPULATION_SIZE = 50;
     private static double THRESHOLD        = 1;
-    private static Integer MAX_EVOLUTION   = 500;
+    private static Integer MAX_EVOLUTION   = 100;
     static Integer CHROMOSOME_SIZE;// = MAX_LESSONS; //this is number of cells in the table where you can put lessons
 
     public static void main(String[] args) throws InvalidConfigurationException {
