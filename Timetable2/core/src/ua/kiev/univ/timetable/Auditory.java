@@ -3,6 +3,7 @@ package ua.kiev.univ.timetable;
 import java.io.Serializable;
 
 import org.jgap.Configuration;
+import org.jgap.Gene;
 import org.jgap.IGeneConstraintChecker;
 import org.jgap.InvalidConfigurationException;
 import org.jgap.RandomGenerator;
@@ -10,6 +11,8 @@ import org.jgap.UnsupportedRepresentationException;
 import org.jgap.impl.IntegerGene;
 
 public class Auditory extends IntegerGene implements Serializable, org.jgap.Gene {
+    private Integer indexAuditory;
+    
     private Integer idAuditory;
     private static Integer[] all_idAuditory = new Integer[Start.MAX_AUDITORIES];
     
@@ -22,24 +25,29 @@ public class Auditory extends IntegerGene implements Serializable, org.jgap.Gene
     
     public Auditory(Configuration a_conf, Integer a_index) throws InvalidConfigurationException {
         super(a_conf);
+        indexAuditory = a_index;
         idAuditory = all_idAuditory[a_index];
         auditorySize = all_auditorySize[a_index];
         nameAuditory = all_nameAuditory[a_index];
-        
-        System.out.println("Instance of Auditory created!");
     }    
-    
 
+  public Gene newGeneInternal() {
+      try {
+          return new Auditory(getConfiguration(), Start.MAX_AUDITORIES - 1);
+      } catch (InvalidConfigurationException ex) {
+          throw new IllegalStateException(ex.getMessage());
+      }
+  }
 
-    public org.jgap.Gene newGene() {
-        return null;
-    }
-
-    public void setAllele(Object object) {
+    public void setAllele(Object a_index) {
+      indexAuditory = (Integer)a_index;
+      idAuditory = all_idAuditory[indexAuditory];
+      auditorySize = all_auditorySize[indexAuditory];
+      nameAuditory = all_nameAuditory[indexAuditory];        
     }
 
     public Object getAllele() {
-        return null;
+        return indexAuditory;
     }
 
     public String getPersistentRepresentation() throws UnsupportedOperationException {
@@ -50,49 +58,40 @@ public class Auditory extends IntegerGene implements Serializable, org.jgap.Gene
                                                                            UnsupportedRepresentationException {
     }
 
-    public void setToRandomValue(RandomGenerator randomGenerator) {
+    public void setToRandomValue(RandomGenerator a_randomGenerator) {
+        indexAuditory = new Integer(a_randomGenerator.nextInt(Start.MAX_AUDITORIES));
+        setAllele(indexAuditory);
     }
 
-    public void cleanup() {
+    public void applyMutation(int a_index, double a_precentage) {
+        setAllele(getConfiguration().getRandomGenerator().nextInt(Start.MAX_AUDITORIES));
+    }
+    
+    public int hashCode(){
+      return indexAuditory;
+    }
+  
+    public Object getInternalValue(){
+      return indexAuditory;
     }
 
-    public int size() {
-        return 0;
-    }
+    public int compareTo(Object a_otherAuditory) {
+      if (a_otherAuditory == null)
+          return 1;
 
-    public void applyMutation(int i, double d) {
-    }
+      if (indexAuditory == null) {
 
-    public void setApplicationData(Object object) {
+          if (((Auditory)a_otherAuditory).indexAuditory == null)
+              return 0;
+          else
+              return -1;
+      }
+      return indexAuditory.compareTo(((Auditory)a_otherAuditory).indexAuditory);
     }
-
-    public Object getApplicationData() {
-        return null;
-    }
-
-    public void setCompareApplicationData(boolean b) {
-    }
-
-    public boolean isCompareApplicationData() {
-        return false;
-    }
-
-    public double getEnergy() {
-        return 0.0;
-    }
-
-    public void setEnergy(double d) {
-    }
-
-    public void setConstraintChecker(IGeneConstraintChecker iGeneConstraintChecker) {
-    }
-
-    public Configuration getConfiguration() {
-        return null;
-    }
-
-    public int compareTo(Object o) {
-        return 0;
+    
+    public boolean equals(Object a_otherAuditory) {
+      return a_otherAuditory instanceof Auditory &&
+          compareTo(a_otherAuditory) == 0;
     }
     
     //--------New methods----
@@ -114,5 +113,13 @@ public class Auditory extends IntegerGene implements Serializable, org.jgap.Gene
                                +" auditorySize:" + auditorySize
                                +" nameAuditory: " + nameAuditory
                                );
+    }
+
+    protected Integer getIdAuditory() {
+        return idAuditory;
+    }
+
+    protected Integer getAuditorySize() {
+        return auditorySize;
     }
 }

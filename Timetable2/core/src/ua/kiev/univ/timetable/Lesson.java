@@ -15,6 +15,8 @@ public class Lesson extends IntegerGene implements Serializable, Gene {
     private static final Integer MAX_TEACHERS = 2;//maximun number of teachers needed for every single square
     private static final Integer MAX_GROUPS = 6;//maximum number of groups that could be placed in a single square
     
+    private Integer indexLesson;
+    
     private Integer idLesson;
     private static Integer[] all_idLessons = new Integer[Start.MAX_LESSONS];
     
@@ -44,6 +46,7 @@ public class Lesson extends IntegerGene implements Serializable, Gene {
 
     public Lesson(Configuration a_configuration, Integer a_index) throws InvalidConfigurationException {
         super(a_configuration);
+        indexLesson = a_index;
         idLesson = all_idLessons[a_index];
         nameLesson = all_nameLesson[a_index];
         periodicity = all_periodicity[a_index];
@@ -53,20 +56,32 @@ public class Lesson extends IntegerGene implements Serializable, Gene {
         idGroups = all_idGroups[a_index];
         groupSize = all_groupSize[a_index];
         nameGroup = all_nameGroup[a_index];
-
-        System.out.println("Instance of Lesson created!");
     }
     
 
-    public Gene newGene() {
-        return null;
+    public Gene newGeneInternal() {
+        try {
+            return new Lesson(getConfiguration(), Start.MAX_LESSONS - 1);
+        } catch (InvalidConfigurationException ex) {
+            throw new IllegalStateException(ex.getMessage());
+        }
     }
 
-    public void setAllele(Object object) {
+    public void setAllele(Object a_index) {
+      indexLesson = (Integer)a_index;
+      idLesson = all_idLessons[indexLesson];
+      nameLesson = all_nameLesson[indexLesson];
+      periodicity = all_periodicity[indexLesson];
+      auditoriesNeed = all_auditoriesNeed[indexLesson];
+      idTeachers = all_idTeachers[indexLesson];
+      nameTeacher = all_nameTeacher[indexLesson];
+      idGroups = all_idGroups[indexLesson];
+      groupSize = all_groupSize[indexLesson];
+      nameGroup = all_nameGroup[indexLesson];        
     }
 
     public Object getAllele() {
-        return null;
+        return indexLesson;
     }
 
     public String getPersistentRepresentation() throws UnsupportedOperationException {
@@ -77,50 +92,50 @@ public class Lesson extends IntegerGene implements Serializable, Gene {
                                                                            UnsupportedRepresentationException {
     }
 
-    public void setToRandomValue(RandomGenerator randomGenerator) {
+    public void setToRandomValue(RandomGenerator a_randomGenerator) {
+      indexLesson = new Integer(a_randomGenerator.nextInt(Start.MAX_LESSONS));
+      setAllele(indexLesson);
+//      idLesson = all_idLessons[indexLesson];
+//      nameLesson = all_nameLesson[indexLesson];
+//      periodicity = all_periodicity[indexLesson];
+//      auditoriesNeed = all_auditoriesNeed[indexLesson];
+//      idTeachers = all_idTeachers[indexLesson];
+//      nameTeacher = all_nameTeacher[indexLesson];
+//      idGroups = all_idGroups[indexLesson];
+//      groupSize = all_groupSize[indexLesson];
+//      nameGroup = all_nameGroup[indexLesson];        
     }
 
-    public void cleanup() {
+    public void applyMutation(int a_index, double a_precentage) {
+        setAllele(getConfiguration().getRandomGenerator().nextInt(Start.MAX_LESSONS));
+    }
+    
+    public int hashCode(){
+      return indexLesson;
+    }
+    
+    public Object getInternalValue(){
+      return indexLesson;
     }
 
-    public int size() {
-        return 0;
-    }
+    public int compareTo(Object a_otherLesson) {
+      if (a_otherLesson == null)
+          return 1;
 
-    public void applyMutation(int i, double d) {
-    }
+      if (indexLesson == null) {
 
-    public void setApplicationData(Object object) {
+          if (((Lesson)a_otherLesson).indexLesson== null)
+              return 0;
+          else
+              return -1;
+      }
+      return indexLesson.compareTo(((Lesson)a_otherLesson).indexLesson);
     }
-
-    public Object getApplicationData() {
-        return null;
-    }
-
-    public void setCompareApplicationData(boolean b) {
-    }
-
-    public boolean isCompareApplicationData() {
-        return false;
-    }
-
-    public double getEnergy() {
-        return 0.0;
-    }
-
-    public void setEnergy(double d) {
-    }
-
-    public void setConstraintChecker(IGeneConstraintChecker iGeneConstraintChecker) {
-    }
-
-    public Configuration getConfiguration() {
-        return null;
-    }
-
-    public int compareTo(Object o) {
-        return 0;
-    }
+    
+    public boolean equals(Object a_otherLesson) {
+      return a_otherLesson instanceof Lesson &&
+          compareTo(a_otherLesson) == 0;
+  }
     //-------new methods---------
 
     protected static void setAll_idLessons(Integer a_idLessons, Integer a_index) {
@@ -138,7 +153,7 @@ public class Lesson extends IntegerGene implements Serializable, Gene {
     protected static void setAll_auditoriesNeed(Integer a_auditoriesNeed, Integer a_index) {
         Lesson.all_auditoriesNeed[a_index] = a_auditoriesNeed;
     }
-
+    
     protected static void setAll_idTeachers(Integer a_idTeachers, Integer a_indexLesson, Integer a_indexTeacherInLesson) {
         Lesson.all_idTeachers[a_indexLesson][a_indexTeacherInLesson] = a_idTeachers;
     }
@@ -176,5 +191,30 @@ public class Lesson extends IntegerGene implements Serializable, Gene {
                 System.out.println("groupName: " + s);
         }
 
+    }
+
+    protected Integer getIdLesson() {
+        return idLesson;
+    }
+
+    protected Integer[] getIdTeachers() {
+        return idTeachers;
+    }
+
+    protected Integer[] getIdGroups() {
+        return idGroups;
+    }
+
+    protected Integer getTotalGroupSize() {
+        Integer totalGroupSize = 0;
+        for (int i = 0; i < MAX_GROUPS; i++) {
+            if(groupSize[i] != null)
+                totalGroupSize += groupSize[i];
+        }
+        return totalGroupSize;
+    }
+
+    protected Integer getAuditoriesNeed() {
+        return auditoriesNeed;
     }
 }

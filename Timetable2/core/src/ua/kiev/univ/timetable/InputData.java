@@ -36,6 +36,14 @@ public class InputData {
 
         //Get lesson data
         NodeList all_lessons = document.getElementsByTagName("lesson");
+        //Start.MAX_LESSONS = all_lessons.getLength();
+        //--------count number of auditories needed for all lessons
+        Start.CHROMOSOME_SIZE = 0;
+        for (int i = 0; i < all_lessons.getLength(); i++) {
+          Element lesson = (Element)all_lessons.item(i);
+          Start.CHROMOSOME_SIZE += Integer.parseInt(lesson.getAttribute("auditories"));
+        }
+
         Start.MAX_LESSONS = all_lessons.getLength();
         for (int i = 0; i < all_lessons.getLength(); i++) {
             Element lesson = (Element)all_lessons.item(i);
