@@ -23,11 +23,14 @@ public class Lesson extends IntegerGene implements Serializable, Gene {
     private String  nameLesson;
     private static String[] all_nameLesson = new String[Start.MAX_LESSONS];
     
-    private String periodicity;
-    private static String[] all_periodicity = new String[Start.MAX_LESSONS];
+    private Integer periodicity;
+    private static Integer[] all_periodicity = new Integer[Start.MAX_LESSONS];
     
     private Integer auditoriesNeed; //number of auditories needed for the lesson
     private static Integer[] all_auditoriesNeed = new Integer[Start.MAX_LESSONS];
+    
+    private Integer linkedWithIdLesson;
+    private static Integer[] all_linkedWithIdLesson = new Integer[Start.MAX_LESSONS];
     
     private Integer[] idTeachers = new Integer[MAX_TEACHERS];
     private static Integer[][] all_idTeachers = new Integer[Start.MAX_LESSONS][MAX_TEACHERS];
@@ -56,6 +59,7 @@ public class Lesson extends IntegerGene implements Serializable, Gene {
         idGroups = all_idGroups[a_index];
         groupSize = all_groupSize[a_index];
         nameGroup = all_nameGroup[a_index];
+        linkedWithIdLesson = all_linkedWithIdLesson[a_index];
     }
     
 
@@ -77,7 +81,8 @@ public class Lesson extends IntegerGene implements Serializable, Gene {
       nameTeacher = all_nameTeacher[indexLesson];
       idGroups = all_idGroups[indexLesson];
       groupSize = all_groupSize[indexLesson];
-      nameGroup = all_nameGroup[indexLesson];        
+      nameGroup = all_nameGroup[indexLesson];
+      linkedWithIdLesson = all_linkedWithIdLesson[indexLesson];
     }
 
     public Object getAllele() {
@@ -146,7 +151,7 @@ public class Lesson extends IntegerGene implements Serializable, Gene {
         Lesson.all_nameLesson[a_index] = a_nameLesson;
     }
 
-    protected static void setAll_periodicity(String a_periodicity, Integer a_index) {
+    protected static void setAll_periodicity(Integer a_periodicity, Integer a_index) {
         Lesson.all_periodicity[a_index] = a_periodicity;
     }
 
@@ -172,6 +177,10 @@ public class Lesson extends IntegerGene implements Serializable, Gene {
 
     protected static void setAll_groupSize(Integer a_groupSize, Integer a_indexLesson, Integer a_indexGroupInLesson) {
         Lesson.all_groupSize[a_indexLesson][a_indexGroupInLesson] = a_groupSize;
+    }
+
+    protected static void setAll_linkedWithIdLesson(Integer a_linkedWithIdLesson, Integer a_index) {
+      Lesson.all_linkedWithIdLesson[a_index] = a_linkedWithIdLesson;
     }
 
     protected void show(){
@@ -216,5 +225,9 @@ public class Lesson extends IntegerGene implements Serializable, Gene {
 
     protected Integer getAuditoriesNeed() {
         return auditoriesNeed;
+    }
+
+    protected Integer getPeriodicity() {
+        return periodicity;
     }
 }

@@ -49,9 +49,11 @@ public class InputData {
             Element lesson = (Element)all_lessons.item(i);
             Lesson.setAll_idLessons(      Integer.parseInt(lesson.getAttribute("idLesson"))    , i);
             Lesson.setAll_nameLesson(                      lesson.getAttribute("name")         , i);
-            Lesson.setAll_periodicity(                     lesson.getAttribute("periodicity")  , i);
+            Lesson.setAll_periodicity(    Integer.parseInt(lesson.getAttribute("periodicity"))  , i);
             Lesson.setAll_auditoriesNeed( Integer.parseInt(lesson.getAttribute("auditories"))  , i);
-//            System.out.println(lesson.getAttribute("idLesson") +
+            if(lesson.getAttribute("linkedWithIdLesson") != "")
+              Lesson.setAll_linkedWithIdLesson( Integer.parseInt(lesson.getAttribute("linkedWithIdLesson"))  , i);
+//          System.out.println(lesson.getAttribute("idLesson") +
 //                               lesson.getAttribute("name") +
 //                               lesson.getAttribute("periodicity") +
 //                               lesson.getAttribute("auditories")
@@ -97,6 +99,7 @@ public class InputData {
         for (int i = 0; i < all_timeslots.getLength(); i++) {
             Element timeslot = (Element)all_timeslots.item(i);
             Time.setAll_idTimeslots( Integer.parseInt(timeslot.getAttribute("idTimeslot")), i);
+            Time.setAll_timeslotType( Integer.parseInt(timeslot.getAttribute("timeslotType")), i);
             Time.setAll_nameTimeslot( timeslot.getTextContent(), i);
 //            System.out.println(timeslot.getAttribute("idTimeslot")
 //                             +timeslot.getTextContent()

@@ -21,11 +21,15 @@ public class Time extends IntegerGene implements Gene, Serializable{
     private String nameTimeslot;
     private static String[] all_nameTimeslot = new String[Start.MAX_TIME];
     
+    private Integer timeslotType;
+    private static Integer[] all_timeslotType = new Integer[Start.MAX_TIME];
+    
     public Time(Configuration a_conf, Integer a_index) throws InvalidConfigurationException {
         super(a_conf);
         indexTime = a_index;
         idTimeslot = all_idTimeslots[a_index];
         nameTimeslot = all_nameTimeslot[a_index];
+        timeslotType = all_timeslotType[a_index];
     }
 
   public Gene newGeneInternal() {
@@ -39,7 +43,8 @@ public class Time extends IntegerGene implements Gene, Serializable{
     public void setAllele(Object a_index) {
         indexTime = (Integer)a_index;
         idTimeslot = all_idTimeslots[indexTime];
-        nameTimeslot = all_nameTimeslot[indexTime];        
+        nameTimeslot = all_nameTimeslot[indexTime];
+        timeslotType = all_timeslotType[indexTime];
     }
 
     public Object getAllele() {
@@ -107,5 +112,17 @@ public class Time extends IntegerGene implements Gene, Serializable{
 
     protected Integer getIdTimeslot() {
         return idTimeslot;
+    }
+
+    protected static void setAll_timeslotType(Integer a_timeslotType, Integer a_index) {
+        Time.all_timeslotType[a_index] = a_timeslotType;
+    }
+
+    protected String getNameTimeslot() {
+        return nameTimeslot;
+    }
+
+    protected Integer getTimeslotType() {
+        return timeslotType;
     }
 }

@@ -36,7 +36,7 @@ public class TimetableFitnessFunction extends FitnessFunction{
             idGroups1 = l1.getIdGroups();
             lessonAssigened[i] = 1;
             
-            //---sport pair must be in sport rooms(id=100) only
+            //---sport pair(idLesson=100x) must be in sport rooms(id=100) only
             if( (l1.getIdLesson()/1000 == 1 && a1.getIdAuditory() != 100) ||
                 (l1.getIdLesson()/1000 != 1 && a1.getIdAuditory() == 100)){
                   penalty = 1000000;
@@ -51,6 +51,14 @@ public class TimetableFitnessFunction extends FitnessFunction{
               if( l1.getTotalGroupSize()/l1.getAuditoriesNeed() > a1.getAuditorySize())
                  penalty += 10;
             }
+            
+            //-----lesson's periodicity (even or odd) must be equal with timeslotType
+            if(l1.getPeriodicity() != 10 && /* 10 - means EVEN_ODD*/ //TODO: replace this magic number
+               l1.getPeriodicity() != t1.getTimeslotType()){
+              penalty = 1000000;
+              return 1/penalty;
+            }
+               
             
             for (int j = 0; j < Start.CHROMOSOME_SIZE; j++) {
                 superGene[j] = (LessonAuditoryTimeSG)a_chromosome.getGene(j);

@@ -112,13 +112,13 @@ public class Start {
             Time     t = (Time)bestGene.geneAt(TIME);
             
             System.out.println(" lesson id:" + l.getIdLesson() //+ " total group size:" + l.getTotalGroupSize() 
-                               +" at time id:" + t.getIdTimeslot() 
-                               + " in auditory id:" + a.getIdAuditory() + " auditory size:" + a.getAuditorySize()
+                               +" at time id:" + t.getNameTimeslot() 
+                               + " in auditory id:" + a.getIdAuditory()// + " auditory size:" + a.getAuditorySize()
                                );
         }
         
         //---write solution to the file
-        OutputData.writeToFile(bestChromosome, OUTPUT_XML_FILE);
+        //OutputData.writeToFile(bestChromosome, OUTPUT_XML_FILE);
         
 //        Lesson[] l = new Lesson[MAX_LESSONS];
 //        for (int i = 0; i < MAX_LESSONS; i++) {
