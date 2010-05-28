@@ -56,9 +56,9 @@ public class Lesson extends IntegerGene implements Serializable, Gene {
         auditoriesNeed = all_auditoriesNeed[a_index];
         idTeachers = all_idTeachers[a_index];
         nameTeacher = all_nameTeacher[a_index];
-        idGroups = all_idGroups[a_index];
-        groupSize = all_groupSize[a_index];
-        nameGroup = all_nameGroup[a_index];
+        idGroups =  all_idGroups[a_index];
+        groupSize = Group.getGroupsSize(idGroups);//all_groupSize[a_index];
+        nameGroup = Group.getNameGroups(idGroups);//all_nameGroup[a_index];
         linkedWithIdLesson = all_linkedWithIdLesson[a_index];
     }
     
@@ -80,8 +80,8 @@ public class Lesson extends IntegerGene implements Serializable, Gene {
       idTeachers = all_idTeachers[indexLesson];
       nameTeacher = all_nameTeacher[indexLesson];
       idGroups = all_idGroups[indexLesson];
-      groupSize = all_groupSize[indexLesson];
-      nameGroup = all_nameGroup[indexLesson];
+      groupSize = Group.getGroupsSize(idGroups);//all_groupSize[indexLesson];
+      nameGroup = Group.getNameGroups(idGroups);//all_nameGroup[indexLesson];
       linkedWithIdLesson = all_linkedWithIdLesson[indexLesson];
     }
 
@@ -191,13 +191,14 @@ public class Lesson extends IntegerGene implements Serializable, Gene {
             if(i != null) 
                 System.out.println("idTeacher:" + i);
         }
-      for (String s : nameTeacher) {
-            if(s != null) 
-                System.out.println("nameTeacher: " + s);
-        }
+
       for (String s : nameGroup) {
             if(s != null) 
-                System.out.println("groupName: " + s);
+                System.out.println("groupName: " + s );
+        }
+      for (Integer i : groupSize) {
+            if(i != null)
+                System.out.println(" size:" + i);
         }
 
     }
@@ -229,5 +230,9 @@ public class Lesson extends IntegerGene implements Serializable, Gene {
 
     protected Integer getPeriodicity() {
         return periodicity;
+    }
+
+    protected Integer getLinkedWithIdLesson() {
+        return linkedWithIdLesson;
     }
 }

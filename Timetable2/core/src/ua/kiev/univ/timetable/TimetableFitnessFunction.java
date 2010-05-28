@@ -104,6 +104,13 @@ public class TimetableFitnessFunction extends FitnessFunction{
                  if( a1.getIdAuditory() == a2.getIdAuditory() && a1.getIdAuditory() != 100)
                     penalty += 10;
                }
+                //-----if one lesson is linked with another, then they must be assigened in the same idTimeslot
+                //-----and different timeslot types (even or odd)
+                if(l1.getLinkedWithIdLesson() != null &&
+                    l1.getLinkedWithIdLesson() == l2.getIdLesson()&&
+                    (t1.getIdTimeslot() != t2.getIdTimeslot() || t1.getTimeslotType() == t2.getTimeslotType())
+                  )
+                    penalty += 10;
           }
           //System.out.println("lesson id:" + l1.getIdLesson() + " - " + lessonAssigened[i]);
           if( lessonAssigened[i] != l1.getAuditoriesNeed() )
