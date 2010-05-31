@@ -32,6 +32,9 @@ public class Lesson extends IntegerGene implements Serializable, Gene {
     private Integer linkedWithIdLesson;
     private static Integer[] all_linkedWithIdLesson = new Integer[Start.MAX_LESSONS];
     
+    private Integer auditoryType;
+    private static Integer[] all_auditoryType = new Integer[Start.MAX_LESSONS];
+    
     private Integer[] idTeachers = new Integer[MAX_TEACHERS];
     private static Integer[][] all_idTeachers = new Integer[Start.MAX_LESSONS][MAX_TEACHERS];
     
@@ -55,11 +58,12 @@ public class Lesson extends IntegerGene implements Serializable, Gene {
         periodicity = all_periodicity[a_index];
         auditoriesNeed = all_auditoriesNeed[a_index];
         idTeachers = all_idTeachers[a_index];
-        nameTeacher = all_nameTeacher[a_index];
+        nameTeacher = Teacher.getNameTeachers(idTeachers);//all_nameTeacher[a_index];
         idGroups =  all_idGroups[a_index];
         groupSize = Group.getGroupsSize(idGroups);//all_groupSize[a_index];
         nameGroup = Group.getNameGroups(idGroups);//all_nameGroup[a_index];
         linkedWithIdLesson = all_linkedWithIdLesson[a_index];
+        auditoryType = all_auditoryType[a_index];
     }
     
 
@@ -78,11 +82,12 @@ public class Lesson extends IntegerGene implements Serializable, Gene {
       periodicity = all_periodicity[indexLesson];
       auditoriesNeed = all_auditoriesNeed[indexLesson];
       idTeachers = all_idTeachers[indexLesson];
-      nameTeacher = all_nameTeacher[indexLesson];
+      nameTeacher = Teacher.getNameTeachers(idTeachers);//all_nameTeacher[indexLesson];
       idGroups = all_idGroups[indexLesson];
       groupSize = Group.getGroupsSize(idGroups);//all_groupSize[indexLesson];
       nameGroup = Group.getNameGroups(idGroups);//all_nameGroup[indexLesson];
       linkedWithIdLesson = all_linkedWithIdLesson[indexLesson];
+      auditoryType = all_auditoryType[indexLesson];
     }
 
     public Object getAllele() {
@@ -182,14 +187,18 @@ public class Lesson extends IntegerGene implements Serializable, Gene {
     protected static void setAll_linkedWithIdLesson(Integer a_linkedWithIdLesson, Integer a_index) {
       Lesson.all_linkedWithIdLesson[a_index] = a_linkedWithIdLesson;
     }
+    
+    protected static void setAll_auditoryType(Integer a_auditoryType, Integer a_index) {
+       Lesson.all_auditoryType[a_index] = a_auditoryType;
+    }
 
     protected void show(){
       System.out.println("idLesson:" + idLesson + " name:" + nameLesson 
                          + " periodicity:"+periodicity + " auditories:" + auditoriesNeed);
       
-      for (Integer i : idTeachers) {
-            if(i != null) 
-                System.out.println("idTeacher:" + i);
+      for (String s : nameTeacher) {
+            if(s != null) 
+                System.out.println("idTeacher:" + s);
         }
 
       for (String s : nameGroup) {
@@ -235,4 +244,21 @@ public class Lesson extends IntegerGene implements Serializable, Gene {
     protected Integer getLinkedWithIdLesson() {
         return linkedWithIdLesson;
     }
+
+    protected String getNameLesson() {
+        return nameLesson;
+    }
+
+    protected String[] getNameTeacher() {
+        return nameTeacher;
+    }
+
+    protected String[] getNameGroup() {
+        return nameGroup;
+    }
+
+    protected Integer getAuditoryType() {
+        return auditoryType;
+    }
+
 }

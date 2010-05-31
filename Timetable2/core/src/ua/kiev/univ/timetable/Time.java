@@ -91,8 +91,17 @@ public class Time extends IntegerGene implements Gene, Serializable{
     }
     
     public boolean equals(Object a_otherTime) {
-      return a_otherTime instanceof Time &&
-          compareTo(a_otherTime) == 0;
+        if( !(a_otherTime instanceof Time) )
+            return false;
+        Time otherTime = (Time)a_otherTime;
+        if( idTimeslot == otherTime.idTimeslot && 
+            (timeslotType == 10 || otherTime.timeslotType == 10 
+             || timeslotType == otherTime.timeslotType
+            )
+          ) return true;
+        else return false;
+//      return a_otherTime instanceof Time &&
+//          compareTo(a_otherTime) == 0;
     }
     //----New methods-------
 

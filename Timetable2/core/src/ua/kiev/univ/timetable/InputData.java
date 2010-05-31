@@ -58,13 +58,15 @@ public class InputData {
             Lesson.setAll_nameLesson(                      lesson.getAttribute("name")         , i);
             Lesson.setAll_periodicity(    Integer.parseInt(lesson.getAttribute("periodicity"))  , i);
             Lesson.setAll_auditoriesNeed( Integer.parseInt(lesson.getAttribute("auditories"))  , i);
+            Lesson.setAll_auditoryType(   Integer.parseInt(lesson.getAttribute("auditoryType")), i);
             if(lesson.getAttribute("linkedWithIdLesson") != "")
               Lesson.setAll_linkedWithIdLesson( Integer.parseInt(lesson.getAttribute("linkedWithIdLesson"))  , i);
 
             NodeList lessonTeachers = lesson.getElementsByTagName("teacher");
             for (int j = 0; j < lessonTeachers.getLength(); j++) {
               Element teacher = (Element)lessonTeachers.item(j);
-              Lesson.setAll_idTeachers( Integer.parseInt(teacher.getAttribute("idTeacher")), i, j);
+              Lesson.setAll_idTeachers( Integer.parseInt(teacher.getTextContent()), i, j);
+              //Lesson.setAll_idTeachers( Integer.parseInt(teacher.getAttribute("idTeacher")), i, j);
               //Lesson.setAll_nameTeacher(teacher.getTextContent(), i, j);
                               
             }
@@ -84,6 +86,7 @@ public class InputData {
             Element auditory = (Element)all_auditories.item(i);
             Auditory.setAll_idAuditory( Integer.parseInt( auditory.getAttribute("idAuditory")), i);
             Auditory.setAll_auditorySize( Integer.parseInt( auditory.getAttribute("auditorySize")), i);
+            Auditory.setAll_auditoryType( Integer.parseInt( auditory.getAttribute("auditoryType")),i );
             Auditory.setAll_nameAuditory( auditory.getTextContent(), i);
 //            System.out.println(auditory.getAttribute("idAuditory")
 //                               +auditory.getAttribute("auditorySize")
@@ -115,7 +118,16 @@ public class InputData {
 //                             + " groupSize:" + group.getAttribute("groupSize") 
 //                             + " groupName:" + group.getTextContent());
       }
-      
+      //Get teachers data
+      NodeList all_teachers = dictionaryDocument.getElementsByTagName("teacher");
+      Start.setMAX_TEACHERS(all_teachers.getLength());
+      for (int i = 0; i < all_teachers.getLength(); i++) {
+            Element teacher = (Element)all_teachers.item(i);
+            Teacher.setIdTeacher(Integer.parseInt(teacher.getAttribute("idTeacher")), i);
+            Teacher.setNameTeacher( teacher.getTextContent(), i);
+            
+        }
+
 
     }
 

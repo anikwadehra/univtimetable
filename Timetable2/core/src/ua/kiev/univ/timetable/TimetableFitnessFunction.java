@@ -37,14 +37,14 @@ public class TimetableFitnessFunction extends FitnessFunction{
             lessonAssigened[i] = 1;
             
             //---sport pair(idLesson=100x) must be in sport rooms(id=100) only
-            if( (l1.getIdLesson()/1000 == 1 && a1.getIdAuditory() != 100) ||
-                (l1.getIdLesson()/1000 != 1 && a1.getIdAuditory() == 100)){
-                  penalty = 1000000;
-                  return 1/penalty;
-            }
+//            if( (l1.getIdLesson()/1000 == 1 && a1.getIdAuditory() != 100) ||
+//                (l1.getIdLesson()/1000 != 1 && a1.getIdAuditory() == 100)){
+//                  penalty += 10;
+//                  //return 1/penalty;
+//            }
             
             //---first pair is better, 4th pair is worse; min penalty=0, max penalty=3
-            penalty += t1.getIdTimeslot() % 4;
+           // penalty += t1.getIdTimeslot() % 4;
             
             //-----auditory size must be greater or equal than total groupSize for one lesson
             if(l1.getAuditoriesNeed() != 0){
@@ -52,11 +52,14 @@ public class TimetableFitnessFunction extends FitnessFunction{
                  penalty += 10;
             }
             
-            //-----lesson's periodicity (even or odd) must be equal with timeslotType
-            if(l1.getPeriodicity() != 10 && /* 10 - means EVEN_ODD*/ //TODO: replace this magic number
-               l1.getPeriodicity() != t1.getTimeslotType()){
-              penalty = 1000000;
-              return 1/penalty;
+            //-----lesson's periodicity (even or odd or even_odd) must be equal with timeslotType
+            if(l1.getPeriodicity() !=  t1.getTimeslotType()){
+              penalty += 30;
+            }
+            
+            //-----lesson must be assigened to the appropriate auditoryType
+            if(l1.getAuditoryType() != a1.getAuditoryType()){
+              penalty += 30;
             }
                
             
@@ -71,7 +74,8 @@ public class TimetableFitnessFunction extends FitnessFunction{
                 //----every lesson is original except case when auditoriesNeed > 1---------
                 if( i != j && l1.getIdLesson() == l2.getIdLesson() ){
                     lessonAssigened[i] ++;
-                    if( !(t1.equals(t2)) || a1.equals(a2) )
+                    if( l1.getAuditoriesNeed() == 1 || !(t1.equals(t2)) || a1.equals(a2) )
+                    //if( !(t1.equals(t2)) || a1.equals(a2) )
                         penalty += 10;
                 }
                 
@@ -114,7 +118,7 @@ public class TimetableFitnessFunction extends FitnessFunction{
           }
           //System.out.println("lesson id:" + l1.getIdLesson() + " - " + lessonAssigened[i]);
           if( lessonAssigened[i] != l1.getAuditoriesNeed() )
-              penalty += 10;
+              penalty += 20;
         }
         return 1/(1+penalty);
     }

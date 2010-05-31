@@ -35,7 +35,6 @@ public class Group {
     }
 
     protected static String[] getNameGroups(Integer[] a_idGroups) {
-      Integer index = 0;
       String[] nameGroups = new String[a_idGroups.length];
       for (int i = 0; i < a_idGroups.length; i++) {
         for (int j = 0; j < all_idGroup.length; j++) {

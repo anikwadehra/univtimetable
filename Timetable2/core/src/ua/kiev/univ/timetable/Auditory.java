@@ -22,6 +22,8 @@ public class Auditory extends IntegerGene implements Serializable, org.jgap.Gene
     private String  nameAuditory;
     private static String[] all_nameAuditory = new String[Start.MAX_AUDITORIES];
     
+    private Integer auditoryType;
+    private static Integer[] all_auditoryType = new Integer[Start.MAX_AUDITORIES];    
     
     public Auditory(Configuration a_conf, Integer a_index) throws InvalidConfigurationException {
         super(a_conf);
@@ -29,6 +31,7 @@ public class Auditory extends IntegerGene implements Serializable, org.jgap.Gene
         idAuditory = all_idAuditory[a_index];
         auditorySize = all_auditorySize[a_index];
         nameAuditory = all_nameAuditory[a_index];
+        auditoryType = all_auditoryType[a_index];
     }    
 
   public Gene newGeneInternal() {
@@ -43,7 +46,8 @@ public class Auditory extends IntegerGene implements Serializable, org.jgap.Gene
       indexAuditory = (Integer)a_index;
       idAuditory = all_idAuditory[indexAuditory];
       auditorySize = all_auditorySize[indexAuditory];
-      nameAuditory = all_nameAuditory[indexAuditory];        
+      nameAuditory = all_nameAuditory[indexAuditory];
+      auditoryType = all_auditoryType[indexAuditory];
     }
 
     public Object getAllele() {
@@ -107,11 +111,16 @@ public class Auditory extends IntegerGene implements Serializable, org.jgap.Gene
     protected static void setAll_nameAuditory(String a_nameAuditory, Integer a_index) {
         Auditory.all_nameAuditory[a_index] = a_nameAuditory;
     }
+  
+    protected static void setAll_auditoryType(Integer a_auditoryType, Integer a_index) {
+        Auditory.all_auditoryType[a_index] = a_auditoryType;
+    }
     
     protected void show(){
             System.out.println("idAuditory:" + idAuditory
                                +" auditorySize:" + auditorySize
                                +" nameAuditory: " + nameAuditory
+                               +" auditoryType: " + auditoryType
                                );
     }
 
@@ -122,4 +131,13 @@ public class Auditory extends IntegerGene implements Serializable, org.jgap.Gene
     protected Integer getAuditorySize() {
         return auditorySize;
     }
+
+    protected String getNameAuditory() {
+        return nameAuditory;
+    }
+
+    protected Integer getAuditoryType() {
+        return auditoryType;
+    }
+
 }
