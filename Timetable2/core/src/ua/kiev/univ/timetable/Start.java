@@ -38,17 +38,17 @@ public class Start {
     protected static final int EVEN_ODD = 10;
     
     private static final String INPUT_LESSONS_FILENAME =
-        //"E:\\inputTimetable1day_1course.xml";
-          "E:\\inputTimetable_new real design.xml";
+        "E:\\inputTimetable_new real design 3 days.xml";
+        //"E:\\inputTimetable_new real design.xml";
     protected static final String INPUT_DICTIONARY_FILENAME = 
-        //"E:\\test dictionary.xml";
-        "E:\\dictionary.xml";
+        "E:\\dictionary3 days.xml";
+        //"E:\\dictionary.xml";
     private static final String OUTPUT_XML_FILE = "E:\\output.xml";
     
     
-    private static Integer POPULATION_SIZE = 500;
+    private static Integer POPULATION_SIZE = 50;
     private static double THRESHOLD        = 1;
-    private static Integer MAX_EVOLUTION   = 4500;
+    private static Integer MAX_EVOLUTION   = 5000;
     static Integer CHROMOSOME_SIZE;// = MAX_LESSONS; //this is number of cells in the table where you can put lessons
 
     public static void main(String[] args) throws InvalidConfigurationException {
@@ -99,7 +99,7 @@ public class Start {
         conf.addGeneticOperator(myCrossoverOperator);
       
         MutationOperator myMutationOperator =
-            new MutationOperator(conf);
+            new MutationOperator(conf,1);
         conf.addGeneticOperator(myMutationOperator);
       
         conf.setKeepPopulationSizeConstant(false);
@@ -119,9 +119,7 @@ public class Start {
         }
       cal = Calendar.getInstance();
       long finish_t = cal.getTimeInMillis();
-      System.out.println( "Elapsed time:"+ 
-                        (double)(finish_t - start_t)/1000 +"s");
-        
+              
         //---Printing the best chromosome - the most appreciate timetable
         System.out.println("CHROMOSOME_SIZE:" + CHROMOSOME_SIZE);
         Chromosome bestChromosome = (Chromosome)myGenotype.getFittestChromosome();
@@ -145,7 +143,8 @@ public class Start {
                     System.out.println("  group: " + s);
             }
         }
-     
+      System.out.println( "Elapsed time:"+ 
+                        (double)(finish_t - start_t)/1000 +"s");
      
      //----------------------------------------------   
         //---write solution to the file

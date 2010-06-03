@@ -76,16 +76,16 @@ public class OutputData {
             
             //-----Timeslots----------
             xmlString += tab3 + "<timeslots>" + nextRow;
-            for (int j = 0; j < Start.CHROMOSOME_SIZE; j++) {
-              superGene = (LessonAuditoryTimeSG)a_chromosome.getGene(j);
-              l2 = (Lesson)superGene.geneAt(Start.LESSON);
-              t2 = (Time)superGene.geneAt(Start.TIME);
-              if( l1.getIdLesson() == l2.getIdLesson() && t1.equals(t2)){
-                xmlString += tab4 + "<timeslot idTimeslot=\"" + t2.getIdTimeslot()
-                          + "\" timeslotType=\"" + t2.getTimeslotType()
-                          + "\">" + t2.getNameTimeslot() + "</timeslot>" + nextRow;
-              }
-            }
+//            for (int j = 0; j < Start.CHROMOSOME_SIZE; j++) {
+//              superGene = (LessonAuditoryTimeSG)a_chromosome.getGene(j);
+//              l2 = (Lesson)superGene.geneAt(Start.LESSON);
+//              t2 = (Time)superGene.geneAt(Start.TIME);
+//              if( l1.getIdLesson() == l2.getIdLesson() && t1.equals(t2)){
+                xmlString += tab4 + "<timeslot idTimeslot=\"" + t1.getIdTimeslot()
+                          + "\" timeslotType=\"" + t1.getTimeslotType()
+                          + "\">" + t1.getNameTimeslot() + "</timeslot>" + nextRow;
+              
+            
             xmlString += tab3 + "</timeslots>" + nextRow;
             
             //-----Auditories---------
