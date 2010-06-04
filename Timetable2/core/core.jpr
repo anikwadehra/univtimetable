@@ -55,6 +55,27 @@
       <string v="oracle.toplink.workbench.addin/toplinkContentSet"/>
    </list>
    <value n="defaultPackage" v="ua.kiev.univ.timetable"/>
+   <hash n="oracle.ide.model.ResourcePaths">
+      <hash n="resourcesContentSet">
+         <list n="constituent-sets">
+            <hash>
+               <list n="pattern-filters">
+                  <string v="+inputTimetable_new real design 3 days.xml"/>
+                  <string v="+dictionary3 days.xml"/>
+               </list>
+               <list n="url-path">
+                  <url path="src/ua/kiev/univ/timetable/"/>
+               </list>
+            </hash>
+         </list>
+         <list n="pattern-filters">
+            <string v="+*"/>
+         </list>
+         <list n="url-path">
+            <url path="."/>
+         </list>
+      </hash>
+   </hash>
    <hash n="oracle.jdeveloper.compiler.OjcConfiguration">
       <value n="internalEncoding" v="Cp1251"/>
       <list n="Javac.commandline.optionlist">
@@ -72,6 +93,18 @@
    <hash n="oracle.jdeveloper.model.J2eeSettings">
       <value n="j2eeWebAppName" v="Timetable2-core-webapp"/>
       <value n="j2eeWebContextRoot" v="Timetable2-core-context-root"/>
+   </hash>
+   <hash n="oracle.jdeveloper.model.PathsConfiguration">
+      <hash n="javaContentSet">
+         <list n="pattern-filters">
+            <string v="-ua/kiev/univ/timetable/inputTimetable_new real design 3 days.xml"/>
+            <string v="-ua/kiev/univ/timetable/dictionary3 days.xml"/>
+            <string v="+**"/>
+         </list>
+         <list n="url-path">
+            <url path="src/"/>
+         </list>
+      </hash>
    </hash>
    <hash n="oracle.jdeveloper.runner.RunConfigurations">
       <hash n="runConfigurationDefinitions">
