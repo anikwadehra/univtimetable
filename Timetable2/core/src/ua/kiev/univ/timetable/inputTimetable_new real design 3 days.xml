@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<timetable>
+	<lessons>
+<!-- 1 курс -->
+	<!--Понедельник -->
+		<lesson idLesson="1" name="Фізичне виховання" periodicity="10" auditories="1"  auditoryType="2">
+			<teachers>
+
+			</teachers>
+			<groups>
+				<group>1</group>
+			</groups>
+		</lesson>
+		<lesson idLesson="2" name="Англійська мова" periodicity="10" auditories="2"  auditoryType="0">
+			<teachers>
+				<teacher>1</teacher>
+				<teacher>2</teacher>
+			</teachers>
+			<groups>
+				<group>2</group>
+			</groups>
+		</lesson>
+		<lesson idLesson="3" name="Фізичне виховання" periodicity="10" auditories="1" auditoryType="2" >
+			<teachers>
+
+			</teachers>
+			<groups>
+				<group>3</group>
+			</groups>
+		</lesson>
+		<lesson idLesson="4" name="Математичний аналіз" periodicity="10" auditories="2" auditoryType="0">
+			<teachers>
+				<teacher>3</teacher>
+				<teacher>4</teacher>
+			</teachers>
+			<groups>
+				<group>4</group>
+			</groups>
+		</lesson>
+		<lesson idLesson="5" name="Англійська мова" periodicity="10" auditories="2" auditoryType="0">
+			<teachers>
+				<teacher>5</teacher>
+				<teacher>6</teacher>
+			</teachers>
+			<groups>
+				<group>5</group>
+			</groups>
+		</lesson>
+		<lesson idLesson="6" name="Математичний аналіз" periodicity="0" auditories="1" linkedWithIdLesson="7" auditoryType="0">
+			<teachers>
+				<teacher>7</teacher>
+			</teachers>
+			<groups>
+				<group>1</group>
+				<group>2</group>
+				<group>3</group>
+			</groups>
+		</lesson>
+		<lesson idLesson="7" name="Загальна алгебра" periodicity="1" auditories="1" linkedWithIdLesson="6" auditoryType="0">
+			<teachers>
+				<teacher>8</teacher>
+			</teachers>
+			<groups>
+				<group>1</group>
+				<group>2</group>
+				<group>3</group>
+			</groups>
+		</lesson>
+		<lesson idLesson="8" name="Математичний аналіз" periodicity="0" auditories="1" linkedWithIdLesson="9" auditoryType="0">
+			<teachers>
+				<teacher>3</teacher>
+			</teachers>
+			<groups>
+				<group>4</group>
+				<group>5</group>
+			</groups>
+		</lesson>
+		<lesson idLesson="9" name="Загальна алгебра" periodicity="1" auditories="1" linkedWithIdLesson="8" auditoryType="0">
+			<teachers>
+				<teacher>4</teacher>
+			</teachers>
+			<groups>
+				<group>4</group>
+				<group>5</group>
+			</groups>
+		</lesson>
+		<lesson idLesson="10" name="Математичний аналіз" periodicity="0" auditories="2" linkedWithIdLesson="11" auditoryType="0">
+			<teachers>
+				<teacher>20</teacher>
+				<teacher>7</teacher>
+			</teachers>
+			<groups>
+				<group>1</group>
+			</groups>
+		</lesson>
+		<lesson idLesson="11" name="Об'єктно-оріент.програм.(лаб)" periodicity="1" auditories="1" linkedWithIdLesson="10" auditoryType="1">
+			<teachers>
+				<teacher>8</teacher>
+			</teachers>
+			<groups>
+				<group>1</group>
+			</groups>
+		</lesson>
+		<lesson idLesson="12" name="Фізичне виховання" periodicity="10" auditories="1" auditoryType="2">
+			<teachers>
+
+			</teachers>
+			<groups>
+				<group>2</group>
+			</groups>
+		</lesson>
+		<lesson idLesson="13" name="Фізпрактикум" periodicity="10" auditories="1" auditoryType="3">
+			<teachers>
+				<teacher>18</teacher>
+			</teachers>
+			<groups>
+				<group>3</group>
+			</groups>
+		</lesson>
+		<lesson idLesson="14" name="Англійська мова" periodicity="10" auditories="2" auditoryType="0">
+			<teachers>
+				<teacher>1</teacher>
+				<teacher>2</teacher>
+			</teachers>
+			<groups>
+				<group>4</group>
+			</groups>
+		</lesson>
+		<lesson idLesson="15" name="Загальна алгебра" periodicity="10" auditories="1" auditoryType="0">
+			<teachers>
+				<teacher>4</teacher>
+			</teachers>
+			<groups>
+				<group>5</group>
+			</groups>
+		</lesson>
+	<!--Вторник -->
+		<lesson idLesson="16" name="Загальна алгебра" periodicity="10" auditories="1" auditoryType="0">
+			<teachers>
+				<teacher>8</teacher>
+			</teachers>
+			<groups>
+				<group>1</group>
+			</groups>
+		</lesson>
+		<lesson idLesson="17" name="Математичний аналіз" periodicity="10" auditories="2" auditoryType="0">
+			<teachers>
+				<teacher>4</teacher>
+				<teacher>20</teacher>
+			</teachers>
+			<groups>
+				<group>2</group>
+			</groups>
+		</lesson>
+		<lesson idLesson="18" name="Об'єктно-оріент.програм." periodicity="10" auditories="1" auditoryType="0">
+			<teachers>
+				<teacher>9</teacher>
+			</teachers>
+			<groups>
+				<group>4</group>
+				<group>5</group>
+			</groups>
+		</lesson>
+		<lesson idLesson="19" name="Загальна алгебра" periodicity="10" auditories="1" auditoryType="0">
+			<teachers>
+				<teacher>8</teacher>
+			</teachers>
+			<groups>
+				<group>1</group>
+				<group>2</group>
+				<group>3</group>
+			</groups>
+		</lesson>
+		<lesson idLesson="20" name="Загальна алгебра" periodicity="10" auditories="1" auditoryType="0">
+			<teachers>
+				<teacher>10</teacher>
+			</teachers>
+			<groups>
+				<group>4</group>
+			</groups>
+		</lesson>
+		<lesson idLesson="21" name="Об'єктно-оріент.програм.(лаб)" periodicity="0" auditories="1" linkedWithIdLesson="22" auditoryType="1">
+			<teachers>
+				<teacher>9</teacher>
+			</teachers>
+			<groups>
+				<group>5</group>
+			</groups>
+		</lesson>
+		<lesson idLesson="22" name="Математичний аналіз" periodicity="1" auditories="2" linkedWithIdLesson="21" auditoryType="0">
+			<teachers>
+				<teacher>3</teacher>
+				<teacher>4</teacher>
+			</teachers>
+			<groups>
+				<group>5</group>
+			</groups>
+		</lesson>
+		<lesson idLesson="23" name="Фізпрактикум" periodicity="10" auditories="1" auditoryType="3">
+			<teachers>
+				<teacher>18</teacher>
+			</teachers>
+			<groups>
+				<group>1</group>
+			</groups>
+		</lesson>
+		<lesson idLesson="24" name="Загальна алгебра" periodicity="10" auditories="1" auditoryType="0">
+			<teachers>
+				<teacher>8</teacher>
+			</teachers>
+			<groups>
+				<group>2</group>
+			</groups>
+		</lesson>
+		<lesson idLesson="25" name="Молекулярна фізика" periodicity="10" auditories="2" auditoryType="0">
+			<teachers>
+				<teacher>11</teacher>
+				<teacher>12</teacher>
+			</teachers>
+			<groups>
+				<group>3</group>
+			</groups>
+		</lesson>
+		<lesson idLesson="26" name="Математичний аналіз" periodicity="0" auditories="2" linkedWithIdLesson="27" auditoryType="0">
+			<teachers>
+				<teacher>3</teacher>
+				<teacher>4</teacher>
+			</teachers>
+			<groups>
+				<group>4</group>
+			</groups>
+		</lesson>
+		<lesson idLesson="27" name="Об'єктно-оріент.програм.(лаб)" periodicity="1" auditories="1" linkedWithIdLesson="26" auditoryType="1">
+			<teachers>
+				<teacher>9</teacher>
+			</teachers>
+			<groups>
+				<group>4</group>
+			</groups>
+		</lesson>
+		<lesson idLesson="28" name="Фізичне виховання" periodicity="10" auditories="1" auditoryType="5">
+			<teachers>
+
+			</teachers>
+			<groups>
+				<group>5</group>
+			</groups>
+		</lesson>
+		<lesson idLesson="29" name="Математичний аналіз" periodicity="10" auditories="2" auditoryType="0">
+			<teachers>
+				<teacher>10</teacher>
+				<teacher>12</teacher>
+			</teachers>
+			<groups>
+				<group>3</group>
+			</groups>
+		</lesson>
+	<!--Среда -->
+		<lesson idLesson="30" name="Молекулярна фізика" periodicity="10" auditories="1" auditoryType="0">
+			<teachers>
+				<teacher>11</teacher>
+			</teachers>
+			<groups>
+				<group>1</group>
+				<group>2</group>
+				<group>3</group>
+			</groups>
+		</lesson>	
+		<lesson idLesson="31" name="Молекулярна фізика" periodicity="10" auditories="1" auditoryType="0">
+			<teachers>
+				<teacher>14</teacher>
+			</teachers>
+			<groups>
+				<group>3</group>
+				<group>4</group>
+			</groups>
+		</lesson>
+		<lesson idLesson="32" name="Англійська мова" periodicity="10" auditories="2" auditoryType="0">
+			<teachers>
+				<teacher>6</teacher>
+				<teacher>15</teacher>
+			</teachers>
+			<groups>
+				<group>1</group>
+			</groups>
+		</lesson>
+		<lesson idLesson="33" name="Молекулярна фізика" periodicity="10" auditories="2" auditoryType="0">
+			<teachers>
+				<teacher>11</teacher>
+				<teacher>12</teacher>
+			</teachers>
+			<groups>
+				<group>2</group>
+			</groups>
+		</lesson>
+		<lesson idLesson="34" name="Ділова українська мова" periodicity="10" auditories="1" auditoryType="0">
+			<teachers>
+				<teacher>16</teacher>
+			</teachers>
+			<groups>
+				<group>3</group>
+			</groups>
+		</lesson>
+		<lesson idLesson="35" name="Ділова українська мова" periodicity="10" auditories="1" auditoryType="0">
+			<teachers>
+				<teacher>17</teacher>
+			</teachers>
+			<groups>
+				<group>4</group>
+			</groups>
+		</lesson>
+		<lesson idLesson="36" name="Молекулярна фізика" periodicity="10" auditories="2" auditoryType="0">
+			<teachers>
+				<teacher>14</teacher>
+				<teacher>18</teacher>
+			</teachers>
+			<groups>
+				<group>5</group>
+			</groups>
+		</lesson>
+		<lesson idLesson="37" name="Ділова українська мова" periodicity="10" auditories="1" auditoryType="0">
+			<teachers>
+				<teacher>16</teacher>
+			</teachers>
+			<groups>
+				<group>1</group>
+			</groups>
+		</lesson>
+		<lesson idLesson="38" name="Фізпрактикум" periodicity="10" auditories="1" auditoryType="3">
+			<teachers>
+				<teacher>12</teacher>
+			</teachers>
+			<groups>
+				<group>2</group>
+			</groups>
+		</lesson>
+		<lesson idLesson="39" name="Англійська мова" periodicity="10" auditories="2" auditoryType="0">
+			<teachers>
+				<teacher>2</teacher>
+				<teacher>6</teacher>
+			</teachers>
+			<groups>
+				<group>3</group>
+			</groups>
+		</lesson>
+		<lesson idLesson="40" name="Молекулярна фізика" periodicity="10" auditories="2" auditoryType="0">
+			<teachers>
+				<teacher>14</teacher>
+				<teacher>18</teacher>
+			</teachers>
+			<groups>
+				<group>4</group>
+			</groups>
+		</lesson>
+		<lesson idLesson="41" name="Ділова українська мова" periodicity="10" auditories="1" auditoryType="0">
+			<teachers>
+				<teacher>17</teacher>
+			</teachers>
+			<groups>
+				<group>5</group>
+			</groups>
+		</lesson>
+	<!--Черверг-->
+		<lesson idLesson="42" name="Математичний аналіз" periodicity="10" auditories="1" auditoryType="0">
+			<teachers>
+				<teacher>7</teacher>
+			</teachers>
+			<groups>
+				<group>1</group>
+				<group>2</group>
+				<group>3</group>
+			</groups>
+		</lesson>
+		<lesson idLesson="43" name="Загальна алгебра" periodicity="10" auditories="1" auditoryType="0">
+			<teachers>
+				<teacher>4</teacher>
+			</teachers>
+			<groups>
+				<group>4</group>
+				<group>5</group>
+			</groups>
+		</lesson>
+		<lesson idLesson="44" name="Об'єктно-оріент.програм." periodicity="10" auditories="1" auditoryType="0">
+			<teachers>
+				<teacher>8</teacher>
+			</teachers>
+			<groups>
+				<group>1</group>
+				<group>2</group>
+				<group>3</group>
+			</groups>
+		</lesson>
+		<lesson idLesson="45" name="Математичний аналіз" periodicity="10" auditories="1" auditoryType="0">
+			<teachers>
+				<teacher>3</teacher>
+			</teachers>
+			<groups>
+				<group>4</group>
+				<group>5</group>
+			</groups>
+		</lesson>
+		<lesson idLesson="46" name="Математичний аналіз" periodicity="10" auditories="2" auditoryType="0">
+			<teachers>
+				<teacher>7</teacher>
+				<teacher>20</teacher>
+			</teachers>
+			<groups>
+				<group>1</group>
+			</groups>
+		</lesson>
+		<lesson idLesson="47" name="Ділова українська мова" periodicity="10" auditories="1" auditoryType="0">
+			<teachers>
+				<teacher>16</teacher>
+			</teachers>
+			<groups>
+				<group>2</group>
+			</groups>
+		</lesson>
+		<lesson idLesson="48" name="Математичний аналіз" periodicity="0" auditories="2" linkedWithIdLesson="49" auditoryType="0">
+			<teachers>
+				<teacher>10</teacher>
+				<teacher>13</teacher>
+			</teachers>
+			<groups>
+				<group>3</group>
+			</groups>
+		</lesson>
+		<lesson idLesson="49" name="Фізпрактикум" periodicity="1" auditories="1" linkedWithIdLesson="48" auditoryType="3">
+			<teachers>
+				<teacher>18</teacher>
+			</teachers>
+			<groups>
+				<group>3</group>
+			</groups>
+		</lesson>
+		<lesson idLesson="50" name="Фізпрактикум" periodicity="10" auditories="1" auditoryType="3">
+			<teachers>
+				<teacher>12</teacher>
+			</teachers>
+			<groups>
+				<group>4</group>
+			</groups>
+		</lesson>
+		<lesson idLesson="51" name="Математичний аналіз" periodicity="10" auditories="2" auditoryType="0">
+			<teachers>
+				<teacher>3</teacher>
+				<teacher>4</teacher>
+			</teachers>
+			<groups>
+				<group>5</group>
+			</groups>
+		</lesson>
+	</lessons>
+</timetable>
+		

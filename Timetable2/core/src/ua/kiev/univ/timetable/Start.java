@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import java.util.Calendar;
 
+import java.util.Random;
+
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.jgap.Chromosome;
@@ -71,10 +73,11 @@ public class Start {
         
         LessonAuditoryTimeSG[] myGenes = new LessonAuditoryTimeSG[CHROMOSOME_SIZE];
         //Auditory[] auditories
+        Random randomGenerator = new Random(); 
         for (int i = 0; i < CHROMOSOME_SIZE; i++) {
-            myGenes[i] = new LessonAuditoryTimeSG(conf, new Gene[]{new Lesson(conf,1),
-                                                                   new Auditory(conf,1),
-                                                                   new Time(conf,1)
+            myGenes[i] = new LessonAuditoryTimeSG(conf, new Gene[]{new Lesson(conf,randomGenerator.nextInt(MAX_LESSONS)),
+                                                                   new Auditory(conf,randomGenerator.nextInt(MAX_AUDITORIES)),
+                                                                   new Time(conf,randomGenerator.nextInt(MAX_TIME))
                                                                   }
                                                   );
         }
@@ -82,12 +85,13 @@ public class Start {
         //-------------chromosome size = MAX_LESSONS
         Chromosome  myChromosome = new Chromosome(conf, myGenes);
         //----Setup configuration--begin--------------
+        //myChromosome.setConstraintChecker(timetableConstraintChecker);
         conf.setSampleChromosome(myChromosome);
         conf.setPopulationSize(POPULATION_SIZE);
         conf.setFitnessFunction(myFitnessFunction);
         
         ThresholdSelector myBestChromosomesSelector =
-           new ThresholdSelector(conf,0.3);
+           new ThresholdSelector(conf,0.4);
         conf.addNaturalSelector(myBestChromosomesSelector, false);
 
         conf.setRandomGenerator(new StockRandomGenerator());
@@ -99,7 +103,7 @@ public class Start {
         conf.addGeneticOperator(myCrossoverOperator);
       
         MutationOperator myMutationOperator =
-            new MutationOperator(conf,1);
+            new MutationOperator(conf,90);
         conf.addGeneticOperator(myMutationOperator);
       
         conf.setKeepPopulationSizeConstant(false);

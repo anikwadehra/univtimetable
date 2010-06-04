@@ -261,4 +261,7 @@ public class Lesson extends IntegerGene implements Serializable, Gene {
         return auditoryType;
     }
 
+    protected static Integer[] getAll_idLessons() {
+        return all_idLessons;
+    }
 }

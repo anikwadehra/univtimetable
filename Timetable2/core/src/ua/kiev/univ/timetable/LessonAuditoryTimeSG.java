@@ -19,7 +19,7 @@ public class LessonAuditoryTimeSG extends AbstractSupergene {
     public boolean isValid(Gene[] a_genes, Supergene a_supergene) {
         boolean valid = true;
 
-//        Lesson l = (Lesson)a_genes[Start.LESSON];
+        Lesson l = (Lesson)a_genes[Start.LESSON];
 //        Auditory a = (Auditory)a_genes[Start.AUDITORY];
 //        Time t = (Time)a_genes[Start.TIME];
 //
@@ -38,7 +38,6 @@ public class LessonAuditoryTimeSG extends AbstractSupergene {
 //        if (l.getAuditoryType() != a.getAuditoryType()) {
 //            valid = false;
 //        }
-        
         return valid;
     }
 
