@@ -50,9 +50,9 @@ public class Start {
     private static final String OUTPUT_XML_FILE = "E:\\output.xml";
     
     
-    private static Integer POPULATION_SIZE = 10;
+    private static Integer POPULATION_SIZE = 50;
     private static double THRESHOLD        = 1;
-    private static Integer MAX_EVOLUTION   = 1000;
+    private static Integer MAX_EVOLUTION   = 2000;
     static Integer CHROMOSOME_SIZE;// = MAX_LESSONS; //this is number of cells in the table where you can put lessons
 
     public static void main(String[] args) throws InvalidConfigurationException {
@@ -138,9 +138,11 @@ public class Start {
         //------Evolution---------------------------
         Calendar cal = Calendar.getInstance();
         long start_t = cal.getTimeInMillis();
+        Integer gen = 0;
         for (int i = 0; i < MAX_EVOLUTION; i++) {
             myGenotype.evolve();
             System.out.println("generation " + i + " fitness=" + (Double)myGenotype.getFittestChromosome().getFitnessValue());
+            gen++;
             if(myGenotype.getFittestChromosome().getFitnessValue() >= THRESHOLD)
                 break;
         }
@@ -172,10 +174,11 @@ public class Start {
         }
       System.out.println( "Elapsed time:"+ 
                         (double)(finish_t - start_t)/1000 +"s");
+      System.out.println("Total generations: " + gen);
 
      //----------------------------------------------   
         //---write solution to the file
-        //OutputData.writeToFile(bestChromosome, OUTPUT_XML_FILE);
+        OutputData.writeToFile(bestChromosome, OUTPUT_XML_FILE);
         
 //        Lesson[] l = new Lesson[MAX_LESSONS];
 //        for (int i = 0; i < MAX_LESSONS; i++) {

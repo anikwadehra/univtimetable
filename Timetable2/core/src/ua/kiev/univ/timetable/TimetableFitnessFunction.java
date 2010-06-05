@@ -49,21 +49,21 @@ public class TimetableFitnessFunction extends FitnessFunction{
             //-----auditory size must be greater or equal than total groupSize for one lesson
             if(l1.getAuditoriesNeed() != 0){
               if( l1.getTotalGroupSize()/l1.getAuditoriesNeed() > a1.getAuditorySize())
-                 penalty += 1;
+                 penalty += 95;
                  //penalty += 0;
             }
             
             //-----lesson's periodicity (even or odd or even_odd) must be equal with timeslotType
-            if(l1.getPeriodicity() !=  t1.getTimeslotType()){
-              //penalty += 179;
-              penalty += 0;
-            }
+//            if(l1.getPeriodicity() !=  t1.getTimeslotType()){
+//              //penalty += 179;
+//              penalty += 0;
+//            }
             
             //-----lesson must be assigened to the appropriate auditoryType
-            if(l1.getAuditoryType() != a1.getAuditoryType()){
-              //penalty += 350;
-              penalty += 0;
-            }
+//            if(l1.getAuditoryType() != a1.getAuditoryType()){
+//              //penalty += 350;
+//              penalty += 0;
+//            }
                
             
             for (int j = 0; j < Start.CHROMOSOME_SIZE; j++) {
@@ -75,13 +75,13 @@ public class TimetableFitnessFunction extends FitnessFunction{
                 idGroups2 = l2.getIdGroups();
                 
                 //----every lesson is original except case when auditoriesNeed > 1---------
-                if( i != j && l1.getIdLesson() == l2.getIdLesson() ){
-                    lessonAssigened[i] ++;
-                    //if( l1.getAuditoriesNeed() == 1 || !(t1.equals(t2)) || a1.equals(a2) )
-                    if( !(t1.equals(t2)) || a1.equals(a2) )
-                        penalty += 0;
-                        //penalty += 233;
-                }
+//                if( i != j && l1.getIdLesson() == l2.getIdLesson() ){
+//                    lessonAssigened[i] ++;
+//                    //if( l1.getAuditoriesNeed() == 1 || !(t1.equals(t2)) || a1.equals(a2) )
+//                    if( !(t1.equals(t2)) || a1.equals(a2) )
+//                        penalty += 0;
+//                        //penalty += 233;
+//                }
                 
                 
                 if(i != j && t1.equals(t2) 
@@ -93,7 +93,7 @@ public class TimetableFitnessFunction extends FitnessFunction{
                                       && idTeachers2[n] != null 
                                       && idTeachers1[m] == idTeachers2[n]){
                               //penalty += 0;
-                              penalty +=1;
+                              penalty +=34;
                             }
                         }
 
@@ -105,15 +105,15 @@ public class TimetableFitnessFunction extends FitnessFunction{
                             if(          idGroups1[m] != null
                                       && idGroups2[n] != null
                                       && idGroups1[m] == idGroups2[n]){
-                              penalty += 0;
-                              //penalty += 30;
+                              //penalty += 0;
+                              penalty += 500;
                             }
                         }
                  }
                  //--- one auditory can be assigened to only one lesson at the same time
                  if( a1.getIdAuditory() == a2.getIdAuditory() && a1.getIdAuditory() != 100)
                     //penalty += 0;
-                    penalty += 5;
+                    penalty += 14;
                }
                 //-----if one lesson is linked with another, then they must be assigened in the same idTimeslot
                 //-----and different timeslot types (even or odd)
@@ -124,15 +124,15 @@ public class TimetableFitnessFunction extends FitnessFunction{
                                                               || t2.getTimeslotType() == 10)
                   )
                     //penalty += 0;
-                    penalty += 5;
+                    penalty += 162;
           }
           //System.out.println( l1.getIdLesson() + "\t" + lessonAssigened[i] + "\t" + l1.getAuditoriesNeed());
-            if( lessonAssigened[i] != l1.getAuditoriesNeed() ){
-              //penalty += 0;
-              //System.out.println("lessonAssigened[i]:" + lessonAssigened[i] + " l1.getAuditoriesNeed():" + l1.getAuditoriesNeed());
-              System.out.println("violated!");
-              penalty += 1000;
-            }
+//            if( lessonAssigened[i] != l1.getAuditoriesNeed() ){
+//              //penalty += 0;
+//              //System.out.println("lessonAssigened[i]:" + lessonAssigened[i] + " l1.getAuditoriesNeed():" + l1.getAuditoriesNeed());
+//              System.out.println("violated!");
+//              penalty += 1000;
+//            }
         }
         return 1/(1+penalty);
     }
