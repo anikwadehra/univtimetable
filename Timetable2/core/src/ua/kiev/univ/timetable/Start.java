@@ -13,7 +13,9 @@ import org.jgap.Configuration;
 import org.jgap.DefaultFitnessEvaluator;
 import org.jgap.Gene;
 import org.jgap.Genotype;
+import org.jgap.ICompositeGene;
 import org.jgap.InvalidConfigurationException;
+import org.jgap.Population;
 import org.jgap.event.EventManager;
 import org.jgap.impl.CrossoverOperator;
 import org.jgap.impl.MutationOperator;
@@ -48,9 +50,9 @@ public class Start {
     private static final String OUTPUT_XML_FILE = "E:\\output.xml";
     
     
-    private static Integer POPULATION_SIZE = 50;
+    private static Integer POPULATION_SIZE = 10;
     private static double THRESHOLD        = 1;
-    private static Integer MAX_EVOLUTION   = 5000;
+    private static Integer MAX_EVOLUTION   = 1000;
     static Integer CHROMOSOME_SIZE;// = MAX_LESSONS; //this is number of cells in the table where you can put lessons
 
     public static void main(String[] args) throws InvalidConfigurationException {
@@ -72,14 +74,33 @@ public class Start {
             new TimetableFitnessFunction();
         
         LessonAuditoryTimeSG[] myGenes = new LessonAuditoryTimeSG[CHROMOSOME_SIZE];
-        //Auditory[] auditories
-        Random randomGenerator = new Random(); 
-        for (int i = 0; i < CHROMOSOME_SIZE; i++) {
-            myGenes[i] = new LessonAuditoryTimeSG(conf, new Gene[]{new Lesson(conf,randomGenerator.nextInt(MAX_LESSONS)),
-                                                                   new Auditory(conf,randomGenerator.nextInt(MAX_AUDITORIES)),
-                                                                   new Time(conf,randomGenerator.nextInt(MAX_TIME))
+        Random randomGenerator = new Random();
+        Integer indexLesson = 0;
+        Integer indexTime;
+        Integer indexAuditory;
+        Integer[] idLessons = Lesson.getAll_idLessons();
+
+        for (int i = 0; i < MAX_LESSONS; i++) {
+            //---In every gene Lesson.periodicity must be equal to Time.timeslotType
+            do {
+                indexTime = randomGenerator.nextInt(MAX_TIME);
+            } while ( Time.getAll_timeslotType(indexTime) != Lesson.getAll_periodicity(i));
+            
+            //---In every gene Lesson.auditoryType must be equal to Auditory.auditoryType
+            do {
+                indexAuditory = randomGenerator.nextInt(MAX_AUDITORIES);
+            } while ( Auditory.getAll_auditoryType(indexAuditory) != Lesson.getAll_auditoryType(i));
+            
+            //---Every lesson from the input list must be initialized Lesson.auditories times
+            for (int j = 0; j < Lesson.getAll_auditoriesNeed(i); j++) {
+                myGenes[indexLesson] = new LessonAuditoryTimeSG(conf, new Gene[]{new Lesson(conf,i),
+                                                                   new Auditory(conf,indexAuditory),
+                                                                   new Time(conf,indexTime)
                                                                   }
                                                   );
+                indexLesson++;
+            }
+        
         }
         //----Creating chromosome---------------------
         //-------------chromosome size = MAX_LESSONS
@@ -98,8 +119,8 @@ public class Start {
         conf.setEventManager(new EventManager());
         conf.setFitnessEvaluator(new DefaultFitnessEvaluator());
 
-        CrossoverOperator myCrossoverOperator = 
-            new CrossoverOperator(conf);
+        MyCrossoverOperator myCrossoverOperator = 
+            new MyCrossoverOperator(conf);
         conf.addGeneticOperator(myCrossoverOperator);
       
         MutationOperator myMutationOperator =
@@ -109,7 +130,9 @@ public class Start {
         conf.setKeepPopulationSizeConstant(false);
         
    
-        Genotype myGenotype = Genotype.randomInitialGenotype(conf);
+        //Genotype myGenotype = Genotype.randomInitialGenotype(conf);
+        Population myPopulation = new Population(conf, myChromosome);
+        Genotype myGenotype = new Genotype(conf, myPopulation);
         //------Setup configuration end-------------
         
         //------Evolution---------------------------
@@ -149,10 +172,10 @@ public class Start {
         }
       System.out.println( "Elapsed time:"+ 
                         (double)(finish_t - start_t)/1000 +"s");
-     
+
      //----------------------------------------------   
         //---write solution to the file
-        OutputData.writeToFile(bestChromosome, OUTPUT_XML_FILE);
+        //OutputData.writeToFile(bestChromosome, OUTPUT_XML_FILE);
         
 //        Lesson[] l = new Lesson[MAX_LESSONS];
 //        for (int i = 0; i < MAX_LESSONS; i++) {

@@ -87,7 +87,7 @@ public class Lesson extends IntegerGene implements Serializable, Gene {
       groupSize = Group.getGroupsSize(idGroups);//all_groupSize[indexLesson];
       nameGroup = Group.getNameGroups(idGroups);//all_nameGroup[indexLesson];
       linkedWithIdLesson = all_linkedWithIdLesson[indexLesson];
-      auditoryType = all_auditoryType[indexLesson];
+      auditoryType = all_auditoryType[indexLesson]; 
     }
 
     public Object getAllele() {
@@ -117,7 +117,7 @@ public class Lesson extends IntegerGene implements Serializable, Gene {
     }
 
     public void applyMutation(int a_index, double a_precentage) {
-        setAllele(getConfiguration().getRandomGenerator().nextInt(Start.MAX_LESSONS));
+        //setAllele(getConfiguration().getRandomGenerator().nextInt(Start.MAX_LESSONS));
     }
     
     public int hashCode(){
@@ -263,5 +263,17 @@ public class Lesson extends IntegerGene implements Serializable, Gene {
 
     protected static Integer[] getAll_idLessons() {
         return all_idLessons;
+    }
+
+    protected static Integer getAll_auditoriesNeed(Integer a_index) {
+        return all_auditoriesNeed[a_index];
+    }
+
+    protected static Integer getAll_periodicity(Integer a_index) {
+        return all_periodicity[a_index];
+    }
+
+    protected static Integer getAll_auditoryType(Integer a_index) {
+        return all_auditoryType[a_index];
     }
 }

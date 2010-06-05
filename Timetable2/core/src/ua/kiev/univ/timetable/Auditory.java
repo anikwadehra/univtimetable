@@ -68,7 +68,14 @@ public class Auditory extends IntegerGene implements Serializable, org.jgap.Gene
     }
 
     public void applyMutation(int a_index, double a_precentage) {
-        setAllele(getConfiguration().getRandomGenerator().nextInt(Start.MAX_AUDITORIES));
+        Integer index;
+        //---auditoryType of the new Auditory after mutation must be equal 
+        //---to the prior's Auditory auditoryType
+        do {
+            index = getConfiguration().getRandomGenerator().nextInt(Start.MAX_AUDITORIES);
+        } while ( all_auditoryType[index] != auditoryType);
+        
+        setAllele(index);
     }
     
     public int hashCode(){
@@ -140,4 +147,7 @@ public class Auditory extends IntegerGene implements Serializable, org.jgap.Gene
         return auditoryType;
     }
 
+    protected static Integer getAll_auditoryType(Integer a_index) {
+        return all_auditoryType[a_index];
+    }
 }
