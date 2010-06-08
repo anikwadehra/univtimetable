@@ -52,7 +52,7 @@ public class Start {
     
     private static Integer POPULATION_SIZE = 50;
     private static double THRESHOLD        = 1;
-    private static Integer MAX_EVOLUTION   = 2000;
+    private static Integer MAX_EVOLUTION   = 5000;
     static Integer CHROMOSOME_SIZE;// = MAX_LESSONS; //this is number of cells in the table where you can put lessons
 
     public static void main(String[] args) throws InvalidConfigurationException {
@@ -76,21 +76,30 @@ public class Start {
         LessonAuditoryTimeSG[] myGenes = new LessonAuditoryTimeSG[CHROMOSOME_SIZE];
         Random randomGenerator = new Random();
         Integer indexLesson = 0;
-        Integer indexTime;
-        Integer indexAuditory;
+        Integer indexTime = 0 ;
+        Integer indexAuditory = 0;
         Integer[] idLessons = Lesson.getAll_idLessons();
 
         for (int i = 0; i < MAX_LESSONS; i++) {
             //---In every gene Lesson.periodicity must be equal to Time.timeslotType
             do {
                 indexTime = randomGenerator.nextInt(MAX_TIME);
-            } while ( Time.getAll_timeslotType(indexTime) != Lesson.getAll_periodicity(i));
-            
+                if(Lesson.getAll_periodicity(i) == Time.getAll_timeslotType(indexTime) 
+                   &&
+                    (Lesson.getAll_fixedDay(i) == null 
+                     || Lesson.getAll_fixedDay(i) == Time.getAll_idTimeslots(indexTime) / 4 ) 
+                   &&
+                    (Lesson.getAll_fixedPair(i) == null 
+                     || Lesson.getAll_fixedPair(i) == Time.getAll_idTimeslots(indexTime) % 4 )
+                    )
+                    break;
+            } while (true);
+
             //---In every gene Lesson.auditoryType must be equal to Auditory.auditoryType
             do {
                 indexAuditory = randomGenerator.nextInt(MAX_AUDITORIES);
-            } while ( Auditory.getAll_auditoryType(indexAuditory) != Lesson.getAll_auditoryType(i));
-            
+            } while ( ! Auditory.getAll_auditoryType(indexAuditory).equals(Lesson.getAll_auditoryType(i)) );
+
             //---Every lesson from the input list must be initialized Lesson.auditories times
             for (int j = 0; j < Lesson.getAll_auditoriesNeed(i); j++) {
                 myGenes[indexLesson] = new LessonAuditoryTimeSG(conf, new Gene[]{new Lesson(conf,i),
@@ -123,8 +132,8 @@ public class Start {
             new MyCrossoverOperator(conf);
         conf.addGeneticOperator(myCrossoverOperator);
       
-        MutationOperator myMutationOperator =
-            new MutationOperator(conf,90);
+        MyMutationOperator myMutationOperator =
+            new MyMutationOperator(conf,80);
         conf.addGeneticOperator(myMutationOperator);
       
         conf.setKeepPopulationSizeConstant(false);
@@ -141,7 +150,8 @@ public class Start {
         Integer gen = 0;
         for (int i = 0; i < MAX_EVOLUTION; i++) {
             myGenotype.evolve();
-            System.out.println("generation " + i + " fitness=" + (Double)myGenotype.getFittestChromosome().getFitnessValue());
+            //System.out.println("generation " + i + " fitness=" + (Double)myGenotype.getFittestChromosome().getFitnessValue());
+            System.out.println(i + "\t" + (Double)myGenotype.getFittestChromosome().getFitnessValue());
             gen++;
             if(myGenotype.getFittestChromosome().getFitnessValue() >= THRESHOLD)
                 break;

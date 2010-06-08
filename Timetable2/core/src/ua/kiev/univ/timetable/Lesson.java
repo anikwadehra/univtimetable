@@ -49,6 +49,12 @@ public class Lesson extends IntegerGene implements Serializable, Gene {
     
     private Integer[] groupSize = new Integer[MAX_GROUPS];
     private static Integer[][] all_groupSize = new Integer[Start.MAX_LESSONS][MAX_GROUPS];
+    
+    private Integer fixedDay;
+    private static Integer[] all_fixedDay = new Integer[Start.MAX_LESSONS];
+    
+    private Integer fixedPair;
+    private static Integer[] all_fixedPair = new Integer[Start.MAX_LESSONS];
 
     public Lesson(Configuration a_configuration, Integer a_index) throws InvalidConfigurationException {
         super(a_configuration);
@@ -64,6 +70,8 @@ public class Lesson extends IntegerGene implements Serializable, Gene {
         nameGroup = Group.getNameGroups(idGroups);//all_nameGroup[a_index];
         linkedWithIdLesson = all_linkedWithIdLesson[a_index];
         auditoryType = all_auditoryType[a_index];
+        fixedPair = all_fixedPair[a_index];
+        fixedDay = all_fixedDay[a_index];
     }
     
 
@@ -88,6 +96,8 @@ public class Lesson extends IntegerGene implements Serializable, Gene {
       nameGroup = Group.getNameGroups(idGroups);//all_nameGroup[indexLesson];
       linkedWithIdLesson = all_linkedWithIdLesson[indexLesson];
       auditoryType = all_auditoryType[indexLesson]; 
+      fixedPair = all_fixedPair[indexLesson];
+      fixedDay = all_fixedDay[indexLesson];
     }
 
     public Object getAllele() {
@@ -191,10 +201,42 @@ public class Lesson extends IntegerGene implements Serializable, Gene {
     protected static void setAll_auditoryType(Integer a_auditoryType, Integer a_index) {
        Lesson.all_auditoryType[a_index] = a_auditoryType;
     }
+    
+    protected static void setAll_fixedDay(Integer a_fixedDay, Integer a_index) {
+        Lesson.all_fixedDay[a_index] = a_fixedDay;
+    }
 
+    protected static void setAll_fixedPair(Integer a_fixedPair, Integer a_index) {
+        Lesson.all_fixedPair[a_index] = a_fixedPair;
+    }
+
+  protected static Integer[] getAll_idLessons() {
+      return all_idLessons;
+  }
+
+  protected static Integer getAll_auditoriesNeed(Integer a_index) {
+      return all_auditoriesNeed[a_index];
+  }
+
+  protected static Integer getAll_periodicity(Integer a_index) {
+      return all_periodicity[a_index];
+  }
+
+  protected static Integer getAll_auditoryType(Integer a_index) {
+      return all_auditoryType[a_index];
+  }
+
+  protected static Integer getAll_fixedDay(Integer a_index) {
+      return all_fixedDay[a_index];
+  }
+
+  protected static Integer getAll_fixedPair(Integer a_index) {
+      return all_fixedPair[a_index];
+  }
     protected void show(){
       System.out.println("idLesson:" + idLesson + " name:" + nameLesson 
-                         + " periodicity:"+periodicity + " auditories:" + auditoriesNeed);
+                         + " periodicity:"+periodicity + " auditories:" + auditoriesNeed 
+                         + " fixedPair:" + fixedPair + " fixedDay:" + fixedDay);
       
       for (String s : nameTeacher) {
             if(s != null) 
@@ -261,19 +303,11 @@ public class Lesson extends IntegerGene implements Serializable, Gene {
         return auditoryType;
     }
 
-    protected static Integer[] getAll_idLessons() {
-        return all_idLessons;
+    protected Integer getFixedDay() {
+        return fixedDay;
     }
 
-    protected static Integer getAll_auditoriesNeed(Integer a_index) {
-        return all_auditoriesNeed[a_index];
-    }
-
-    protected static Integer getAll_periodicity(Integer a_index) {
-        return all_periodicity[a_index];
-    }
-
-    protected static Integer getAll_auditoryType(Integer a_index) {
-        return all_auditoryType[a_index];
+    protected Integer getFixedPair() {
+        return fixedPair;
     }
 }

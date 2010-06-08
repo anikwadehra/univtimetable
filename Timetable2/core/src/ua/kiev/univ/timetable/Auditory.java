@@ -73,7 +73,7 @@ public class Auditory extends IntegerGene implements Serializable, org.jgap.Gene
         //---to the prior's Auditory auditoryType
         do {
             index = getConfiguration().getRandomGenerator().nextInt(Start.MAX_AUDITORIES);
-        } while ( all_auditoryType[index] != auditoryType);
+        } while ( !/*new value*/ all_auditoryType[index].equals(/*old value*/auditoryType) );
         
         setAllele(index);
     }

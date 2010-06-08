@@ -5,8 +5,10 @@ import org.jgap.IChromosome;
 
 public class TimetableFitnessFunction extends FitnessFunction{
     double penalty;
+    boolean isHardConstraintViolated;    
     
     protected double evaluate(IChromosome a_chromosome) {
+        isHardConstraintViolated = false;
         penalty = 0;
         LessonAuditoryTimeSG[] superGene = new LessonAuditoryTimeSG[Start.CHROMOSOME_SIZE];
         
@@ -44,25 +46,28 @@ public class TimetableFitnessFunction extends FitnessFunction{
 //            }
             
             //---first pair is better, 4th pair is worse; min penalty=0, max penalty=3
-           // penalty += t1.getIdTimeslot() % 4;
+            penalty += t1.getIdTimeslot() % 4;
             
             //-----auditory size must be greater or equal than total groupSize for one lesson
             if(l1.getAuditoriesNeed() != 0){
-              if( l1.getTotalGroupSize()/l1.getAuditoriesNeed() > a1.getAuditorySize())
-                 penalty += 95;
+                if( l1.getTotalGroupSize()/l1.getAuditoriesNeed() > a1.getAuditorySize()){
+                 penalty += 117580;
                  //penalty += 0;
+                 isHardConstraintViolated = true;
+                }
             }
             
             //-----lesson's periodicity (even or odd or even_odd) must be equal with timeslotType
 //            if(l1.getPeriodicity() !=  t1.getTimeslotType()){
 //              //penalty += 179;
-//              penalty += 0;
+//              penalty += 10;
 //            }
             
             //-----lesson must be assigened to the appropriate auditoryType
-//            if(l1.getAuditoryType() != a1.getAuditoryType()){
+//            if( ! l1.getAuditoryType().equals(a1.getAuditoryType()) ){
 //              //penalty += 350;
-//              penalty += 0;
+//                System.out.println(l1.getAuditoryType() + " " + a1.getAuditoryType());
+//              penalty += 10;
 //            }
                
             
@@ -74,14 +79,19 @@ public class TimetableFitnessFunction extends FitnessFunction{
                 idTeachers2 = l2.getIdTeachers();
                 idGroups2 = l2.getIdGroups();
                 
-                //----every lesson is original except case when auditoriesNeed > 1---------
-//                if( i != j && l1.getIdLesson() == l2.getIdLesson() ){
-//                    lessonAssigened[i] ++;
-//                    //if( l1.getAuditoriesNeed() == 1 || !(t1.equals(t2)) || a1.equals(a2) )
-//                    if( !(t1.equals(t2)) || a1.equals(a2) )
-//                        penalty += 0;
-//                        //penalty += 233;
-//                }
+                //----If lesson requires two or more auditories, 
+                //----it produces two or more lessons respectively.
+                //----And these lessons must be assigened to same time and 
+                //----different auditories
+                if( i != j && l1.getIdLesson() == l2.getIdLesson() 
+                           && (!(t1.equals(t2)) || a1.equals(a2))
+                ){
+                    //lessonAssigened[i] ++;
+                    //if( l1.getAuditoriesNeed() == 1 || !(t1.equals(t2)) || a1.equals(a2) )
+                        //penalty += 0;
+                        penalty += 142000;
+                        isHardConstraintViolated = true;
+                }
                 
                 
                 if(i != j && t1.equals(t2) 
@@ -93,7 +103,8 @@ public class TimetableFitnessFunction extends FitnessFunction{
                                       && idTeachers2[n] != null 
                                       && idTeachers1[m] == idTeachers2[n]){
                               //penalty += 0;
-                              penalty +=34;
+                              penalty +=38500;
+                              isHardConstraintViolated = true;
                             }
                         }
 
@@ -106,14 +117,17 @@ public class TimetableFitnessFunction extends FitnessFunction{
                                       && idGroups2[n] != null
                                       && idGroups1[m] == idGroups2[n]){
                               //penalty += 0;
-                              penalty += 500;
+                              penalty += 330370;
+                              isHardConstraintViolated = true;
                             }
                         }
                  }
                  //--- one auditory can be assigened to only one lesson at the same time
-                 if( a1.getIdAuditory() == a2.getIdAuditory() && a1.getIdAuditory() != 100)
+                 if( a1.getIdAuditory() == a2.getIdAuditory() && a1.getIdAuditory() != 100){
                     //penalty += 0;
-                    penalty += 14;
+                    penalty += 14900;
+                    isHardConstraintViolated = true;
+                  }
                }
                 //-----if one lesson is linked with another, then they must be assigened in the same idTimeslot
                 //-----and different timeslot types (even or odd)
@@ -122,9 +136,11 @@ public class TimetableFitnessFunction extends FitnessFunction{
                     (t1.getIdTimeslot() != t2.getIdTimeslot() || t1.getTimeslotType() == t2.getTimeslotType() 
                                                               || t1.getTimeslotType() == 10
                                                               || t2.getTimeslotType() == 10)
-                  )
+                ){
                     //penalty += 0;
-                    penalty += 162;
+                    penalty += 230180;
+                    isHardConstraintViolated = true;
+                }
           }
           //System.out.println( l1.getIdLesson() + "\t" + lessonAssigened[i] + "\t" + l1.getAuditoriesNeed());
 //            if( lessonAssigened[i] != l1.getAuditoriesNeed() ){
@@ -133,6 +149,9 @@ public class TimetableFitnessFunction extends FitnessFunction{
 //              System.out.println("violated!");
 //              penalty += 1000;
 //            }
+        }
+        if( isHardConstraintViolated == false ){
+          System.out.println("Congratulations! There is no hard constraint violated!");
         }
         return 1/(1+penalty);
     }

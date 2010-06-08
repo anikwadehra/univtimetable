@@ -63,6 +63,8 @@ public class MyCrossoverOperator extends CrossoverOperator {
           // ---------------
           Gene gene1;
           Gene gene2;
+          Lesson l1;
+          
           Object firstAllele;
           Integer timeslotType;
           for (int j = locus; j < firstGenes.length; j++) {
@@ -87,10 +89,20 @@ public class MyCrossoverOperator extends CrossoverOperator {
             else {
               gene2 = secondGenes[j];
             }
+              l1 = (Lesson)(((ICompositeGene)firstGenes[j]).geneAt(Start.LESSON));
+              
               //---Make crossover if and only if two Time genes have equal timeslotTypes
+              //---and have appropriate values of idTimeslot (respectively to Lesson.fixedDay and Lesson.fixedPair)
               if( index == Start.TIME ){
                   if( ((Time)gene1).getAll_timeslotType((Integer)gene1.getAllele()) == 
-                      ((Time)gene2).getAll_timeslotType((Integer)gene2.getAllele()) ){
+                      ((Time)gene2).getAll_timeslotType((Integer)gene2.getAllele()) 
+                   && (l1.getFixedDay() == null 
+                      || l1.getFixedDay() == Time.getAll_idTimeslots((Integer)gene2.getAllele() / 4)
+                      )
+                   && (l1.getFixedPair() == null
+                      || l1.getFixedPair() == Time.getAll_idTimeslots((Integer)gene2.getAllele() % 4)
+                      )
+                  ){
                       
                    firstAllele = gene1.getAllele();
                    gene1.setAllele(gene2.getAllele());
@@ -100,8 +112,8 @@ public class MyCrossoverOperator extends CrossoverOperator {
               }
               //---Make crossover in the case of equal auditoryTypes only
               else if( index == Start.AUDITORY){
-                  if( ((Auditory)gene1).getAll_auditoryType((Integer)gene1.getAllele()) ==
-                      ((Auditory)gene2).getAll_auditoryType((Integer)gene2.getAllele())){
+                  if( ((Auditory)gene1).getAll_auditoryType((Integer)gene1.getAllele())
+                      .equals(((Auditory)gene2).getAll_auditoryType((Integer)gene2.getAllele()))){
                    
                    firstAllele = gene1.getAllele();
                    gene1.setAllele(gene2.getAllele());

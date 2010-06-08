@@ -61,6 +61,10 @@ public class InputData {
             Lesson.setAll_auditoryType(   Integer.parseInt(lesson.getAttribute("auditoryType")), i);
             if(lesson.getAttribute("linkedWithIdLesson") != "")
               Lesson.setAll_linkedWithIdLesson( Integer.parseInt(lesson.getAttribute("linkedWithIdLesson"))  , i);
+            if(lesson.getAttribute("fixedDay") != "")
+                Lesson.setAll_fixedDay( Integer.parseInt(lesson.getAttribute("fixedDay")), i);
+            if(lesson.getAttribute("fixedPair") != "")
+                Lesson.setAll_fixedPair( Integer.parseInt(lesson.getAttribute("fixedPair")), i);
 
             NodeList lessonTeachers = lesson.getElementsByTagName("teacher");
             for (int j = 0; j < lessonTeachers.getLength(); j++) {

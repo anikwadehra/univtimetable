@@ -64,13 +64,15 @@ public class Time extends IntegerGene implements Gene, Serializable{
       setAllele(indexTime);
     }
 
-    public void applyMutation(int i, double d) {
+    public void applyMutation(int i, double d ) {
         Integer index;
         //---Time gene - result of the mutation 
         //---must has timeslotType equal with Time gene before mutation
         do {
             index = getConfiguration().getRandomGenerator().nextInt(Start.MAX_TIME);
-        } while (all_timeslotType[index] != timeslotType);
+            if( all_timeslotType[index] == timeslotType )
+                break;
+        } while (true);
         //System.out.println(idTimeslot + "_" + timeslotType + " " + all_idTimeslots[index] + "_" + all_timeslotType[index]);
         setAllele(index);
     }
@@ -144,5 +146,9 @@ public class Time extends IntegerGene implements Gene, Serializable{
 
     protected static Integer getAll_timeslotType(Integer a_index) {
         return all_timeslotType[a_index];
+    }
+
+    protected static Integer getAll_idTimeslots(Integer a_index) {
+        return all_idTimeslots[a_index];
     }
 }
